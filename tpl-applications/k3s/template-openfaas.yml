@@ -1,0 +1,152 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+imports:
+  - indigo_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_types.yml 
+
+description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
+
+topology_template:
+
+  inputs:
+
+    number_of_masters:
+      type: integer
+      default: 1
+
+    num_cpus_master: 
+      type: integer
+      default: 2
+
+    mem_size_master:
+      type: string
+      default: "4 GB"
+
+    number_of_slaves:
+      type: integer
+      default: 3 
+
+    num_cpus_slave: 
+      type: integer
+      default: 4
+
+    mem_size_slave:
+      type: string
+      default: "8 GB"
+
+    server_image:
+      type: string
+      #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
+
+
+  node_templates:
+
+    of_namespaces:
+      type: tosca.nodes.indigo.KubeCreate
+      properties:
+        url: https://raw.githubusercontent.com/openfaas/faas-netes/master/namespaces.yml
+      requirements:
+        - host: k8s_master
+        - dependency: k8s_slave
+
+    of_secrets:
+      type: tosca.nodes.indigo.KubeCreate
+      properties:
+        namespace: openfaas
+        name: secrets
+        manifest_file: |
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: basic-auth
+            namespace: openfaas
+          type: Generic
+          stringData:
+            basic-auth-user: admin
+            basic-auth-password: testmeplease
+      requirements:
+        - host: k8s_master
+        - dependency: of_namespaces
+
+
+    helm_openfaas:
+      type: tosca.nodes.indigo.HelmInstall
+      properties:
+        name: "openfaas"
+        chart: "openfaas/openfaas"
+        repos:
+            - { name: openfaas, url: "https://openfaas.github.io/faas-netes/" }
+        kubeconfig_path: /var/lib/rancher/k3s/server/cred/admin.kubeconfig
+        inline_options: --set basic_auth=true --set functionNamespace=openfaas-fn --namespace openfaas
+      requirements:
+        - host: k8s_master
+        - dependency: of_secrets 
+
+
+    k8s_master:
+      type: tosca.nodes.indigo.k3s 
+      properties:
+        master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
+        mode: server
+      requirements:
+        - host: k8s-master-server
+
+    k8s_slave:
+      type: tosca.nodes.indigo.k3s 
+      properties:
+        master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
+        mode: node 
+      requirements:
+        - host: k8s-slave-server
+
+    k8s-master-server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            # network_name: infn-farm.PUBLIC
+            network_name: PUBLIC
+            ports:
+              kube_port:
+                protocol: tcp
+                source: 30443
+              openfaas:
+                protocol: tcp
+                source: 31112
+        scalable:
+          properties:
+            count: { get_input: number_of_masters }
+        host:
+          properties:
+            # instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_master }
+            mem_size: { get_input: mem_size_master } 
+        os:
+          properties:
+            image: { get_input: server_image }
+
+    k8s-slave-server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            #network_name: test-net.PRIVATE
+            network_name: PRIVATE
+        scalable:
+          properties:
+            count: { get_input: number_of_slaves }
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+  outputs:
+    k8s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k8s-master-server, public_address, 0 ], ':30443' ] }

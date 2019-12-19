@@ -1,0 +1,2 @@
+id = os ; type = OpenStack ; username = diego.ciangottini ; host = http://openstack.fisica.unipg.it:5000/ ; tenant = smartcache ; auth_version = 3.x_password; domain = default; password = bZXaGQ2LLZgGny9z;
+id = im ; type = InfrastructureManager ; token = 'token_template' ; 
