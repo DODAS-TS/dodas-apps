@@ -42,11 +42,11 @@ echo $result
 
 access_token=$(echo $result | jq -r .access_token)
 
-echo "export TOKEN=\"${access_token}\""
-export TOKEN="${access_token}"
+#echo "export TOKEN=\"${access_token}\""
+#export TOKEN="${access_token}"
 
-echo ${access_token} > token
-sed -e "s/token_template/${access_token}/" auth_CNAF_base.dat > auth_CNAF.dat
-sed -e "s/token_template/${access_token}/" auth_XDC_base.dat > auth_XDC.dat
-sed -e "s/token_template/${access_token}/" auth_PG_base.dat > auth_PG.dat
+#echo ${access_token} > token
+#sed -e "s/token_template/${access_token}/" auth_CNAF_base.dat > auth_CNAF.dat
+#sed -e "s/token_template/${access_token}/" auth_XDC_base.dat > auth_XDC.dat
+#sed -e "s/token_template/${access_token}/" auth_PG_base.dat > auth_PG.dat
 sed -e "s/token_template/${access_token}/" $HOME/.dodas_go_client_template.yaml > $HOME/.dodas.yaml

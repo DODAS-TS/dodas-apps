@@ -23,7 +23,7 @@ topology_template:
 
     number_of_slaves:
       type: integer
-      default: 2 
+      default: 1 
 
     num_cpus_slave: 
       type: integer

@@ -1,2 +1,0 @@
-id = ost ; type = OpenStack ; username = indigo-dc ; host = https://horizon.cloud.cnaf.infn.it:5000/ ; tenant = oidc ; service_region = regionOne; auth_version = 3.x_oidc_access_token; password = 'token_template';
-id = im ; type = InfrastructureManager ; token = 'token_template' ; 
