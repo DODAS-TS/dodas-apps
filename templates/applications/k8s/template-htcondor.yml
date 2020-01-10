@@ -1,0 +1,203 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+imports:
+  - indigo_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_types.yml 
+
+description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
+
+topology_template:
+
+  inputs:
+
+    number_of_masters:
+      type: integer
+      default: 1
+
+    num_cpus_master: 
+      type: integer
+      default: 2
+
+    mem_size_master:
+      type: string
+      default: "4 GB"
+
+    number_of_slaves:
+      type: integer
+      default: 3 
+
+    num_cpus_slave: 
+      type: integer
+      default: 4
+
+    mem_size_slave:
+      type: string
+      default: "8 GB"
+
+    server_image:
+      type: string
+      #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
+
+    helm_htcondor_values: 
+      type: string
+      default: |
+        condorHost: {{ externalParams.split(',')[0] }}
+        ccbHost: {{ externalParams.split(',')[0] }}
+        proxyCacheHost: {{ externalParams.split(',')[1] }}
+        ttsCache:
+          iamToken: <TOKEN HERE> 
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
+        htcSchedd:
+          networkInterface: {{ externalParams.split(',')[1] }}
+          persistence:
+            storageClass: local-path
+        htcMaster:
+          networkInterface: {{ externalParams.split(',')[0] }}
+
+  node_templates:
+
+    helm_htcondor:
+      type: tosca.nodes.indigo.HelmInstall
+      properties:
+        repos:
+          - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
+        name: "htcondor"
+        chart: "dodas/htcondor"
+        kubeconfig_path: /var/lib/rancher/k8s/server/cred/admin.kubeconfig
+        values_file: { get_input: helm_htcondor_values }
+        externalParams: { concat: [get_attribute: [ k8s_server_ccb , public_address, 0 ] , ",", get_attribute: [ k3s_server_schedd , public_address, 0 ] , ",", get_attribute: [ k3s_master_server , private_address, 0 ] ] }
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    k8s_master:
+      type: tosca.nodes.indigo.LRMS.FrontEnd.Kubernetes
+      properties:
+        admin_token: testme
+      requirements:
+        - host: k8s_master_server
+
+    k8s_slave_ccb:
+      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kubelet_extra_args: "--node-labels condor=ccb"
+      requirements:
+        - host: k8s_server_ccb
+        - dependency: k8s_master
+
+    k8s_slave_schedd:
+      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kubelet_extra_args: "--node-labels condor=schedd"
+      requirements:
+        - host: k8s_server_schedd
+        - dependency: k8s_master
+
+    k8s_slave_wn:
+      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+      requirements:
+        - host: k8s_server_wn
+        - dependency: k8s_master
+
+    k8s_master_server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            # network_name: infn-farm.PUBLIC
+            network_name: PUBLIC
+            ports:
+              kube_port:
+                protocol: tcp
+                source: 30443
+        scalable:
+          properties:
+            count: { get_input: number_of_masters }
+        host:
+          properties:
+            # instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_master }
+            mem_size: { get_input: mem_size_master } 
+        os:
+          properties:
+            image: { get_input: server_image }
+
+    k8s_server_ccb:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              collector:
+                protocol: tcp
+                source: 9618
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+    k8s_server_schedd:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              schedd:
+                protocol: tcp
+                source: 9618
+              registration:
+                protocol: tcp
+                source: 48080
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+    k8s_server_wn:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            #network_name: test-net.PRIVATE
+            network_name: PRIVATE
+        scalable:
+          properties:
+            count: { get_input: number_of_slaves }
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+  outputs:
+    k8s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }

@@ -43,16 +43,19 @@ topology_template:
     helm_htcondor_values: 
       type: string
       default: |
-        condorHost: {{ externalParams[0] }}
-        ccbHost: {{ externalParams[0] }}
-        proxyCacheHost: {{ externalParams[1] }}
+        condorHost: {{ externalParams.split(',')[0] }}
+        ccbHost: {{ externalParams.split(',')[0] }}
+        proxyCacheHost: {{ externalParams.split(',')[2] }}
         ttsCache:
-          iamToken:
-          iamClientId:
-          iamClientSecret:
+          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NjU2MjYwLCJpYXQiOjE1Nzg2NDE4NjAsImp0aSI6IjlhYjBjYjY1LTVmYzQtNDJkNy04ZGVhLTA3ZmNmZWVjYmY3NiJ9.XzC-VYdClWOhL1PgcK0jbm6XfY-YqyzNJ-tu-DOwTxpG4uUDy3K3WlwyJo7cMMd8Lk-Cm9_eFhV4NaFxjgaKcbkmILLqCo4wEvUgJfdIlqqu7u6oiJIx4XAwnsP7dbds_5EWVDuICZl7qFsxWr1qi8E305CFLBYxr9rCOHmmlAE
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
+          networkInterface: {{ externalParams.split(',')[1] }}
           persistence:
             storageClass: local-path
+        htcMaster:
+          networkInterface: {{ externalParams.split(',')[0] }}
 
   node_templates:
 
@@ -65,12 +68,10 @@ topology_template:
         chart: "dodas/htcondor"
         kubeconfig_path: /var/lib/rancher/k3s/server/cred/admin.kubeconfig
         values_file: { get_input: helm_htcondor_values }
-        externalParams:
-          - { get_attribute: [ k3s_server_ccb , public_address, 0 ] }
-          - { get_attribute: [ k3s_master_server , private_address, 0 ] }
+        externalParams: { concat: [get_attribute: [ k3s_server_ccb , public_address, 0 ] , ",", get_attribute: [ k3s_server_schedd , public_address, 0 ] , ",", get_attribute: [ k3s_master_server , private_address, 0 ] ] }
       requirements:
         - host: k3s_master_server
-        - dependency: k3s_master
+        - dependency: k3s_slave_ccb
 
     k3s_master:
       type: tosca.nodes.indigo.k3s 
@@ -139,9 +140,9 @@ topology_template:
           properties:
             network_name: PUBLIC
             ports:
-              kube_port:
+              collector:
                 protocol: tcp
-                source: 30443
+                source: 9618
         scalable:
           properties:
             count: 1
@@ -162,9 +163,12 @@ topology_template:
           properties:
             network_name: PUBLIC
             ports:
-              kube_port:
+              schedd:
                 protocol: tcp
-                source: 30443
+                source: 9618
+              registration:
+                protocol: tcp
+                source: 48080
         scalable:
           properties:
             count: 1
