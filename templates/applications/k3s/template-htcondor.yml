@@ -47,7 +47,7 @@ topology_template:
         ccbHost: {{ externalParams.split(',')[0] }}
         proxyCacheHost: {{ externalParams.split(',')[2] }}
         ttsCache:
-          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NjU2MjYwLCJpYXQiOjE1Nzg2NDE4NjAsImp0aSI6IjlhYjBjYjY1LTVmYzQtNDJkNy04ZGVhLTA3ZmNmZWVjYmY3NiJ9.XzC-VYdClWOhL1PgcK0jbm6XfY-YqyzNJ-tu-DOwTxpG4uUDy3K3WlwyJo7cMMd8Lk-Cm9_eFhV4NaFxjgaKcbkmILLqCo4wEvUgJfdIlqqu7u6oiJIx4XAwnsP7dbds_5EWVDuICZl7qFsxWr1qi8E305CFLBYxr9rCOHmmlAE
+          iamToken: <TOKEN HERE> 
           iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
           iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
