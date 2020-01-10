@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - indigo_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_types.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_custom_apps/htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -43,24 +43,31 @@ topology_template:
     helm_htcondor_values: 
       type: string
       default: |
-        condorHost: {{ externalParams.split(',')[0] }}
-        ccbHost: {{ externalParams.split(',')[0] }}
-        proxyCacheHost: {{ externalParams.split(',')[1] }}
+        condorHost: {{ condor_host }}
+        ccbHost: {{ ccb_address }}
+        proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          iamToken: <TOKEN HERE> 
+          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NjYyOTQ0LCJpYXQiOjE1Nzg2NDg1NDQsImp0aSI6ImU3MTBlNWNiLTdhZTEtNDU0MS1iZGJhLWY2NjMwZDhiNGI4ZCJ9.g4ObHfPpnPqVOvMxBf0VZalAIljNL1r_Ju8qy3KxJ-M209rKh4WyaGoK4fS6VJO146tsZrxQ9BJAEyKyUwBvqOn-td6tIXlqC_XDqI-aifTbG5EdwadL8ikabgZIikrxIgfn9PjPyN4yfX24Prkc_IKpY3tLSrAL1V6SqAT9A78 
           iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
           iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
-          networkInterface: {{ externalParams.split(',')[1] }}
+          image: dodasts/ams
+          tag: v1.0.0.rc1
+          networkInterface: {{ schedd_netinterface }}
           persistence:
             storageClass: local-path
         htcMaster:
-          networkInterface: {{ externalParams.split(',')[0] }}
+          image: dodasts/ams
+          tag: v1.0.0.rc1
+          networkInterface: {{ condor_host }}
+        htcWn:
+          image: dodasts/ams
+          tag: v1.0.0.rc1
 
   node_templates:
 
     helm_htcondor:
-      type: tosca.nodes.indigo.HelmInstall
+      type: tosca.nodes.indigo.HelmInstall.HTCondor
       properties:
         repos:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
@@ -68,7 +75,10 @@ topology_template:
         chart: "dodas/htcondor"
         kubeconfig_path: /var/lib/rancher/k8s/server/cred/admin.kubeconfig
         values_file: { get_input: helm_htcondor_values }
-        externalParams: { concat: [get_attribute: [ k8s_server_ccb , public_address, 0 ] , ",", get_attribute: [ k3s_server_schedd , public_address, 0 ] , ",", get_attribute: [ k3s_master_server , private_address, 0 ] ] }
+        condor_host: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        ccb_address: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        schedd_netinterface: { get_attribute: [ k8s_server_schedd , private_address, 0 ] }
+        k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
       requirements:
         - host: k8s_master_server
         - dependency: k8s_slave_ccb

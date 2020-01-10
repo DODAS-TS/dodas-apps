@@ -43,12 +43,15 @@ topology_template:
     helm_cod_values: 
       type: string
       default: |
-
+        externalIp:
+          enabled: true
+          ips: {{ externalIp }}
+        
 
   node_templates:
 
     helm_cod:
-      type: tosca.nodes.indigo.HelmInstall
+      type: tosca.nodes.indigo.HelmInstall.CachingOnDemand
       properties:
         repos:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
@@ -56,7 +59,7 @@ topology_template:
         chart: "dodas/cachingondemand"
         kubeconfig_path: /var/lib/rancher/k3s/server/cred/admin.kubeconfig
         values_file: { get_input: helm_cod_values }
-        externalParams: { get_attribute: [ k3s_server_ccb , private_address, 0 ]  }
+        externalIp: { get_attribute: [ k3s_server_ccb , private_address, 0 ]  }
       requirements:
         - host: k3s_master_server
         - dependency: k3s_slave_server
