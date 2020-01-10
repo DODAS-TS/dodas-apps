@@ -38,7 +38,6 @@ topology_template:
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
       default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
-      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
     helm_htcondor_values: 
       type: string
@@ -47,9 +46,9 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NjYyOTQ0LCJpYXQiOjE1Nzg2NDg1NDQsImp0aSI6ImU3MTBlNWNiLTdhZTEtNDU0MS1iZGJhLWY2NjMwZDhiNGI4ZCJ9.g4ObHfPpnPqVOvMxBf0VZalAIljNL1r_Ju8qy3KxJ-M209rKh4WyaGoK4fS6VJO146tsZrxQ9BJAEyKyUwBvqOn-td6tIXlqC_XDqI-aifTbG5EdwadL8ikabgZIikrxIgfn9PjPyN4yfX24Prkc_IKpY3tLSrAL1V6SqAT9A78 
-          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
-          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
+          iamToken: <TOKEN HERE> 
+          iamClientId: <TTS CLIENT ID HERE>
+          iamClientSecret: <TTS CLIENT SECRET HERE>
         htcSchedd:
           image: dodasts/ams
           tag: v1.0.0.rc1
