@@ -23,7 +23,7 @@ topology_template:
 
     number_of_slaves:
       type: integer
-      default: 3 
+      default: 1 
 
     num_cpus_slave: 
       type: integer
@@ -46,15 +46,18 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          iamToken: <TOKEN HERE> 
-          iamClientId: <TTS CLIENT ID HERE>
-          iamClientSecret: <TTS CLIENT SECRET HERE>
+          #iamToken: <TOKEN HERE> 
+          #iamClientId: <TTS CLIENT ID HERE>
+          #iamClientSecret: <TTS CLIENT SECRET HERE>
+          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NzA4MjU2LCJpYXQiOjE1Nzg2OTM4NTYsImp0aSI6ImQ2NGUxZjc1LTBlYjUtNGJjOC04NTFjLTEyNzBlZTQwM2M5ZSJ9.kmyk91uSbQ5U6mYxeqtanLZ7BRA6Wsf3MkYrPFlv_1dsePDS9OQjl7cMAmNebYKECR-bfHkVDotfikKKEjczLSJuHxcA3LlIxQV7mDMZZAYv9ozii4mBfyccHBjoFe4L7Kb1fqyFFziNmYcTOEkunfDkopIHpwATiC-HSXWKJdc 
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
           image: dodasts/ams
           tag: v1.0.0.rc1
           networkInterface: {{ schedd_netinterface }}
           persistence:
-            storageClass: local-path
+            storageClass: local-storage
         htcMaster:
           image: dodasts/ams
           tag: v1.0.0.rc1
@@ -72,7 +75,6 @@ topology_template:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
         name: "htcondor"
         chart: "dodas/htcondor"
-        kubeconfig_path: /var/lib/rancher/k8s/server/cred/admin.kubeconfig
         values_file: { get_input: helm_htcondor_values }
         condor_host: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
         ccb_address: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
