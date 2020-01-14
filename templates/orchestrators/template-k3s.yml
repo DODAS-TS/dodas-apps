@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - indigo_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_types.yml 
+  - dodas_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -44,7 +44,7 @@ topology_template:
   node_templates:
 
     k8s_master:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
         mode: server
@@ -52,7 +52,7 @@ topology_template:
         - host: k8s-master-server
 
     k8s_slave:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
         mode: node 
