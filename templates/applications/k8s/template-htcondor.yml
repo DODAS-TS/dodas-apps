@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_custom_apps/htc_type.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -49,7 +49,7 @@ topology_template:
           #iamToken: <TOKEN HERE> 
           #iamClientId: <TTS CLIENT ID HERE>
           #iamClientSecret: <TTS CLIENT SECRET HERE>
-          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4NzA4MjU2LCJpYXQiOjE1Nzg2OTM4NTYsImp0aSI6ImQ2NGUxZjc1LTBlYjUtNGJjOC04NTFjLTEyNzBlZTQwM2M5ZSJ9.kmyk91uSbQ5U6mYxeqtanLZ7BRA6Wsf3MkYrPFlv_1dsePDS9OQjl7cMAmNebYKECR-bfHkVDotfikKKEjczLSJuHxcA3LlIxQV7mDMZZAYv9ozii4mBfyccHBjoFe4L7Kb1fqyFFziNmYcTOEkunfDkopIHpwATiC-HSXWKJdc 
+          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc4OTE1OTQ5LCJpYXQiOjE1Nzg5MDE1NDksImp0aSI6IjBhNTcwMmQyLWM4ZDctNDdjMC04MjRmLTg4NmQ0NmNkNjJiMSJ9.TGeemw1KxLamdqJ4FmLhCad1VtRdMpn2JVDZgXCvyKhCH1dtjn94-fYf7RCNSmswoP7a-jDEGz70MoeSYCUuxzLBHXoaThBRz7OdxRxIjqigEZmCnyZxrboA24va2IF1xzGbmc0ANp_yQMyNDP-QZ-xdm_D0MXaMaiML0tk_Mrc 
           iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
           iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
@@ -69,7 +69,7 @@ topology_template:
   node_templates:
 
     helm_htcondor:
-      type: tosca.nodes.indigo.HelmInstall.HTCondor
+      type: tosca.nodes.DODAS.HelmInstall.HTCondor
       properties:
         repos:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
@@ -85,37 +85,34 @@ topology_template:
         - dependency: k8s_slave_ccb
 
     k8s_master:
-      type: tosca.nodes.indigo.LRMS.FrontEnd.Kubernetes
+      type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
       requirements:
         - host: k8s_master_server
 
     k8s_slave_ccb:
-      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
         kubelet_extra_args: "--node-labels condor=ccb"
       requirements:
         - host: k8s_server_ccb
-        - dependency: k8s_master
 
     k8s_slave_schedd:
-      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
         kubelet_extra_args: "--node-labels condor=schedd"
       requirements:
         - host: k8s_server_schedd
-        - dependency: k8s_master
 
     k8s_slave_wn:
-      type: tosca.nodes.indigo.LRMS.WorkerNode.Kubernetes 
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
       requirements:
         - host: k8s_server_wn
-        - dependency: k8s_master
 
     k8s_master_server:
       type: tosca.nodes.indigo.Compute

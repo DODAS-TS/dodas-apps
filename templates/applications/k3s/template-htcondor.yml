@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/dodas_types/dodas_custom_apps/htc_type.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -66,7 +66,7 @@ topology_template:
   node_templates:
 
     helm_htcondor:
-      type: tosca.nodes.indigo.HelmInstall.HTCondor
+      type: tosca.nodes.DODAS.HelmInstall.HTCondor
       properties:
         repos:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
@@ -83,7 +83,7 @@ topology_template:
         - dependency: k3s_slave_ccb
 
     k3s_master:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: server
@@ -91,7 +91,7 @@ topology_template:
         - host: k3s_master_server
 
     k3s_slave_ccb:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
@@ -101,7 +101,7 @@ topology_template:
         - dependency: k3s_master
 
     k3s_slave_schedd:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
@@ -111,7 +111,7 @@ topology_template:
         - dependency: k3s_master
 
     k3s_slave_wn:
-      type: tosca.nodes.indigo.k3s 
+      type: tosca.nodes.DODAS.k3s 
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
