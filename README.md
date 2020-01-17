@@ -5,26 +5,32 @@ In order to get your application to work, you need valid Indigo IAM credentials.
 
 ## Setting up dodas client
 ````
-    wget https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas.zip
-    unzip dodas.zip
-    cp dodas /usr/local/bin
+wget https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas.zip
+unzip dodas.zip
+cp dodas /usr/local/bin
 ````
 If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
 
 In order to deploy your application:
 ````
-    dodas create template.yaml
+dodas create template.yaml
 ````
 
 To check the status of the deployment
 ````
-    dodas get status <infID>
+dodas get status <infID>
 ````
 
 And to get the output of the deployment
 ````
-    dodas get output <infID>
-`````
+dodas get output <infID>
+````
+
+To log into one of the VM created by the deployment:
+````
+dodas login <infID> <vmID>
+sudo su
+````
 
 ## Available containers orchestrators
 
