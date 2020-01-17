@@ -6,8 +6,10 @@
 
 ## Available containers orchestrators
 
-### K3s
+## Quick start
 
-### Kubernetes
+## Contribution guide
 
-## Available applications
+### Mkdocs
+
+### Templates
