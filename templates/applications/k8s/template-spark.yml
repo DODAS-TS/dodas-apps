@@ -1,8 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml
-
+  - indigo_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/spark_type.yml
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
 topology_template:
@@ -36,12 +35,39 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
       #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
+
+    helm_values: 
+      type: string
+      default: |
+        externalIp:
+          enabled: true
+          ips: {{ externalIp }}
+        master:
+          image: ttedesch/spark-py
+          imageTag: base_k8s_2.4.4_client_4.4.2
+          jupyter:
+            image: ttedesch/pyspark-notebook
+            tag: customized_3.6
+            
 
   node_templates:
 
+    helm_install:
+      type: tosca.nodes.DODAS.HelmInstall.Spark
+      properties:
+        name: "spark"
+        chart: "dodas/spark"
+        repos:
+        - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
+        externalIp: { get_attribute: [ k8s_master_server , public_address, 0 ]  }
+        values_file: { get_input: helm_values }
+        kubeconfig_path: /etc/kubernetes/admin.conf
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_master
 
     k8s_master:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
@@ -50,19 +76,19 @@ topology_template:
         # kube_version: 1.14.0
         # kube_front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] } 
       requirements:
-        - host: k8s-master-server
+        - host: k8s_master_server
 
     k8s_slave:
-      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes
       properties:
-        front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
         #front_end_ip: { get_attribute: [ k8s-master-server, public_address, 0 ] }
         #kube_version: 1.14.0
         #nfs_master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
       requirements:
-        - host: k8s-slave-server
+        - host: k8s_slave_server
 
-    k8s-master-server:
+    k8s_master_server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -73,6 +99,12 @@ topology_template:
               dashboard:
                 protocol: tcp
                 source: 30443
+              webui:
+                protocol: tcp
+                source: 30808
+              jupyter:
+                protocol: tcp
+                source: 30888
         scalable:
           properties:
             count: { get_input: number_of_masters }
@@ -85,7 +117,7 @@ topology_template:
           properties:
             image: { get_input: server_image }
 
-    k8s-slave-server:
+    k8s_slave_server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -108,4 +140,4 @@ topology_template:
 
   outputs:
     k8s_endpoint:
-      value: { concat: [ 'https://', get_attribute: [ k8s-master-server, public_address, 0 ], ':30443' ] }
+      value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }

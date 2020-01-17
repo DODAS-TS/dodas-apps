@@ -43,23 +43,24 @@ topology_template:
 
   node_templates:
 
-    k8s_master:
+    k3s_master:
       type: tosca.nodes.DODAS.k3s 
       properties:
-        master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
+        master_ip: { get_attribute: [ k3s-master-server, private_address, 0 ] }
         mode: server
       requirements:
-        - host: k8s-master-server
+        - host: k3s-master-server
 
-    k8s_slave:
+    k3s_slave:
       type: tosca.nodes.DODAS.k3s 
       properties:
-        master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
+        master_ip: { get_attribute: [ k3s-master-server, private_address, 0 ] }
         mode: node 
       requirements:
-        - host: k8s-slave-server
+        - host: k3s-slave-server
+        - dependency: k3s_master
 
-    k8s-master-server:
+    k3s-master-server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -85,7 +86,7 @@ topology_template:
           properties:
             image: { get_input: server_image }
 
-    k8s-slave-server:
+    k3s-slave-server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -106,5 +107,5 @@ topology_template:
             image: { get_input: server_image }
 
   outputs:
-    k8s_endpoint:
-      value: { concat: [ 'https://', get_attribute: [ k8s-master-server, public_address, 0 ], ':30443' ] }
+    k3s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k3s-master-server, public_address, 0 ], ':30443' ] }

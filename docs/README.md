@@ -13,3 +13,9 @@
 ### Kubernetes
 
 ## Available applications
+
+### HTCondor
+
+### Spark
+
+### CachingOnDemand

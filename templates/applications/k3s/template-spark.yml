@@ -1,8 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_cod_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/cod_type.yml
-
+  - indigo_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/spark_type.yml
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
 topology_template:
@@ -15,15 +14,15 @@ topology_template:
 
     num_cpus_master: 
       type: integer
-      default: 2
+      default: 4
 
     mem_size_master:
       type: string
-      default: "4 GB"
+      default: "8 GB"
 
     number_of_slaves:
       type: integer
-      default: 2
+      default: 1 
 
     num_cpus_slave: 
       type: integer
@@ -36,62 +35,56 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
-    helm_cod_values: 
+    helm_values: 
       type: string
       default: |
         externalIp:
-          enabled: true
-          ips:
-            - {{ externalIp }}
-        gsi:
-          enabled: true
-          vo: cms
-          vomses:
-          - filename: asd
-            content: "asd"
-          caCert:
-            cert: "asd"
-            key: "asd"
-
-          proxy: true
+          enabled: false 
+        master:
+          image: ttedesch/spark-py
+          imageTag: base_k8s_2.4.4_client_4.4.2
+          jupyter:
+            image: ttedesch/pyspark-notebook
+            tag: customized_3.6
 
   node_templates:
 
-    helm_cod:
-      type: tosca.nodes.DODAS.HelmInstall.CachingOnDemand
+    helm_install:
+      type: tosca.nodes.DODAS.HelmInstall.Spark
       properties:
+        name: "spark"
+        chart: "dodas/spark"
         repos:
-          - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
-        name: "cachingondemand"
-        chart: "dodas/cachingondemand"
+        - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
+        externalIp: { get_attribute: [ k3s-master-server , public_address, 0 ]  }
+        values_file: { get_input: helm_values }
         kubeconfig_path: /var/lib/rancher/k3s/server/cred/admin.kubeconfig
-        values_file: { get_input: helm_cod_values }
-        externalIp: { get_attribute: [ k3s_master_server , public_address, 0 ]  }
       requirements:
-        - host: k3s_master_server
-        - dependency: k3s_slave_server
+        - host: k3s-master-server
+        - dependency: k3s_master
 
     k3s_master:
       type: tosca.nodes.DODAS.k3s 
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
+        master_ip: { get_attribute: [ k3s-master-server, private_address, 0 ] }
         mode: server
       requirements:
-        - host: k3s_master_server
+        - host: k3s-master-server
 
     k3s_slave:
       type: tosca.nodes.DODAS.k3s 
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
+        master_ip: { get_attribute: [ k3s-master-server, private_address, 0 ] }
         mode: node 
       requirements:
-        - host: k3s_slave_server
+        - host: k3s-slave-server
         - dependency: k3s_master
 
-    k3s_master_server:
+    k3s-master-server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -102,9 +95,12 @@ topology_template:
               kube_port:
                 protocol: tcp
                 source: 30443
-              xrd_port:
+              jupyter:
                 protocol: tcp
-                source: 31394
+                source: 30888
+              sparkUI:
+                protocol: tcp
+                source: 30808
         scalable:
           properties:
             count: { get_input: number_of_masters }
@@ -117,7 +113,7 @@ topology_template:
           properties:
             image: { get_input: server_image }
 
-    k3s_slave_server:
+    k3s-slave-server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -138,5 +134,5 @@ topology_template:
             image: { get_input: server_image }
 
   outputs:
-    k8s_endpoint:
-      value: { concat: [ 'https://', get_attribute: [ k3s_master_server, public_address, 0 ], ':30443' ] }
+    k3s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k3s-master-server, public_address, 0 ], ':30443' ] }
