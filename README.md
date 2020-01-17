@@ -13,12 +13,7 @@ cp dodas /usr/local/bin
 If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
 
 
-Create a .dodas-template.yaml:
-`````
-vim .dodas-template.yaml
-``````
-
-and put this inside
+Create a ```.dodas-template.yaml``` and put this inside
 
 `````
 cloud:
@@ -38,12 +33,7 @@ im:
 
 `````
 
-Then, create a get_orchet_token.sh 
-````
-vim get_orchet_token.sh 
-````
-
-and write inside:
+Then, create a ```get_orchet_token.sh``` and write inside:
 
 ````
 #!/usr/bin/env bash
