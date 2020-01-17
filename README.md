@@ -13,6 +13,26 @@ cp dodas /usr/local/bin
 If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
 
 
+create a .dodas-template.yaml
+
+`````
+cloud:
+    id: ost
+    type: OpenStack
+    host: https://cloud.recas.ba.infn.it:5000/
+    username: indigo-dc
+    password: token_template
+    tenant: oidc
+    auth_version: 3.x_oidc_access_token
+    service_region: recas-cloud
+im:
+    id: im
+    type: InfrastructureManager
+    host: https://im-dodas.cloud.cnaf.infn.it/infrastructures
+    token: token_template
+
+`````
+
 Then, create a get_orchet_token.sh and write inside:
 
 ````
@@ -53,31 +73,9 @@ access_token=$(echo $res | jq -r .access_token)
 
 echo $access_token
 sed -e "s/token_template/${access_token}/" $HOME/.dodas-template.yaml > $HOME/.dodas.yaml
-sed -e "s/token_template/${access_token}/" $HOME/conf_token.yaml > $HOME/.dodas.yaml
 ````
 
-And create a .dodas-template.yaml
-
-`````
-cloud:
-    #id: os
-    id: ost
-    type: OpenStack
-    host: https://cloud.recas.ba.infn.it:5000/
-    username: indigo-dc
-    password: token_template
-    tenant: oidc
-    auth_version: 3.x_oidc_access_token
-    service_region: recas-cloud
-im:
-    id: im
-    type: InfrastructureManager
-    host: https://im-dodas.cloud.cnaf.infn.it/infrastructures
-    token: token_template
-
-`````
-
-Once you have done this
+Once you have done this, run
 
 `````
 sh get_orchent_token.sh
@@ -85,12 +83,13 @@ sh get_orchent_token.sh
 
 and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created .dodas.yaml file. 
 
+Now you are ready to deploy your application, running:
 
-
-In order to deploy your application:
 ````
 dodas create template.yaml
 ````
+
+where template.yaml is a TOSCA template.
 
 To check the status of the deployment
 ````
