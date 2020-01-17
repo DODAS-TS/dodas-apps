@@ -4,18 +4,18 @@
 In order to get your application to work, you need valid Indigo IAM credentials and an available OpenStack cloud infrastructure.
 
 ## Setting up dodas client
-````
+```
 wget https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas.zip
 unzip dodas.zip
 cp dodas /usr/local/bin
-````
+```
 
 If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
 
 
 Create a ```.dodas-template.yaml``` and put this inside
 
-`````
+```
 cloud:
     id: ost
     type: OpenStack
@@ -30,12 +30,11 @@ im:
     type: InfrastructureManager
     host: https://im-dodas.cloud.cnaf.infn.it/infrastructures
     token: token_template
-
-`````
+```
 
 Then, create a ```get_orchet_token.sh``` and write inside:
 
-````
+```
 #!/usr/bin/env bash
 
 IAM_CLIENT_ID=dodas-demo
@@ -73,39 +72,46 @@ access_token=$(echo $res | jq -r .access_token)
 
 echo $access_token
 sed -e "s/token_template/${access_token}/" $HOME/.dodas-template.yaml > $HOME/.dodas.yaml
-````
+```
 
 Once you have done this, run
 
-`````
+```
 sh get_orchent_token.sh
-``````
+```
 
 and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
 
 Now you are ready to deploy your application, running:
 
-````
+```
 dodas create template.yaml
-````
+```
 
 where ```template.yaml``` is a TOSCA template.
 
+
+To get the infrastructure ID (infID) of all your deployments
+
+```
+dodas list infIDs
+````
+
 To check the status of the deployment
-````
+```
 dodas get status <infID>
-````
+```
 
 And to get the output of the deployment
-````
+```
 dodas get output <infID>
-````
+```
 
 To log into one of the VM created by the deployment:
-````
+```
 dodas login <infID> <vmID>
 sudo su
-````
+```
 
 ## Available containers orchestrators
 
