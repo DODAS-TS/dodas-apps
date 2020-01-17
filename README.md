@@ -39,15 +39,22 @@ sudo su
 ### Kubernetes
 
 ## Available applications
+
 ### Spark
-[template](templates/applications/k3s/template-spark.yml)
-[template](templates/applications/k8s/template-spark.yml)
+With these templates you can deploy Apache Spark on top of either k3s or k8s:
+- [template](templates/applications/k3s/template-spark.yml)
+- [template](templates/applications/k8s/template-spark.yml)
 ### HTCondor
-[template](templates/applications/k3s/template-htcondor.yml)
-[template](templates/applications/k8s/template-htcondor.yml)
+With these templates you can deploy HTCondor on top of either k3s or k8s:
+- [template](templates/applications/k3s/template-htcondor.yml)
+- [template](templates/applications/k8s/template-htcondor.yml)
 ### CachingOnDemand
-[template](templates/applications/k3s/template-cachingondemand.yml)
-[template](templates/applications/k8s/template-cachingondemand.yml)
+With these templates you can deploy Caching On Demand on top of either k3s or k8s:
+- [template](templates/applications/k3s/template-cachingondemand.yml)
+- [template](templates/applications/k8s/template-cachingondemand.yml)
 ### OpenFAAS
-[template](templates/applications/k3s/template-openfaas.yml)
-[template](templates/applications/k8s/template-openfaas.yml)
+With these templates you can deploy OpenFaas on top of either k3s or k8s:
+- [template](templates/applications/k3s/template-openfaas.yml)
+- [template](templates/applications/k8s/template-openfaas.yml)
+
+All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
