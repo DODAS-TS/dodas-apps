@@ -1,7 +1,7 @@
 # DODAS: TOSCA templates for applications
 
 ## Requirements
-In order to get your application to work, you need valid Indigo IAM credentials.
+In order to get your application to work, you need valid Indigo IAM credentials and an available OpenStack cloud infrastructure.
 
 ## Setting up dodas client
 ````
@@ -13,7 +13,12 @@ cp dodas /usr/local/bin
 If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
 
 
-create a .dodas-template.yaml
+Create a .dodas-template.yaml:
+`````
+vim .dodas-template.yaml
+``````
+
+and put this inside
 
 `````
 cloud:
@@ -33,7 +38,12 @@ im:
 
 `````
 
-Then, create a get_orchet_token.sh and write inside:
+Then, create a get_orchet_token.sh 
+````
+vim get_orchet_token.sh 
+````
+
+and write inside:
 
 ````
 #!/usr/bin/env bash
@@ -89,7 +99,7 @@ Now you are ready to deploy your application, running:
 dodas create template.yaml
 ````
 
-where template.yaml is a TOSCA template.
+where ```template.yaml``` is a TOSCA template.
 
 To check the status of the deployment
 ````
