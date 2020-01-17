@@ -37,14 +37,12 @@ topology_template:
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
       default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
-      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
     helm_values: 
       type: string
       default: |
-        externalIp:
-          enabled: true
-          ips: {{ externalIp }}
+      externalIp:
+        enabled: false
         master:
           image: ttedesch/spark-py
           imageTag: base_k8s_2.4.4_client_4.4.2
@@ -73,8 +71,6 @@ topology_template:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
-        # kube_version: 1.14.0
-        # kube_front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] } 
       requirements:
         - host: k8s_master_server
 
@@ -82,9 +78,6 @@ topology_template:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
-        #front_end_ip: { get_attribute: [ k8s-master-server, public_address, 0 ] }
-        #kube_version: 1.14.0
-        #nfs_master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
       requirements:
         - host: k8s_slave_server
 
@@ -124,7 +117,6 @@ topology_template:
           properties:
             #network_name: test-net.PRIVATE
             network_name: PRIVATE
-            #network_name: PUBLIC 
         scalable:
           properties:
             count: { get_input: number_of_slaves }
@@ -135,7 +127,6 @@ topology_template:
             mem_size: { get_input: mem_size_slave } 
         os:
           properties:
-            #image: "ost://openstack.fisica.unipg.it/1c334195-3203-43cb-b13f-d3159304a6d6"
             image: { get_input: server_image }
 
   outputs:

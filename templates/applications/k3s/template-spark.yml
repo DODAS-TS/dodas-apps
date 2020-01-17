@@ -37,7 +37,6 @@ topology_template:
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
       default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
-      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
     helm_values: 
       type: string
@@ -130,7 +129,6 @@ topology_template:
             mem_size: { get_input: mem_size_slave } 
         os:
           properties:
-            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
             image: { get_input: server_image }
 
   outputs:
