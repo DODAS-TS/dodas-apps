@@ -81,7 +81,7 @@ Once you have done this, run
 sh get_orchent_token.sh
 ``````
 
-and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created .dodas.yaml file. 
+and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
 
 Now you are ready to deploy your application, running:
 
@@ -108,6 +108,8 @@ sudo su
 ````
 
 ## Available containers orchestrators
+
+TOSCA templates in this repo are used to deploy two different types of containers orchestrators: k3s and k8s.
 
 ### K3s
 
