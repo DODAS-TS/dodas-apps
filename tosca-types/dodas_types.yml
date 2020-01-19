@@ -27,6 +27,10 @@ node_types:
         type: string
         description: chart name
         required: yes
+      labels:
+        type: list
+        entry_schema:
+          type: string
       repos:
         type: list
         entry_schema:
@@ -76,6 +80,7 @@ node_types:
             inline_options: { get_property: [ SELF, inline_options ] }
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
+            labels: { get_property: [ SELF, labels ] }
             #externalParams: { get_property: [ SELF, externalParams ] }
 
   tosca.nodes.DODAS.KubeCreate:
