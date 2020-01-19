@@ -36,8 +36,8 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
     helm_htcondor_values: 
       type: string
@@ -46,7 +46,7 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          iamToken: <TOKEN HERE> 
+          iamToken: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc5NDQxODY1LCJpYXQiOjE1Nzk0Mjc0NjUsImp0aSI6ImFjMDgwMjUzLTY2YmMtNDI5OC1iZWRkLTVkYmRlZDljYTdjOSJ9.ux48RcDJUHzaH9fPdGx6VOlR5a9pLJ97B7y-OO2GoHkchDSyZW0_KsyhQLe2Ph7dakHfiZIeTUDvLXdTTm0GzkFTScFkb_FvYj3JRfeSOaeSaehDuCHh8AgN4gwwNeZpwf_5vuz2ggT4R59Q8eHCUNKP7aD2BZ5ZYaKIjLHffLk 
           iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0 
           iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
@@ -62,6 +62,7 @@ topology_template:
         htcWn:
           image: dodasts/ams
           tag: v1.0.0.rc1
+          #nodeSelector: '' 
         cvmfs:
           enabled: true 
           image: cloudpg/cvmfs
@@ -72,7 +73,7 @@ topology_template:
           # List of repos to be mounted
           repoList: spiga.local.repo 
 
-          privKey:
+          privKey: |
             spiga.local.repo.pub: |-
               -----BEGIN PUBLIC KEY-----
               MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo9D2O8wNFcAOJOie+l5E
@@ -83,7 +84,7 @@ topology_template:
               DYeRsTfijI3RmxyhWrSgyXkNbSiH9ME8grbACDPRpWdzHpxThWlUNrwfOXkF2a3e
               MQIDAQAB
               -----END PUBLIC KEY-----
-          defaultLocalConfig:
+          defaultLocalConfig: |
             spiga.local.repo.conf: |
               CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
               CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
@@ -100,52 +101,45 @@ topology_template:
         chart: "dodas/htcondor"
         kubeconfig_path: /var/lib/rancher/k3s/server/cred/admin.kubeconfig
         values_file: { get_input: helm_htcondor_values }
-        condor_host: { get_attribute: [ k3s_server_ccb , private_address, 0 ] }
-        ccb_address: { get_attribute: [ k3s_server_ccb , private_address, 0 ] }
-        schedd_netinterface: { get_attribute: [ k3s_server_schedd , private_address, 0 ] }
-        k8s_master_ip: { get_attribute: [ k3s_master_server , private_address, 0 ] }
+        condor_host: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        ccb_address: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        schedd_netinterface: { get_attribute: [ k8s_server_schedd , private_address, 0 ] }
+        k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
       requirements:
-        - host: k3s_master_server
-        - dependency: k3s_slave_ccb
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
 
-    k3s_master:
-      type: tosca.nodes.DODAS.k3s 
+    k8s_master:
+      type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
-        mode: server
+        admin_token: testme
       requirements:
-        - host: k3s_master_server
+        - host: k8s_master_server
 
-    k3s_slave_ccb:
-      type: tosca.nodes.DODAS.k3s 
+    k8s_slave_ccb:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
-        mode: node 
-        node_label: condor=ccb
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kubelet_extra_args: "--node-labels condor=ccb"
       requirements:
-        - host: k3s_server_ccb
-        - dependency: k3s_master
+        - host: k8s_server_ccb
 
-    k3s_slave_schedd:
-      type: tosca.nodes.DODAS.k3s 
+    k8s_slave_schedd:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
-        mode: node 
-        node_label: condor=schedd
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kubelet_extra_args: "--node-labels condor=schedd"
       requirements:
-        - host: k3s_server_schedd
-        - dependency: k3s_master
+        - host: k8s_server_schedd
 
-    k3s_slave_wn:
-      type: tosca.nodes.DODAS.k3s 
+    k8s_slave_wn:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
-        master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
-        mode: node 
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
       requirements:
-        - host: k3s_server_wn
-        - dependency: k3s_master
+        - host: k8s_server_wn
 
-    k3s_master_server:
+    k8s_master_server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -168,7 +162,7 @@ topology_template:
           properties:
             image: { get_input: server_image }
 
-    k3s_server_ccb:
+    k8s_server_ccb:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -191,7 +185,7 @@ topology_template:
             # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
             image: { get_input: server_image }
 
-    k3s_server_schedd:
+    k8s_server_schedd:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -217,7 +211,7 @@ topology_template:
             # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
             image: { get_input: server_image }
 
-    k3s_server_wn:
+    k8s_server_wn:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -239,4 +233,4 @@ topology_template:
 
   outputs:
     k8s_endpoint:
-      value: { concat: [ 'https://', get_attribute: [ k3s_master_server, public_address, 0 ], ':30443' ] }
+      value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
