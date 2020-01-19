@@ -35,14 +35,14 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
     helm_values: 
       type: string
       default: |
-      externalIp:
-        enabled: false
+        externalIp:
+          enabled: false
         master:
           image: ttedesch/spark-py
           imageTag: base_k8s_2.4.4_client_4.4.2

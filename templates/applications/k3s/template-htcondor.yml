@@ -36,8 +36,8 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
     helm_htcondor_values: 
       type: string
@@ -47,8 +47,8 @@ topology_template:
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
           iamToken: <TOKEN HERE> 
-          iamClientId: <TTS CLIENT ID HERE>
-          iamClientSecret: <TTS CLIENT SECRET HERE>
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0 
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
           image: dodasts/ams
           tag: v1.0.0.rc1
@@ -62,6 +62,32 @@ topology_template:
         htcWn:
           image: dodasts/ams
           tag: v1.0.0.rc1
+        cvmfs:
+          enabled: true 
+          image: cloudpg/cvmfs
+          tag: k8s-3
+          pullPolicy: IfNotPresent
+          replicas: 1
+
+          # List of repos to be mounted
+          repoList: spiga.local.repo 
+
+          privKey:
+            spiga.local.repo.pub: |-
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo9D2O8wNFcAOJOie+l5E
+              xMlAAjiXG2GNqpbe1N/A0tOspGxDMpB0EJn8WneRYbnrKyItVPWyuQo5ol/IonBb
+              RbzPGHhXTPUyUZQgUpJ5xFEqIA2/lr5Wt82b9MluylphCpr9ZNOsskLYIINu+4fr
+              q21vY7IMuAc4nK0cp59AVam4q3YXAKs6HV3qcI1mPWCHkW9Zo74gRBQkUpVoUpSV
+              iQxKCRoGYMyC9Q7KiwOWk4LEtuMITgg1EcxCxRB2Qx0zsflccYAiJ2l+r5IE9TUy
+              DYeRsTfijI3RmxyhWrSgyXkNbSiH9ME8grbACDPRpWdzHpxThWlUNrwfOXkF2a3e
+              MQIDAQAB
+              -----END PUBLIC KEY-----
+          defaultLocalConfig:
+            spiga.local.repo.conf: |
+              CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
+              CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
+              CVMFS_HTTP_PROXY=direct
 
   node_templates:
 

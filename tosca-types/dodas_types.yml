@@ -109,10 +109,10 @@ node_types:
       role_name:
         type: string
         required: no
-        default: cloud-pg.ansible_role_kubecreate
+        default: dciangot.ansible_role_kubecreate
     artifacts:
       kubecreate_config_role:
-        file: cloud-pg.ansible_role_kubecreate
+        file: dciangot.ansible_role_kubecreate
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -153,10 +153,10 @@ node_types:
       role_name:
         type: string
         required: no
-        default: cloud-pg.k3s
+        default: dciangot.k3s
     artifacts:
       k3s_config_role:
-        file: cloud-pg.k3s
+        file: dciangot.k3s
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -192,7 +192,7 @@ node_types:
         default: 1.16.4
     artifacts:
       kube_role:
-        file: cloud-pg.kubernetes
+        file: dciangot.kubernetes,v2.0.0-dodas-rc20
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -235,7 +235,7 @@ node_types:
         default: true
     artifacts:
       kube_role:
-        file: cloud-pg.kubernetes
+        file: dciangot.kubernetes,v2.0.0-dodas-rc20
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
