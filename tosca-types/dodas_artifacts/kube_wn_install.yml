@@ -1,8 +1,12 @@
 ---
-    - hosts: localhost
-      connection: local
-      roles:
-      - role: 'dciangot.kubernetes'
-        kube_type_of_node: 'wn'
-        kube_server: '{{kube_front_end_ip}}'
-        kube_api_server: '{{ kube_front_end_ip }}'
+- hosts: localhost
+  connection: local
+  roles:
+  - role: indigo-dc.openvpn
+    openvpn_type_of_node: 'wn'
+    openvpn_frontname: 'kubeserver'
+    when: wn_hybrid_cluster
+  - role: 'dciangot.kubernetes'
+    kube_type_of_node: 'wn'
+    kube_server: '{{kube_front_end_ip}}'
+    kube_api_server: '{{ kube_front_end_ip }}'
