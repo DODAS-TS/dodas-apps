@@ -50,3 +50,4 @@ node_types:
             proxycache_docker_image: { get_property: [ SELF, proxycache_docker_image ] }
             htcondor-docker-image: { get_property: [ SELF, htcondor-docker-image ] }
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
+            labels: { get_property: [ SELF, labels ] }
