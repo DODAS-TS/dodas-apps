@@ -30,6 +30,12 @@ node_types:
       htcondor_docker_image:
         type: string
         required: yes
+      nfs_master_ip:
+        type: string
+        required: yes
+      nfs_path:
+        type: string
+        required: yes
     interfaces:
       Standard:
         start:
@@ -50,4 +56,6 @@ node_types:
             proxycache_docker_image: { get_property: [ SELF, proxycache_docker_image ] }
             htcondor_docker_image: { get_property: [ SELF, htcondor_docker_image ] }
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
+            nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }
+            nfs_path:  { get_property: [ SELF, nfs_path ] }
             labels: { get_property: [ SELF, labels ] }
