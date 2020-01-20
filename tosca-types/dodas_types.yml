@@ -262,8 +262,8 @@ node_types:
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             #kube_version:  { get_property: [ SELF, kube_version] }
 
-#TO IMPROVE with DIEGO
- tosca.nodes.indigo.NfsClient:
+  #TO IMPROVE with DIEGO
+  tosca.nodes.indigo.NfsClient:
     derived_from: tosca.nodes.SoftwareComponent
     properties:
       remote_path:
