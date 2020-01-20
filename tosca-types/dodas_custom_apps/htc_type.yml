@@ -21,6 +21,15 @@ node_types:
       k8s_master_ip:
         type: string
         required: yes
+      iam_token:
+        type: string
+        required: yes
+      proxycache_docker_image:
+        type: string
+        required: yes
+      htcondor-docker-image:
+        type: string
+        required: yes
     interfaces:
       Standard:
         start:
@@ -37,4 +46,7 @@ node_types:
             condor_host: { get_property: [ SELF, condor_host ] }
             ccb_address: { get_property: [ SELF, ccb_address ] }
             schedd_netinterface: { get_property: [ SELF, schedd_netinterface ] }
+            iam_token: { get_property: [ SELF, iam_token ] }
+            proxycache_docker_image: { get_property: [ SELF, proxycache_docker_image ] }
+            htcondor-docker-image: { get_property: [ SELF, htcondor-docker-image ] }
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
