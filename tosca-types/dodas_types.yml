@@ -110,7 +110,8 @@ node_types:
       externalParams:
         type: list
         required: no
-        default: []
+        entry_schema:
+          type: string
       role_name:
         type: string
         required: no
