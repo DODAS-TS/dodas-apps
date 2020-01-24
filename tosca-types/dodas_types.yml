@@ -27,10 +27,6 @@ node_types:
         type: string
         description: chart name
         required: yes
-      labels:
-        type: list
-        entry_schema:
-          type: string
       repos:
         type: list
         entry_schema:
@@ -76,8 +72,6 @@ node_types:
             inline_options: { get_property: [ SELF, inline_options ] }
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
-            labels: { get_property: [ SELF, labels ] }
-            #externalParams: { get_property: [ SELF, externalParams ] }
 
   tosca.nodes.DODAS.KubeCreate:
     derived_from: tosca.nodes.SoftwareComponent
@@ -192,6 +186,10 @@ node_types:
         required: no
         type: string
         default: 1.16.4
+      nodelabel:
+        type: string
+        required: no
+        default: "testme=true"
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc1
@@ -213,6 +211,7 @@ node_types:
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
+            nodelabel: { get_property: [ SELF, nodelabel] }
 
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
