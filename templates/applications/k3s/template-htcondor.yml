@@ -85,7 +85,7 @@ topology_template:
           image: {{ htcondor_docker_image }}
           tag: v1.0.0.rc1
         nfs:
-          enabled: true
+          enabled: false 
           # size: 2Gi
           # claimSize: 950Mi
           # # Put here the nfs master address
@@ -94,7 +94,7 @@ topology_template:
           # persistence:
           #   claimSize: 950Mi
         cvmfs:
-          enabled: true 
+          enabled: false 
           # image: dodasts/cvmfs
           # tag: k8s
           # pullPolicy: IfNotPresent
