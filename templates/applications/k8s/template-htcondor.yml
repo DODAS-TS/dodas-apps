@@ -54,7 +54,7 @@ topology_template:
     proxycache_docker_image:
       type: string
       default: "dodasts/ttscache"
- 
+
     iam_token:
       type: string
       default: "CHANGEME"
