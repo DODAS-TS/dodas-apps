@@ -60,7 +60,7 @@ With these templates you can deploy Caching On Demand on top of either k3s or k8
 All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
 
 
-### Quick start
+## Quick start
 Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](/templates/applications/k8s/template-spark.yaml). 
 To start your deployment:
 
