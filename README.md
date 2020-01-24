@@ -11,16 +11,14 @@ Get the latest client following instructions at https://dodas-ts.github.io/dodas
 
 ## Getting the token
 
-Copy [```.dodas-template.yaml```](.dodas-template.yaml) and [```get_orchet_token.sh```](get_orchet_token.sh)
-
-Run
-
+Follow instructions at https://indigo-iam.github.io/docs/v/current/user-guide/getting-a-token.html or simply run:
 ```
+git clone https://github.com/DODAS-TS/dodas-templates.git
 sh get_orchent_token.sh
 ```
-and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
+inserting your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
 
-Now you are ready to deploy your application
+Now you are ready to deploy your application.
 
 ## Available applications
 
@@ -41,7 +39,35 @@ With these templates you can deploy Apache Spark on top of either k3s or k8s:
 - [Spark on k3s](templates/applications/k3s/template-spark.yml)
 - [Spark on k8s](templates/applications/k8s/template-spark.yml)
 
+
+### HTCondor
+HTCondor is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks (https://research.cs.wisc.edu/htcondor/).
+
+With these templates you can deploy HTCondor on top of either k3s or k8s:
+- [HTCondor on k3s](templates/applications/k3s/template-htcondor.yml)
+- [HTCondor on k8s](templates/applications/k8s/template-htcondor.yml)
+
+### CachingOnDemand
+
+XCache description is available in this article [here](https://iopscience.iop.org/article/10.1088/1742-6596/513/4/042044/pdf).
+
+You can look at the [official XrootD documentation](http://xrootd.org/docs.html) for detailed information about the XRootD tool:
+
+- [basic configuration](http://xrootd.org/doc/dev47/xrd_config.htm)
+- [cmsd configuration](http://xrootd.org/doc/dev45/cms_config.htm)
+- [proxy file cache](http://xrootd.org/doc/dev47/pss_config.htm)
+
+With these templates you can deploy Caching On Demand on top of either k3s or k8s:
+- [CachingOnDemand on k3s](templates/applications/k3s/template-cachingondemand.yml)
+- [CachingOn Demand on k8s](templates/applications/k8s/template-cachingondemand.yml)
+
+
+All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
+
+
 #### Quick start
+Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](/templates/applications/k8s/template-spark.yaml). 
+To start your deployment:
 
 ```
 dodas create /templates/applications/k8s/template-spark.yaml
@@ -67,27 +93,3 @@ To log into one of the VM created by the deployment:
 dodas login <infID> <vmID>
 sudo su
 ```
-
-### HTCondor
-HTCondor is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks (https://research.cs.wisc.edu/htcondor/).
-
-With these templates you can deploy HTCondor on top of either k3s or k8s:
-- [HTCondor on k3s](templates/applications/k3s/template-htcondor.yml)
-- [HTCondor on k8s](templates/applications/k8s/template-htcondor.yml)
-
-### CachingOnDemand
-
-XCache description is available in this article [here](https://iopscience.iop.org/article/10.1088/1742-6596/513/4/042044/pdf).
-
-You can look at the [official XrootD documentation](http://xrootd.org/docs.html) for detailed information about the XRootD tool:
-
-- [basic configuration](http://xrootd.org/doc/dev47/xrd_config.htm)
-- [cmsd configuration](http://xrootd.org/doc/dev45/cms_config.htm)
-- [proxy file cache](http://xrootd.org/doc/dev47/pss_config.htm)
-
-With these templates you can deploy Caching On Demand on top of either k3s or k8s:
-- [CachingOnDemand on k3s](templates/applications/k3s/template-cachingondemand.yml)
-- [CachingOn Demand on k8s](templates/applications/k8s/template-cachingondemand.yml)
-
-
-All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
