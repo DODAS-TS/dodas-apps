@@ -61,7 +61,7 @@ All of these templates uses the helm charts defined in https://github.com/DODAS-
 
 
 ## Quick start
-Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](/templates/applications/k8s/template-spark.yaml). 
+Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](/templates/applications/k8s/template-spark.yml). 
 To start your deployment:
 
 ```
