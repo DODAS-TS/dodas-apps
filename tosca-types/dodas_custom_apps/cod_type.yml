@@ -27,4 +27,3 @@ node_types:
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
             externalIp: { get_property: [ SELF, externalIp ] }
-            labels: { get_property: [ SELF, labels ] }

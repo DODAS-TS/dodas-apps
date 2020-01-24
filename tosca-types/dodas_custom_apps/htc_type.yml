@@ -58,4 +58,3 @@ node_types:
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
             nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }
             nfs_path:  { get_property: [ SELF, nfs_path ] }
-            labels: { get_property: [ SELF, labels ] }
