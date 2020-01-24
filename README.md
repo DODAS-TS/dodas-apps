@@ -11,12 +11,7 @@ Get the latest client following instructions at https://dodas-ts.github.io/dodas
 
 ## Getting the token
 
-Follow instructions at https://indigo-iam.github.io/docs/v/current/user-guide/getting-a-token.html or simply run:
-```
-git clone https://github.com/DODAS-TS/dodas-templates.git
-sh get_orchent_token.sh
-```
-inserting your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
+Follow instructions at https://indigo-iam.github.io/docs/v/current/user-guide/getting-a-token.html.
 
 Now you are ready to deploy your application.
 
