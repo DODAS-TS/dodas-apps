@@ -38,7 +38,7 @@ IAM_DEVICE_CODE_CLIENT_SCOPES=${IAM_DEVICE_CODE_CLIENT_SCOPES:-"openid profile e
 
 response=$(mktemp)
 
-if ! [[ -z /tmp/refresh_token ]]; then
+if [[ -f /tmp/refresh_token ]] && ! [[ -z /tmp/refresh_token ]]; then
   echo "refresh toke file exist, trying to refresh"
 
 echo "curl -s -f -L \
@@ -172,7 +172,6 @@ while true; do
   echo
   echo "${response}"
 
-  sed -e "s/token_template/${access_token}/" $HOME/.dodas_go_client_template.yaml > $HOME/.dodas.yaml
   exit 0
 
 done
