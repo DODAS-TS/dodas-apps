@@ -1,101 +1,56 @@
 # DODAS: TOSCA templates for applications
 
 ## Requirements
-In order to get your application to work, you need valid Indigo IAM credentials and an available OpenStack cloud infrastructure.
+Register to the IAM-DODAS service by accessing the service here. You can use your IdP because IAM-DODAS supports eduGAIN identity federation.
+The first registration will require the approval from the DODAS admins.
 
 ## Setting up dodas client
-```
-wget https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas.zip
-unzip dodas.zip
-cp dodas /usr/local/bin
-```
 
-If you are using MacOS X, you have to download https://github.com/Cloud-PG/dodas-go-client/releases/download/v0.3.3/dodas_osx.zip instead.
+Get the latest client following instructions at https://dodas-ts.github.io/dodas-go-client/.
 
 
-Create a ```.dodas-template.yaml``` and put this inside
+## Getting the token
 
-```
-cloud:
-    id: ost
-    type: OpenStack
-    host: https://cloud.recas.ba.infn.it:5000/
-    username: indigo-dc
-    password: token_template
-    tenant: oidc
-    auth_version: 3.x_oidc_access_token
-    service_region: recas-cloud
-im:
-    id: im
-    type: InfrastructureManager
-    host: https://im-dodas.cloud.cnaf.infn.it/infrastructures
-    token: token_template
-```
+Copy [```.dodas-template.yaml```](.dodas-template.yaml) and [```get_orchet_token.sh```](get_orchet_token.sh)
 
-Then, create a ```get_orchet_token.sh``` and write inside:
-
-```
-#!/usr/bin/env bash
-
-IAM_CLIENT_ID=dodas-demo
-IAM_CLIENT_SECRET=dodas-demo
-
-IAM_CLIENT_ID=${IAM_CLIENT_ID:-iam-client}
-IAM_CLIENT_SECRET=${IAM_CLIENT_SECRET}
-
-echo -ne "IAM User:"
-read IAM_USER
-
-echo -ne "Password:"
-stty -echo
-read IAM_PASSWORD
-stty echo
-
-echo
-
-res=$(curl -s -L \
-  -d client_id=${IAM_CLIENT_ID} \
-  -d client_secret=${IAM_CLIENT_SECRET} \
-  -d grant_type=password \
-  -d username=${IAM_USER} \
-  -d password=${IAM_PASSWORD} \
-  -d scope="openid profile email offline_access" \
-  ${IAM_ENDPOINT:-https://dodas-iam.cloud.cnaf.infn.it/token}
-)
-
-if [ $? != 0 ]; then
-  echo "Error!"
-  exit 1
-fi
-
-access_token=$(echo $res | jq -r .access_token)
-
-echo $access_token
-sed -e "s/token_template/${access_token}/" $HOME/.dodas-template.yaml > $HOME/.dodas.yaml
-```
-
-Once you have done this, run
+Run
 
 ```
 sh get_orchent_token.sh
 ```
-
 and put your Indigo IAM credentials in order to get your token which will be automatically put inside your newly created ```.dodas.yaml``` file. 
 
-Now you are ready to deploy your application, running:
+Now you are ready to deploy your application
+
+## Available applications
+
+### K8s as a service
+
+### Spark
+Apache Spark is a fast and general-purpose cluster computing system.
+
+* http://spark.apache.org/
+
+This chart will do the following:
+
+* 1 x Spark Master with port 30808 exposed with a nodePort service (webUi)
+* 1 x Jupyter notebook with port 30888 exposed with a nodePort service, with 2 executors
+* All using Kubernetes Deployments
+
+With these templates you can deploy Apache Spark on top of either k3s or k8s:
+- [Spark on k3s](templates/applications/k3s/template-spark.yml)
+- [Spark on k8s](templates/applications/k8s/template-spark.yml)
+
+#### Quick start
 
 ```
-dodas create template.yaml
+dodas create /templates/applications/k8s/template-spark.yaml
 ```
-
-where ```template.yaml``` is a TOSCA template.
-
 
 To get the infrastructure ID (infID) of all your deployments
-
 ```
 dodas list infIDs
-````
+```
 
 To check the status of the deployment
 ```
@@ -113,31 +68,26 @@ dodas login <infID> <vmID>
 sudo su
 ```
 
-## Available containers orchestrators
-
-TOSCA templates in this repo are used to deploy two different types of containers orchestrators: k3s and k8s.
-
-### K3s
-
-### Kubernetes
-
-## Available applications
-
-### Spark
-With these templates you can deploy Apache Spark on top of either k3s or k8s:
-- [Spark on k3s](templates/applications/k3s/template-spark.yml)
-- [Spark on k8s](templates/applications/k8s/template-spark.yml)
 ### HTCondor
+HTCondor is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks (https://research.cs.wisc.edu/htcondor/).
+
 With these templates you can deploy HTCondor on top of either k3s or k8s:
 - [HTCondor on k3s](templates/applications/k3s/template-htcondor.yml)
 - [HTCondor on k8s](templates/applications/k8s/template-htcondor.yml)
+
 ### CachingOnDemand
+
+XCache description is available in this article [here](https://iopscience.iop.org/article/10.1088/1742-6596/513/4/042044/pdf).
+
+You can look at the [official XrootD documentation](http://xrootd.org/docs.html) for detailed information about the XRootD tool:
+
+- [basic configuration](http://xrootd.org/doc/dev47/xrd_config.htm)
+- [cmsd configuration](http://xrootd.org/doc/dev45/cms_config.htm)
+- [proxy file cache](http://xrootd.org/doc/dev47/pss_config.htm)
+
 With these templates you can deploy Caching On Demand on top of either k3s or k8s:
 - [CachingOnDemand on k3s](templates/applications/k3s/template-cachingondemand.yml)
 - [CachingOn Demand on k8s](templates/applications/k8s/template-cachingondemand.yml)
-### OpenFAAS
-With these templates you can deploy OpenFaas on top of either k3s or k8s:
-- [OpenFaas on k3s](templates/applications/k3s/template-openfaas.yml)
-- [OpenFaas on k8s](templates/applications/k8s/template-openfaas.yml)
+
 
 All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.

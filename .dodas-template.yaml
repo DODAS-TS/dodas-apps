@@ -1,0 +1,14 @@
+cloud:
+    id: ost
+    type: OpenStack
+    host: https://cloud.recas.ba.infn.it:5000/
+    username: indigo-dc
+    password: token_template
+    tenant: oidc
+    auth_version: 3.x_oidc_access_token
+    service_region: recas-cloud
+im:
+    id: im
+    type: InfrastructureManager
+    host: https://im-dodas.cloud.cnaf.infn.it/infrastructures
+    token: token_template
