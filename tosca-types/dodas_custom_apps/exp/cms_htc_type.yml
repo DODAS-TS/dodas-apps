@@ -24,9 +24,6 @@ node_types:
       cms_config_phedexnode:
         type: string
         required: yes
-      cms_config_fallback_command:
-        type: string
-        required: yes
       cms_config_fallback_phedexnode:
         type: string
         required: no
