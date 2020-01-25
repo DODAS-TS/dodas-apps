@@ -32,10 +32,12 @@ node_types:
         required: yes
       nfs_master_ip:
         type: string
-        required: yes
+        required: no
+        default: ""
       nfs_path:
         type: string
-        required: yes
+        required: no
+        default: ""
     interfaces:
       Standard:
         start:
