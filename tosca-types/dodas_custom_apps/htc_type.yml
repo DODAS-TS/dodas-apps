@@ -11,13 +11,16 @@ node_types:
     properties:
       condor_host:
         type: string
-        required: yes
+        required: no
+        default: "DUMMY"
       ccb_address:
         type: string
-        required: yes
+        required: no
+        default: "DUMMY"
       schedd_netinterface:
         type: string
-        required: yes
+        required: no
+        default: "DUMMY"
       k8s_master_ip:
         type: string
         required: yes
