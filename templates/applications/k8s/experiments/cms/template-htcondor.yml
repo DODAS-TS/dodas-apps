@@ -49,7 +49,7 @@ topology_template:
 
     iam_token:
       type: string
-      default: "CHANGEME"
+      default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc5OTU2NjQxLCJpYXQiOjE1Nzk5NTMwNDEsImp0aSI6ImExNzA3OTUyLTI1ZjQtNDdkMC1iNmYxLWZmZDdkM2QyNWZmMSJ9.sDPgiDHk208O2tXvzfofunq8RLjpyXGfKhsmrzZJFItCNgAFser294ExA4pYiJBW0mj_5It3Tk4ENJeXpy2JD9vwtdWRtdA--BMGzPzQQ7sr2xP5SB-LeDFqdvsPVS7EC94Va6oZoTbwDeeNaHSKrnUfKihRdMcyzUUVyo4EZTk"
 
     cms_local_site:
       type: string
@@ -87,8 +87,8 @@ topology_template:
           image: {{ proxycache_docker_image }}
           tag: v1.1.4-dodas
           iamToken: {{ iam_token }}
-          iamClientId: CHANGEME 
-          iamClientSecret: CHANGEME 
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
           enabled: false
         htcMaster:
@@ -104,6 +104,8 @@ topology_template:
           tag: k8s
           pullPolicy: IfNotPresent
           replicas: 1
+        nfs:
+          enabled: true
 
           # # List of repos to be mounted
           repoList: cms.cern.ch oasis.cern.ch 
@@ -114,7 +116,7 @@ topology_template:
           #     -----END PUBLIC KEY-----
           defaultLocalConfig: |
             cms.cern.ch.conf: |
-              CVMFS_HTTP_PROXY=http://{{}}
+              CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
 
   node_templates:
 
@@ -142,9 +144,9 @@ topology_template:
         cms_config_stageoutcommand: { get_input: cms_config_stageoutcommand }
         cms_config_phedexnode: { get_input: cms_config_phedexnode }
         cms_xrd_readserver: { get_input: cms_xrd_readserver }
+        cms_config_mysquid_host: { get_attribute: [ k8s_master_server , private_address, 0 ] }
+        cms_config_mysquid_port: 3128
 
-        cms_config_mysquid_host:
-        cms_config_mysquid_port:
       requirements:
         - host: k8s_master_server
         - dependency: k8s_slave_ccb
