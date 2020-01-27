@@ -88,7 +88,9 @@ node_types:
           #     -----END PUBLIC KEY-----
           defaultLocalConfig:
             - file: cms.cern.ch.conf.repo
-              content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
+              content: |
+                export CMS_LOCAL_SITE=/etc/cvmfs/SITECONF
+                CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
             - file: oasis.cern.ch.repo
               content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
             - file: singularity.opensciencegrid.org.repo
