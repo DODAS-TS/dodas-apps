@@ -47,8 +47,6 @@ topology_template:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
-        # kube_version: 1.14.0
-        # kube_front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] } 
       requirements:
         - host: k8s-master-server
 
@@ -56,9 +54,6 @@ topology_template:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
-        #front_end_ip: { get_attribute: [ k8s-master-server, public_address, 0 ] }
-        #kube_version: 1.14.0
-        #nfs_master_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
       requirements:
         - host: k8s-slave-server
 

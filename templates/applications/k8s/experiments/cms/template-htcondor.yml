@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/exp/cms_htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -39,14 +39,6 @@ topology_template:
       default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
-    nfs_path:
-      type: string
-      default: "/data/my-storage-area"
-
-    nfs_master_ip:
-      type: string
-      default: "172.30.136.4"
-
     htcondor_docker_image:
       type: string
       default: "dodasts/htcondor"
@@ -57,7 +49,33 @@ topology_template:
 
     iam_token:
       type: string
-      default: "CHANGEME"
+      default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc5OTU2NjQxLCJpYXQiOjE1Nzk5NTMwNDEsImp0aSI6ImExNzA3OTUyLTI1ZjQtNDdkMC1iNmYxLWZmZDdkM2QyNWZmMSJ9.sDPgiDHk208O2tXvzfofunq8RLjpyXGfKhsmrzZJFItCNgAFser294ExA4pYiJBW0mj_5It3Tk4ENJeXpy2JD9vwtdWRtdA--BMGzPzQQ7sr2xP5SB-LeDFqdvsPVS7EC94Va6oZoTbwDeeNaHSKrnUfKihRdMcyzUUVyo4EZTk"
+
+    cms_local_site:
+      type: string
+      default: "T3_IT_Opportunistic_xcache"
+      
+    cms_stageoutsite:
+      type: string
+      default: "T1_IT_CNAF"
+      
+    cms_stageoutprotocol:
+      type: string
+      default: "srmv2"
+
+    cms_stageoutcommand:
+      type: string
+      default: "gfal2"
+
+    cms_phedexnode:
+      type: string
+      default: "T1_IT_CNAF_Disk"
+
+    cms_xrd_readserver:
+      type: string
+      default: "cloud-vm90.cloud.cnaf.infn.it:31194"
+
+    # TODO: implement squid
 
     helm_htcondor_values: 
       type: string
@@ -69,49 +87,36 @@ topology_template:
           image: {{ proxycache_docker_image }}
           tag: v1.1.4-dodas
           iamToken: {{ iam_token }}
-          iamClientId: CHANGEME 
-          iamClientSecret: CHANGEME 
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
         htcSchedd:
-          image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
-          networkInterface: {{ schedd_netinterface }}
-          persistence:
-            storageClass: local-path
+          enabled: false
         htcMaster:
-          image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
-          networkInterface: {{ condor_host }}
+          enabled: false
         htcWn:
           image: {{ htcondor_docker_image }}
           tag: v1.0.0.rc1
-        nfs:
-          enabled: false
-          # size: 2Gi
-          # claimSize: 950Mi
-          # # Put here the nfs master address
-          # server: {{ nfs_master_ip }}
-          # path: {{ nfs_path }}
-          # persistence:
-          #   claimSize: 950Mi
+          siteConfCMS:
+            enabled: true
         cvmfs:
-          enabled: false 
-          # image: dodasts/cvmfs
-          # tag: k8s
-          # pullPolicy: IfNotPresent
-          # replicas: 1
+          enabled: true 
+          image: dodasts/cvmfs
+          tag: k8s
+          pullPolicy: IfNotPresent
+          replicas: 1
+        nfs:
+          enabled: true
 
           # # List of repos to be mounted
-          # repoList: spiga.local.repo 
+          repoList: cms.cern.ch oasis.cern.ch 
 
           # privKey: |
           #   spiga.local.repo.pub: |-
           #     -----BEGIN PUBLIC KEY-----
           #     -----END PUBLIC KEY-----
-          # defaultLocalConfig: |
-          #   spiga.local.repo.conf: |
-          #     CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
-          #     CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
-          #     CVMFS_HTTP_PROXY=DIRECT
+          defaultLocalConfig: |
+            cms.cern.ch.conf: |
+              CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
 
   node_templates:
 
@@ -132,6 +137,16 @@ topology_template:
         iam_token:  { get_input: iam_token }
         nfs_master_ip: { get_input: nfs_master_ip }
         nfs_path: { get_input: nfs_path }
+
+        cms_config_cms_local_site: { get_input: cms_config_cms_local_site }
+        cms_config_stageoutsite: { get_input: cms_config_stageoutsite }
+        cms_config_stageoutprotocol: { get_input: cms_config_stageoutprotocol }
+        cms_config_stageoutcommand: { get_input: cms_config_stageoutcommand }
+        cms_config_phedexnode: { get_input: cms_config_phedexnode }
+        cms_xrd_readserver: { get_input: cms_xrd_readserver }
+        cms_config_mysquid_host: { get_attribute: [ k8s_master_server , private_address, 0 ] }
+        cms_config_mysquid_port: 3128
+
       requirements:
         - host: k8s_master_server
         - dependency: k8s_slave_ccb

@@ -51,17 +51,13 @@ node_types:
         type: string
         required: no
         default: ""
-      # externalParams:
-      #   type: string
-      #   required: no
-      #   default: "" 
       role_name:
         type: string
         required: no
-        default: dciangot.ansible_role_helmtest
+        default: dodas.helm
     artifacts:
       helm_config_role:
-        file: dciangot.ansible_role_helmtest
+        file: dodas.helm,v2.0.0-rc1
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -76,7 +72,6 @@ node_types:
             inline_options: { get_property: [ SELF, inline_options ] }
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
-            #externalParams: { get_property: [ SELF, externalParams ] }
 
   tosca.nodes.DODAS.KubeCreate:
     derived_from: tosca.nodes.SoftwareComponent
@@ -105,14 +100,15 @@ node_types:
       externalParams:
         type: list
         required: no
-        default: []
+        entry_schema:
+          type: string
       role_name:
         type: string
         required: no
-        default: cloud-pg.ansible_role_kubecreate
+        default: dodas.kubecreate
     artifacts:
       kubecreate_config_role:
-        file: cloud-pg.ansible_role_kubecreate
+        file: dodas.kubecreate,v2.0.0-rc1
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -153,10 +149,10 @@ node_types:
       role_name:
         type: string
         required: no
-        default: cloud-pg.k3s
+        default: dodas.k3s
     artifacts:
       k3s_config_role:
-        file: cloud-pg.k3s
+        file: dodas.k3s,v2.0.0-rc1
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -190,9 +186,13 @@ node_types:
         required: no
         type: string
         default: 1.16.4
+      nodelabel:
+        type: string
+        required: no
+        default: "testme=true"
     artifacts:
       kube_role:
-        file: cloud-pg.kubernetes
+        file: dodas.kubernetes,v2.0.0-rc2
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -211,6 +211,7 @@ node_types:
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
+            nodelabel: { get_property: [ SELF, nodelabel] }
 
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
@@ -225,17 +226,17 @@ node_types:
         required: no
         type: string
         default: some_insecure_token
-      #kube_version:
-      #  required: no
-      #  type: string
-      #  default: 1.14.1
+      kube_version:
+        required: no
+        type: string
+        default: 1.16.4
       kube_deploy_dashboard:
         required: no
         type: boolean
         default: true
     artifacts:
       kube_role:
-        file: cloud-pg.kubernetes
+        file: dodas.kubernetes,v2.0.0-rc2
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -255,5 +256,30 @@ node_types:
             fe_hybrid_cluster:  { get_property: [ SELF, hybrid] }
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
-            #kube_version:  { get_property: [ SELF, kube_version] }
+            kube_version:  { get_property: [ SELF, kube_version] }
 
+  #TO IMPROVE with DIEGO
+  tosca.nodes.indigo.NfsClient:
+    derived_from: tosca.nodes.SoftwareComponent
+    properties:
+      remote_path:
+        type: string
+        required: yes 
+      local_path:
+        type: string
+        required: yes 
+      server_host:
+        type: string
+        required: yes
+    artifacts:
+      nfs_role:
+        file: indigo-dc.nfs
+        type: tosca.artifacts.AnsibleGalaxy.role
+    interfaces:
+      Standard:
+        start:
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/nfs_client.yml
+          inputs:
+            remote_path: { get_property: [ SELF, remote_path ] }
+            local_path: { get_property: [ SELF, local_path ] }
+            server_host: { get_property: [ SELF, server_host ] }

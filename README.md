@@ -9,6 +9,7 @@ The first registration will require the approval from the DODAS admins.
 Get the latest client following instructions at https://dodas-ts.github.io/dodas-go-client/.
 
 
+
 ## Getting the token
 
 Follow instructions at https://indigo-iam.github.io/docs/v/current/user-guide/getting-a-token.html.
