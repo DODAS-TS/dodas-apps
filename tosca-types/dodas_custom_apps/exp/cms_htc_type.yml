@@ -86,9 +86,11 @@ node_types:
           #   spiga.local.repo.pub: |-
           #     -----BEGIN PUBLIC KEY-----
           #     -----END PUBLIC KEY-----
-          defaultLocalConfig: |
-            cms.cern.ch.conf: |
-              CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
+          defaultLocalConfig:
+            - file: cms.cern.ch.conf
+              content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
+            - file: oasis.cern.ch
+              content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
         htcWn:
           image: {{ htcondor_docker_image }}
           tag: v1.0.0.rc1
