@@ -87,10 +87,13 @@ node_types:
           #     -----BEGIN PUBLIC KEY-----
           #     -----END PUBLIC KEY-----
           defaultLocalConfig:
-            - file: cms.cern.ch.conf
+            - file: cms.cern.ch.conf.repo
               content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
-            - file: oasis.cern.ch
+            - file: oasis.cern.ch.repo
               content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
+            - file: singularity.opensciencegrid.org.repo
+            content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
+
         htcWn:
           image: {{ htcondor_docker_image }}
           tag: v1.0.0.rc1
