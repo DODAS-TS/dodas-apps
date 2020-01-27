@@ -16,6 +16,7 @@ Follow instructions at https://indigo-iam.github.io/docs/v/current/user-guide/ge
 Now you are ready to deploy your application.
 
 ## Available applications
+All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
 
 ### K8s as a service
 
@@ -57,7 +58,7 @@ With these templates you can deploy Caching On Demand on top of either k3s or k8
 - [CachingOn Demand on k8s](templates/applications/k8s/template-cachingondemand.yml)
 
 
-All of these templates uses the helm charts defined in https://github.com/DODAS-TS/helm_charts/tree/master/stable.
+
 
 
 ## Quick start
