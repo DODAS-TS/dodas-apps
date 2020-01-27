@@ -54,7 +54,99 @@ node_types:
       cms_config_mysquid_port:
         type: string
         required: yes
+    cms_value_file:
+      type: string
+      default: |
+        condorHost: {{ condor_host }}
+        ccbHost: {{ ccb_address }}
+        proxyCacheHost: {{ k8s_master_ip }}
+        ttsCache:
+          image: {{ proxycache_docker_image }}
+          tag: v1.1.4-dodas
+          iamToken: {{ iam_token }}
+          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
+        htcSchedd:
+          enabled: false
+        htcMaster:
+          enabled: false
+        squid:
+          enabled: true
+        cvmfs:
+          enabled: true 
+          image: dodasts/cvmfs
+          tag: k8s
+          pullPolicy: IfNotPresent
+          replicas: 1
 
+          # # List of repos to be mounted
+          repoList: cms.cern.ch oasis.cern.ch 
+
+          # privKey: |
+          #   spiga.local.repo.pub: |-
+          #     -----BEGIN PUBLIC KEY-----
+          #     -----END PUBLIC KEY-----
+          defaultLocalConfig: |
+            cms.cern.ch.conf: |
+              CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
+        htcWn:
+          image: {{ htcondor_docker_image }}
+          tag: v1.0.0.rc1
+          siteConfCMS:
+            enabled: true
+            files:
+              - name: sitelocal
+                path: JobConfig
+                filename: site-local-config.xml
+                content: |
+                  <site-local-config>
+                  <site name={{cms_config_cms_local_site}}>
+                  <event-data>
+                  <catalog url=\"trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/local/PhEDEx/storage.xml?protocol={{cms_input_protocol}}\"/>
+                  </event-data>
+                  <calib-data>
+                  <frontier-connect>
+                  <load balance=\"proxies\"/>
+                  <proxy url=\"http://{{cms_config_mysquid_host}}:{{cms_config_mysquid_port}}\"/>
+                  <backupproxy url=\"http://cmsbpfrontier.cern.ch:3128\"/>
+                  <backupproxy url=\"http://cmsbproxy.fnal.gov:3128\"/>
+                  <server url=\"http://cmsfrontier.cern.ch:8000/FrontierInt\"/>
+                  <server url=\"http://cmsfrontier1.cern.ch:8000/FrontierInt\"/>
+                  <server url=\"http://cmsfrontier2.cern.ch:8000/FrontierInt\"/>
+                  <server url=\"http://cmsfrontier3.cern.ch:8000/FrontierInt\"/>
+                  </frontier-connect>
+                  </calib-data>
+                  <local-stage-out>
+                    <command value=\"{{cms_config_stageoutcommand}}\"/>
+                    <catalog url=\"trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/{{cms_config_stageoutsite}}/PhEDEx/storage.xml?protocol={{cms_config_stageoutprotocol}}\"/>
+                    <se-name value=\"srm-eoscms.cern.ch\"/>
+                    <phedex-node value=\"{{cms_config_phedexnode}}\"/>
+                  </local-stage-out>
+                  <fallback-stage-out>
+                    <se-name value=\"t2-srm-02.lnl.infn.it\"/>
+                    <phedex-node value=\"{{cms_config_fallback_phedexnode}}\"/>
+                    <lfn-prefix value=\"{{cms_config_fallback_lfn_prefix}}\"/>
+                    <command value=\"{{cms_config_fallback_command}}\"/>
+                  </fallback-stage-out>
+                  </site>
+                  </site-local-config>
+
+              - name: storage
+                path: PhEDEx
+                filename: storage.xml
+                content: |
+                  <storage-mapping>
+                  <!-- AAA xrootd read rule -->
+                  <lfn-to-pfn protocol=\"xrootd\"
+                          destination-match=\".*\"
+                          path-match=\"/+store/(.*)\"
+                          result=\"root://{{cms_xrd_readserver}}//store/$1\"/>
+                  <!-- Onedata read rule -->
+                  <lfn-to-pfn protocol=\"onedata\"
+                          destination-match=\".*\"
+                          path-match=\"/(.*)\"
+                          result=\"/mnt/onedata/{{cms_input_path}}/$1\"/>
+                  </storage-mapping>
     interfaces:
       Standard:
         start:
@@ -63,7 +155,7 @@ node_types:
             role_name:  { get_property: [ SELF, role_name ] }
             name: { get_property: [ SELF, name ] }
             chart: { get_property: [ SELF, chart ] }
-            values_file: { get_property: [ SELF, values_file ] }
+            values_file: { get_property: [ SELF, cms_value_file ] }
             values_url: { get_property: [ SELF, values_url ] }
             inline_options: { get_property: [ SELF, inline_options ] }
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
