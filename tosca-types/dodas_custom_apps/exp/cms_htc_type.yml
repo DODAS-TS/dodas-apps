@@ -53,7 +53,8 @@ node_types:
         required: yes
       cms_config_mysquid_port:
         type: string
-        required: yes
+        required: no
+        default: 31128 
     cms_value_file:
       type: string
       default: |
@@ -75,25 +76,21 @@ node_types:
         cvmfs:
           enabled: true 
           image: dodasts/cvmfs
-          tag: k8s
+          tag: latest
           pullPolicy: IfNotPresent
           replicas: 1
 
           # # List of repos to be mounted
-          repoList: cms.cern.ch oasis.cern.ch 
+          repoList: cms.cern.ch oasis.cern.ch  singularity.opensciencegrid.org
 
-          # privKey: |
-          #   spiga.local.repo.pub: |-
-          #     -----BEGIN PUBLIC KEY-----
-          #     -----END PUBLIC KEY-----
           defaultLocalConfig:
-            - file: cms.cern.ch.conf.repo
+            - file: cms.cern.ch.conf
               content: |
                 export CMS_LOCAL_SITE=/etc/cvmfs/SITECONF
                 CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
-            - file: oasis.cern.ch.repo
+            - file: oasis.cern.ch.conf
               content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
-            - file: singularity.opensciencegrid.org.repo
+            - file: singularity.opensciencegrid.org.conf
             content: "CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}"
 
         htcWn:
