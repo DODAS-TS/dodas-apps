@@ -91,7 +91,7 @@ node_types:
               - file: oasis.cern.ch.conf
                 content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
               - file: singularity.opensciencegrid.org.conf
-              content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
+                content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
 
           htcWn:
             image: {{ htcondor_docker_image }}
