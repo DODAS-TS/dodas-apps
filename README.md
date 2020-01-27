@@ -68,6 +68,8 @@ To start your deployment:
 dodas create /templates/applications/k8s/template-spark.yaml
 ```
 
+![Alt text](/images/1.png)
+
 To get the infrastructure ID (infID) of all your deployments
 ```
 dodas list infIDs
