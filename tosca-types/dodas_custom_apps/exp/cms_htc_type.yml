@@ -3,9 +3,7 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 imports:
   - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml
 
-
 node_types:
-
   tosca.nodes.DODAS.HelmInstall.HTCondorCMS:
     derived_from: tosca.nodes.DODAS.HelmInstall.HTCondor
     properties:
@@ -27,34 +25,34 @@ node_types:
       cms_config_fallback_phedexnode:
         type: string
         required: no
-        default: 'T2_IT_myt2'
+        default: "T2_IT_myt2"
       cms_config_fallback_lfn_prefix:
         type: string
         required: no
-        default: 'srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=xxxxxxx'
+        default: "srm://t2-srm-02.lnl.infn.it:8443/srm/managerv2?SFN=xxxxxxx"
       cms_config_fallback_command:
         type: string
         required: no
-        default: 'gfal2'
+        default: "gfal2"
       cms_xrd_readserver:
         type: string
         required: no
-        default: 'xrootd.ba.infn.it'
+        default: "xrootd.ba.infn.it"
       cms_input_path:
         type: string
         required: no
-        default: 'my/oneclient/path'
+        default: "my/oneclient/path"
       cms_input_protocol:
         type: string
         required: no
-        default: 'xrootd'
+        default: "xrootd"
       cms_config_mysquid_host:
         type: string
         required: yes
       cms_config_mysquid_port:
         type: string
         required: no
-        default: 31128 
+        default: 31128
       cms_value_file:
         type: string
         default: |
@@ -76,7 +74,7 @@ node_types:
           cvmfs:
             enabled: true 
             image: dodasts/cvmfs
-            tag: latest
+            tag: test
             pullPolicy: IfNotPresent
             replicas: 1
 
@@ -156,34 +154,46 @@ node_types:
         start:
           implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
-            role_name:  { get_property: [ SELF, role_name ] }
-            name: { get_property: [ SELF, name ] }
-            chart: { get_property: [ SELF, chart ] }
-            values_file: { get_property: [ SELF, cms_value_file ] }
-            values_url: { get_property: [ SELF, values_url ] }
-            inline_options: { get_property: [ SELF, inline_options ] }
-            kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
-            repos: { get_property: [ SELF, repos ] }
-            condor_host: { get_property: [ SELF, condor_host ] }
-            ccb_address: { get_property: [ SELF, ccb_address ] }
-            schedd_netinterface: { get_property: [ SELF, schedd_netinterface ] }
-            iam_token: { get_property: [ SELF, iam_token ] }
-            proxycache_docker_image: { get_property: [ SELF, proxycache_docker_image ] }
-            htcondor_docker_image: { get_property: [ SELF, htcondor_docker_image ] }
-            k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
-            nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }
-            nfs_path:  { get_property: [ SELF, nfs_path ] }
-            
-            cms_config_cms_local_site: { get_property: [ SELF, cms_config_cms_local_site ] }
-            cms_input_protocol: { get_property: [ SELF, cms_input_protocol ] }
-            cms_config_mysquid_host: { get_property: [ SELF, cms_config_mysquid_host ] }
-            cms_config_mysquid_port: { get_property: [ SELF, cms_config_mysquid_port ] }
-            cms_config_stageoutsite: { get_property: [ SELF, cms_config_stageoutsite ] }
-            cms_config_stageoutprotocol: { get_property: [ SELF, cms_config_stageoutprotocol ] }
-            cms_config_stageoutcommand: { get_property: [ SELF, cms_config_stageoutcommand ] }
-            cms_config_phedexnode: { get_property: [ SELF, cms_config_phedexnode ] }
-            cms_config_fallback_phedexnode: { get_property: [ SELF, cms_config_fallback_phedexnode ] }
-            cms_config_fallback_lfn_prefix: { get_property: [ SELF, cms_config_fallback_lfn_prefix ] }
-            cms_config_fallback_command: { get_property: [ SELF, cms_config_fallback_command ] }
-            cms_xrd_readserver: { get_property: [ SELF, cms_xrd_readserver ] }
-            cms_input_path: { get_property: [ SELF, cms_input_path ] }
+            role_name: { get_property: [SELF, role_name] }
+            name: { get_property: [SELF, name] }
+            chart: { get_property: [SELF, chart] }
+            values_file: { get_property: [SELF, cms_value_file] }
+            values_url: { get_property: [SELF, values_url] }
+            inline_options: { get_property: [SELF, inline_options] }
+            kubeconfig_path: { get_property: [SELF, kubeconfig_path] }
+            repos: { get_property: [SELF, repos] }
+            condor_host: { get_property: [SELF, condor_host] }
+            ccb_address: { get_property: [SELF, ccb_address] }
+            schedd_netinterface: { get_property: [SELF, schedd_netinterface] }
+            iam_token: { get_property: [SELF, iam_token] }
+            proxycache_docker_image:
+              { get_property: [SELF, proxycache_docker_image] }
+            htcondor_docker_image:
+              { get_property: [SELF, htcondor_docker_image] }
+            k8s_master_ip: { get_property: [SELF, k8s_master_ip] }
+            nfs_master_ip: { get_property: [SELF, nfs_master_ip] }
+            nfs_path: { get_property: [SELF, nfs_path] }
+
+            cms_config_cms_local_site:
+              { get_property: [SELF, cms_config_cms_local_site] }
+            cms_input_protocol: { get_property: [SELF, cms_input_protocol] }
+            cms_config_mysquid_host:
+              { get_property: [SELF, cms_config_mysquid_host] }
+            cms_config_mysquid_port:
+              { get_property: [SELF, cms_config_mysquid_port] }
+            cms_config_stageoutsite:
+              { get_property: [SELF, cms_config_stageoutsite] }
+            cms_config_stageoutprotocol:
+              { get_property: [SELF, cms_config_stageoutprotocol] }
+            cms_config_stageoutcommand:
+              { get_property: [SELF, cms_config_stageoutcommand] }
+            cms_config_phedexnode:
+              { get_property: [SELF, cms_config_phedexnode] }
+            cms_config_fallback_phedexnode:
+              { get_property: [SELF, cms_config_fallback_phedexnode] }
+            cms_config_fallback_lfn_prefix:
+              { get_property: [SELF, cms_config_fallback_lfn_prefix] }
+            cms_config_fallback_command:
+              { get_property: [SELF, cms_config_fallback_command] }
+            cms_xrd_readserver: { get_property: [SELF, cms_xrd_readserver] }
+            cms_input_path: { get_property: [SELF, cms_input_path] }
