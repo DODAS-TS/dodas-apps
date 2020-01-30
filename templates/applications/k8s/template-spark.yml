@@ -43,14 +43,7 @@ topology_template:
       default: |
         externalIp:
           enabled: false
-        master:
-          image: dodasts/spark-k8s-py:v2.0.0-rc1
-          imageTag: v2.0.0-rc1
-          jupyter:
-            image: dodasts/pyspark-notebook
-            tag: v2.0.0-rc1
             
-
   node_templates:
 
     helm_install:
