@@ -1,12 +1,16 @@
-site_name: DODAS App Templates
+site_name: DODAS Apps
 theme:
   name: material
   logo:
     icon: cloud_circle
   palette:
-    primary: "Deep Purple"
-    accent: "Green"
+    primary: "Deep Blue"
+    accent: "Light Blue"
 nav:
   - Home: "README.md"
+  - Quick Start:
+    - Standalone setup: "quick-start.md"
+    - Community facility: "quick-start-community.md"
+  - From Helm to DODAS template: "from-helm2tosca.md"
 repo_name: "dodas-ts/dodas-templates"
 repo_url: "https://github.com/DODAS-TS/dodas-templates.git"
