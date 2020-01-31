@@ -37,7 +37,7 @@ topology_template:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
       default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      # default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
     nfs_path:
       type: string
@@ -96,19 +96,23 @@ topology_template:
         cvmfs:
           enabled: false 
           # image: dodasts/cvmfs
-          # tag: k8s
+          # tag: latest
           # pullPolicy: IfNotPresent
           # replicas: 1
 
           # # List of repos to be mounted
           # repoList: spiga.local.repo 
 
-          # privKey: |
-          #   spiga.local.repo.pub: |-
-          #     -----BEGIN PUBLIC KEY-----
-          #     -----END PUBLIC KEY-----
-          # defaultLocalConfig: |
-          #   spiga.local.repo.conf: |
+          # privKey:
+          #   - name: spiga
+          #     filename: spiga.local.repo.pub
+          #     path: ""
+          #     content: | 
+          #       -----BEGIN PUBLIC KEY-----
+          #       -----END PUBLIC KEY-----
+          # defaultLocalConfig:
+          #   file: spiga.local.repo.conf
+          #   content: |
           #     CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
           #     CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
           #     CVMFS_HTTP_PROXY=DIRECT
@@ -140,6 +144,7 @@ topology_template:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
+        kube_version: 1.17.0
       requirements:
         - host: k8s_master_server
 
@@ -147,6 +152,7 @@ topology_template:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
         nodelabel: "condor=ccb"
       requirements:
         - host: k8s_server_ccb
@@ -155,6 +161,7 @@ topology_template:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
         nodelabel: "condor=schedd"
       requirements:
         - host: k8s_server_schedd
@@ -163,6 +170,7 @@ topology_template:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
       properties:
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
       requirements:
         - host: k8s_server_wn
 

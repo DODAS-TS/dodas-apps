@@ -43,6 +43,12 @@ topology_template:
       default: |
         externalIp:
           enabled: false
+        master:
+          image: dodasts/spark-k8s-py
+          imageTag: v2.0.0-rc1
+          jupyter:
+            image: dodasts/pyspark-notebook
+            tag: v2.0.0-rc1
             
   node_templates:
 
@@ -64,12 +70,14 @@ topology_template:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
+        kube_version: 1.17.0
       requirements:
         - host: k8s_master_server
 
     k8s_slave:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes
       properties:
+        kube_version: 1.17.0
         front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
       requirements:
         - host: k8s_slave_server

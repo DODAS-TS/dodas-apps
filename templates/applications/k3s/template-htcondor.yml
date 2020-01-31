@@ -96,19 +96,23 @@ topology_template:
         cvmfs:
           enabled: false 
           # image: dodasts/cvmfs
-          # tag: k8s
+          # tag: latest
           # pullPolicy: IfNotPresent
           # replicas: 1
 
           # # List of repos to be mounted
           # repoList: spiga.local.repo 
 
-          # privKey: |
-          #   spiga.local.repo.pub: |-
-          #     -----BEGIN PUBLIC KEY-----
-          #     -----END PUBLIC KEY-----
-          # defaultLocalConfig: |
-          #   spiga.local.repo.conf: |
+          # privKey: 
+          #   - name: spiga
+          #     filename: spiga.local.repo.pub
+          #     path: ""
+          #     content: | 
+          #       -----BEGIN PUBLIC KEY-----
+          #       -----END PUBLIC KEY------
+          # defaultLocalConfig:
+          #   file: spiga.local.repo.conf
+          #   content: |
           #     CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
           #     CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
           #     CVMFS_HTTP_PROXY=DIRECT
@@ -142,6 +146,7 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: server
+        kube_version: 1.17.0
       requirements:
         - host: k3s_master_server
 
@@ -150,6 +155,7 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
+        kube_version: 1.17.0
         node_label: condor=ccb
       requirements:
         - host: k3s_server_ccb
@@ -160,6 +166,7 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
+        kube_version: 1.17.0
         node_label: condor=schedd
       requirements:
         - host: k3s_server_schedd
@@ -170,6 +177,7 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
+        kube_version: 1.17.0
       requirements:
         - host: k3s_server_wn
         - dependency: k3s_master

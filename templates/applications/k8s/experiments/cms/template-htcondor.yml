@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/exp/cms_htc_type.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-templates/master/tosca-types/dodas_custom_apps/exp/cms_htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -23,7 +23,7 @@ topology_template:
 
     number_of_slaves:
       type: integer
-      default: 1 
+      default: 2 
 
     num_cpus_slave: 
       type: integer
@@ -49,25 +49,25 @@ topology_template:
 
     iam_token:
       type: string
-      default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTc5OTU2NjQxLCJpYXQiOjE1Nzk5NTMwNDEsImp0aSI6ImExNzA3OTUyLTI1ZjQtNDdkMC1iNmYxLWZmZDdkM2QyNWZmMSJ9.sDPgiDHk208O2tXvzfofunq8RLjpyXGfKhsmrzZJFItCNgAFser294ExA4pYiJBW0mj_5It3Tk4ENJeXpy2JD9vwtdWRtdA--BMGzPzQQ7sr2xP5SB-LeDFqdvsPVS7EC94Va6oZoTbwDeeNaHSKrnUfKihRdMcyzUUVyo4EZTk"
+      default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTgwMjA4NDE3LCJpYXQiOjE1ODAyMDQ4MTgsImp0aSI6IjMwNzczM2QzLWQ3ZmMtNGI4Yy1hMTBlLTk1OTQxY2I1ZGRjYyJ9.F-ZqUklLrKj2RvbNHTjGG24YcAslP7zABVcPMVKQUDBJBkxpVNd-734onzFCYnVX2SGNOof1B2MFjeuJx77fTM0ZdY3fufT2CioPmTt4gGSi7XEhfKOKOG7ruHQZQigu4y4BmlvzUCQff5_4BRi0Oe94NVFznqgJdkELC_i0sDY"
 
-    cms_local_site:
+    cms_config_cms_local_site:
       type: string
       default: "T3_IT_Opportunistic_xcache"
       
-    cms_stageoutsite:
+    cms_config_stageoutsite:
       type: string
       default: "T1_IT_CNAF"
       
-    cms_stageoutprotocol:
+    cms_config_stageoutprotocol:
       type: string
       default: "srmv2"
 
-    cms_stageoutcommand:
+    cms_config_stageoutcommand:
       type: string
       default: "gfal2"
 
-    cms_phedexnode:
+    cms_config_phedexnode:
       type: string
       default: "T1_IT_CNAF_Disk"
 
@@ -75,68 +75,19 @@ topology_template:
       type: string
       default: "cloud-vm90.cloud.cnaf.infn.it:31194"
 
-    # TODO: implement squid
-
-    helm_htcondor_values: 
-      type: string
-      default: |
-        condorHost: {{ condor_host }}
-        ccbHost: {{ ccb_address }}
-        proxyCacheHost: {{ k8s_master_ip }}
-        ttsCache:
-          image: {{ proxycache_docker_image }}
-          tag: v1.1.4-dodas
-          iamToken: {{ iam_token }}
-          iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
-          iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
-        htcSchedd:
-          enabled: false
-        htcMaster:
-          enabled: false
-        htcWn:
-          image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
-          siteConfCMS:
-            enabled: true
-        cvmfs:
-          enabled: true 
-          image: dodasts/cvmfs
-          tag: k8s
-          pullPolicy: IfNotPresent
-          replicas: 1
-        nfs:
-          enabled: true
-
-          # # List of repos to be mounted
-          repoList: cms.cern.ch oasis.cern.ch 
-
-          # privKey: |
-          #   spiga.local.repo.pub: |-
-          #     -----BEGIN PUBLIC KEY-----
-          #     -----END PUBLIC KEY-----
-          defaultLocalConfig: |
-            cms.cern.ch.conf: |
-              CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}
-
   node_templates:
 
     helm_htcondor:
-      type: tosca.nodes.DODAS.HelmInstall.HTCondor
+      type: tosca.nodes.DODAS.HelmInstall.HTCondorCMS
       properties:
         repos:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
         name: "htcondor"
         chart: "dodas/htcondor"
-        values_file: { get_input: helm_htcondor_values }
-        condor_host: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
-        ccb_address: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
-        schedd_netinterface: { get_attribute: [ k8s_server_schedd , private_address, 0 ] }
         k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
         htcondor_docker_image:  { get_input: htcondor_docker_image }
         proxycache_docker_image:  { get_input: proxycache_docker_image }
         iam_token:  { get_input: iam_token }
-        nfs_master_ip: { get_input: nfs_master_ip }
-        nfs_path: { get_input: nfs_path }
 
         cms_config_cms_local_site: { get_input: cms_config_cms_local_site }
         cms_config_stageoutsite: { get_input: cms_config_stageoutsite }
@@ -145,11 +96,10 @@ topology_template:
         cms_config_phedexnode: { get_input: cms_config_phedexnode }
         cms_xrd_readserver: { get_input: cms_xrd_readserver }
         cms_config_mysquid_host: { get_attribute: [ k8s_master_server , private_address, 0 ] }
-        cms_config_mysquid_port: 3128
 
       requirements:
         - host: k8s_master_server
-        - dependency: k8s_slave_ccb
+        - dependency: k8s_slave_wn
 
     k8s_master:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
@@ -157,22 +107,6 @@ topology_template:
         admin_token: testme
       requirements:
         - host: k8s_master_server
-
-    k8s_slave_ccb:
-      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
-      properties:
-        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
-        nodelabel: "condor=ccb"
-      requirements:
-        - host: k8s_server_ccb
-
-    k8s_slave_schedd:
-      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
-      properties:
-        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
-        nodelabel: "condor=schedd"
-      requirements:
-        - host: k8s_server_schedd
 
     k8s_slave_wn:
       type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
@@ -186,7 +120,6 @@ topology_template:
       capabilities:
         endpoint:
           properties:
-            # network_name: infn-farm.PUBLIC
             network_name: PUBLIC
             ports:
               kube_port:
@@ -197,60 +130,10 @@ topology_template:
             count: { get_input: number_of_masters }
         host:
           properties:
-            # instance_type:  m1.medium
             num_cpus: { get_input: num_cpus_master }
             mem_size: { get_input: mem_size_master } 
         os:
           properties:
-            image: { get_input: server_image }
-
-    k8s_server_ccb:
-      type: tosca.nodes.indigo.Compute
-      capabilities:
-        endpoint:
-          properties:
-            network_name: PUBLIC
-            ports:
-              collector:
-                protocol: tcp
-                source: 9618
-        scalable:
-          properties:
-            count: 1
-        host:
-          properties:
-            #instance_type:  m1.medium
-            num_cpus: { get_input: num_cpus_slave }
-            mem_size: { get_input: mem_size_slave } 
-        os:
-          properties:
-            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
-            image: { get_input: server_image }
-
-    k8s_server_schedd:
-      type: tosca.nodes.indigo.Compute
-      capabilities:
-        endpoint:
-          properties:
-            network_name: PUBLIC
-            ports:
-              schedd:
-                protocol: tcp
-                source: 9618
-              registration:
-                protocol: tcp
-                source: 48080
-        scalable:
-          properties:
-            count: 1
-        host:
-          properties:
-            #instance_type:  m1.medium
-            num_cpus: { get_input: num_cpus_slave }
-            mem_size: { get_input: mem_size_slave } 
-        os:
-          properties:
-            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
             image: { get_input: server_image }
 
     k8s_server_wn:
@@ -258,19 +141,16 @@ topology_template:
       capabilities:
         endpoint:
           properties:
-            #network_name: test-net.PRIVATE
             network_name: PRIVATE
         scalable:
           properties:
             count: { get_input: number_of_slaves }
         host:
           properties:
-            #instance_type:  m1.medium
             num_cpus: { get_input: num_cpus_slave }
             mem_size: { get_input: mem_size_slave } 
         os:
           properties:
-            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
             image: { get_input: server_image }
 
   outputs:

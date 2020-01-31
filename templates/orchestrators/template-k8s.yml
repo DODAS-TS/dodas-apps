@@ -23,7 +23,7 @@ topology_template:
 
     number_of_slaves:
       type: integer
-      default: 1 
+      default: 3 
 
     num_cpus_slave: 
       type: integer
@@ -36,8 +36,8 @@ topology_template:
     server_image:
       type: string
       #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
       #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
   node_templates:
@@ -91,6 +91,7 @@ topology_template:
         scalable:
           properties:
             count: { get_input: number_of_slaves }
+            #removal_list: ['2','3']
         host:
           properties:
             #instance_type:  m1.large
