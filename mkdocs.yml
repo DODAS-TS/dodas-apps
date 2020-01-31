@@ -4,9 +4,9 @@ theme:
   logo:
     icon: cloud_circle
   palette:
-    primary: 'Deep Purple'
-    accent: 'Green'
+    primary: "Deep Purple"
+    accent: "Green"
 nav:
-- Home: 'README.md'
-repo_name: 'dodas-ts/dodas-templates'
-repo_url: 'https://github.com/dodas-ts/dodas-templates'
+  - Home: "README.md"
+repo_name: "dodas-ts/dodas-templates"
+repo_url: "https://github.com/DODAS-TS/dodas-templates.git"

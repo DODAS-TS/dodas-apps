@@ -30,7 +30,7 @@ Deploy a k8s cluster on demand with:
 
 Apache Spark is a fast and general-purpose cluster computing system.
 
-- [http://spark.apache.org/]()
+- [http://spark.apache.org/](http://spark.apache.org/)
 
 This chart will do the following:
 
