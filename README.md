@@ -45,7 +45,7 @@ With these templates you can deploy Apache Spark on top of either k3s or k8s:
 
 ### HTCondor
 
-HTCondor is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks (https://research.cs.wisc.edu/htcondor/).
+[HTCondor](https://research.cs.wisc.edu/htcondor/) is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks.
 
 With these templates you can deploy HTCondor on top of either k3s or k8s:
 
