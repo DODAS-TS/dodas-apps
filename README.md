@@ -27,10 +27,20 @@ The core component responsible for the deployment creation and management is the
 
 > IM is a tool that ease the access and the usability of IaaS clouds by automating the VMI selection, deployment, configuration, software installation, monitoring and update of Virtual Appliances. It supports APIs from a large number of virtual platforms, making user applications cloud-agnostic. In addition it integrates a contextualization system to enable the installation and configuration of all the user required applications providing the user with a fully functional infrastructure.
 
+## Quick start
+
+### DODAS CLI
+
 To start playing with DODAS templates we provide a two quick start guides:
 
 - using the **[community instance of IM](https://dodas-ts.github.io/dodas-templates/quick-start-community/)** (part of the Enabling facility offerr, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
-- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where IM will be deployed together with the dodas-operator
+- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where IM will be deployed on a docker container
+
+### DODAS Kuberntes operator
+
+If you already have a Kubernetes cluster and you want to manage your infrastructures as Kubernetes resources the [DODAS Kubernetes operator](https://github.com/DODAS-TS/dodas-operator/) is what you are looking for.
+
+Please refer to the documentation [here](https://dodas-ts.github.io/dodas-operator/) for a quick start guide.
 
 ## Available applications
 
