@@ -29,7 +29,7 @@ The core component responsible for the deployment creation and management is the
 
 ### Components
 
-![DODAS deployment schema](https://github.com/DODAS-TS/dodas-templates/tree/master/docs/imgs/k8s_dodas.png)
+![DODAS deployment schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/k8s_dodas.png)
 
 - Admins authenticate with the Infrastructure Manager
   - using either username and password or a IAM access token
