@@ -43,10 +43,6 @@ topology_template:
       type: string
       default: "dodasts/htcondor"
 
-    proxycache_docker_image:
-      type: string
-      default: "dodasts/ttscache"
-
     iam_token:
       type: string
       default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTgwMjA4NDE3LCJpYXQiOjE1ODAyMDQ4MTgsImp0aSI6IjMwNzczM2QzLWQ3ZmMtNGI4Yy1hMTBlLTk1OTQxY2I1ZGRjYyJ9.F-ZqUklLrKj2RvbNHTjGG24YcAslP7zABVcPMVKQUDBJBkxpVNd-734onzFCYnVX2SGNOof1B2MFjeuJx77fTM0ZdY3fufT2CioPmTt4gGSi7XEhfKOKOG7ruHQZQigu4y4BmlvzUCQff5_4BRi0Oe94NVFznqgJdkELC_i0sDY"
@@ -86,7 +82,6 @@ topology_template:
         chart: "dodas/htcondor"
         k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
         htcondor_docker_image:  { get_input: htcondor_docker_image }
-        proxycache_docker_image:  { get_input: proxycache_docker_image }
         iam_token:  { get_input: iam_token }
 
         cms_config_cms_local_site: { get_input: cms_config_cms_local_site }

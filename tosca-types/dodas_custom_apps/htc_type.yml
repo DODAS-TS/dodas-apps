@@ -27,9 +27,6 @@ node_types:
       iam_token:
         type: string
         required: yes
-      proxycache_docker_image:
-        type: string
-        required: yes
       htcondor_docker_image:
         type: string
         required: yes
@@ -58,7 +55,6 @@ node_types:
             ccb_address: { get_property: [ SELF, ccb_address ] }
             schedd_netinterface: { get_property: [ SELF, schedd_netinterface ] }
             iam_token: { get_property: [ SELF, iam_token ] }
-            proxycache_docker_image: { get_property: [ SELF, proxycache_docker_image ] }
             htcondor_docker_image: { get_property: [ SELF, htcondor_docker_image ] }
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
             nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }

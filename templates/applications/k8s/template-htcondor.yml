@@ -51,10 +51,6 @@ topology_template:
       type: string
       default: "dodasts/htcondor"
 
-    proxycache_docker_image:
-      type: string
-      default: "dodasts/ttscache"
-
     iam_token:
       type: string
       default: "CHANGEME"
@@ -66,8 +62,6 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          image: {{ proxycache_docker_image }}
-          tag: v1.1.4-dodas
           iamToken: {{ iam_token }}
           iamClientId: CHANGEME 
           iamClientSecret: CHANGEME 

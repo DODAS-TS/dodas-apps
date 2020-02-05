@@ -60,8 +60,8 @@ node_types:
           ccbHost: {{ ccb_address }}
           proxyCacheHost: {{ k8s_master_ip }}
           ttsCache:
-            image: {{ proxycache_docker_image }}
-            tag: v1.1.4-dodas
+            image: dodasts/tts-cache
+            tag: v0.1.1-k8s 
             iamToken: {{ iam_token }}
             iamClientId: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
             iamClientSecret: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
@@ -166,8 +166,6 @@ node_types:
             ccb_address: { get_property: [SELF, ccb_address] }
             schedd_netinterface: { get_property: [SELF, schedd_netinterface] }
             iam_token: { get_property: [SELF, iam_token] }
-            proxycache_docker_image:
-              { get_property: [SELF, proxycache_docker_image] }
             htcondor_docker_image:
               { get_property: [SELF, htcondor_docker_image] }
             k8s_master_ip: { get_property: [SELF, k8s_master_ip] }
