@@ -27,6 +27,21 @@ The core component responsible for the deployment creation and management is the
 
 > IM is a tool that ease the access and the usability of IaaS clouds by automating the VMI selection, deployment, configuration, software installation, monitoring and update of Virtual Appliances. It supports APIs from a large number of virtual platforms, making user applications cloud-agnostic. In addition it integrates a contextualization system to enable the installation and configuration of all the user required applications providing the user with a fully functional infrastructure.
 
+### Components
+
+![DODAS deployment schema](https://github.com/DODAS-TS/dodas-templates/tree/master/docs/imgs/k8s_dodas.png)
+
+- Admins authenticate with the Infrastructure Manager
+  - using either username and password or a IAM access token
+- IM uses the TOSCA template provided by the admin to deploy:
+  - a k8s cluster
+    - using the k8s ansible role [here](https://github.com/DODAS-TS/ansible-role-kubernetes)
+      - also k3s availabel [here](https://github.com/DODAS-TS/ansible-role-k3s)
+  - one or more helm charts on top of it
+    - using the helm install ansible role [here](https://github.com/DODAS-TS/ansible-role-helm)
+      - kubectl create of any manifest is also supported by an [ansible role](https://github.com/DODAS-TS/ansible-role-kubecreate)
+  - any other action supported or integrated into a tosca node type
+
 ## Quick start
 
 ### DODAS CLI
