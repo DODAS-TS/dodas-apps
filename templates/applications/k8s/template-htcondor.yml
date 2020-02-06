@@ -62,22 +62,24 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
+          image: dodasts/tts-cache
+          tag: v0.1.3-k8s-5
           iamToken: {{ iam_token }}
           iamClientId: CHANGEME 
           iamClientSecret: CHANGEME 
         htcSchedd:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
           networkInterface: {{ schedd_netinterface }}
           persistence:
             storageClass: local-path
         htcMaster:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
           networkInterface: {{ condor_host }}
         htcWn:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
         nfs:
           enabled: false
           # size: 2Gi
@@ -100,7 +102,7 @@ topology_template:
           # privKey:
           #   - name: spiga
           #     filename: spiga.local.repo.pub
-          #     path: ""
+          #     path: \"\"
           #     content: | 
           #       -----BEGIN PUBLIC KEY-----
           #       -----END PUBLIC KEY-----
@@ -126,7 +128,6 @@ topology_template:
         schedd_netinterface: { get_attribute: [ k8s_server_schedd , private_address, 0 ] }
         k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
         htcondor_docker_image:  { get_input: htcondor_docker_image }
-        proxycache_docker_image:  { get_input: proxycache_docker_image }
         iam_token:  { get_input: iam_token }
         nfs_master_ip: { get_input: nfs_master_ip }
         nfs_path: { get_input: nfs_path }

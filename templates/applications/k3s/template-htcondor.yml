@@ -51,10 +51,6 @@ topology_template:
       type: string
       default: "dodasts/htcondor"
 
-    proxycache_docker_image:
-      type: string
-      default: "dodasts/ttscache"
-
     iam_token:
       type: string
       default: "CHANGEME"
@@ -66,24 +62,24 @@ topology_template:
         ccbHost: {{ ccb_address }}
         proxyCacheHost: {{ k8s_master_ip }}
         ttsCache:
-          image: {{ proxycache_docker_image }}
-          tag: v1.1.4-dodas
+          image: dodasts/tts-cache
+          tag: v0.1.3-k8s-5
           iamToken: {{ iam_token }}
           iamClientId: CHANGEME 
           iamClientSecret: CHANGEME 
         htcSchedd:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
           networkInterface: {{ schedd_netinterface }}
           persistence:
             storageClass: local-path
         htcMaster:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
           networkInterface: {{ condor_host }}
         htcWn:
           image: {{ htcondor_docker_image }}
-          tag: v1.0.0.rc1
+          tag: v0.1.0-k8s-2
         nfs:
           enabled: false 
           # size: 2Gi
@@ -106,16 +102,16 @@ topology_template:
           # privKey: 
           #   - name: spiga
           #     filename: spiga.local.repo.pub
-          #     path: ""
+          #     path: \"\"
           #     content: | 
           #       -----BEGIN PUBLIC KEY-----
           #       -----END PUBLIC KEY------
           # defaultLocalConfig:
-          #   file: spiga.local.repo.conf
-          #   content: |
-          #     CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
-          #     CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
-          #     CVMFS_HTTP_PROXY=DIRECT
+          #   - file: spiga.local.repo.conf
+          #     content: |
+          #       CVMFS_SERVER_URL=http://172.30.136.3/cvmfs/spiga.local.repo
+          #       CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/spiga.local.repo.pub
+          #       CVMFS_HTTP_PROXY=DIRECT
 
   node_templates:
 
