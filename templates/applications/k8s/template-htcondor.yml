@@ -69,17 +69,17 @@ topology_template:
           iamClientSecret: CHANGEME 
         htcSchedd:
           image: {{ htcondor_docker_image }}
-          tag: v0.1.0-k8s-2
+          tag: v0.1.0-k8s-6
           networkInterface: {{ schedd_netinterface }}
           persistence:
             storageClass: local-path
         htcMaster:
           image: {{ htcondor_docker_image }}
-          tag: v0.1.0-k8s-2
+          tag: v0.1.0-k8s-6
           networkInterface: {{ condor_host }}
         htcWn:
           image: {{ htcondor_docker_image }}
-          tag: v0.1.0-k8s-2
+          tag: v0.1.0-k8s-6
         nfs:
           enabled: false
           # size: 2Gi
