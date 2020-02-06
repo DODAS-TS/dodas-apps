@@ -129,7 +129,6 @@ topology_template:
         schedd_netinterface: { get_attribute: [ k3s_server_schedd , private_address, 0 ] }
         k8s_master_ip: { get_attribute: [ k3s_master_server , private_address, 0 ] }
         htcondor_docker_image:  { get_input: htcondor_docker_image }
-        proxycache_docker_image:  { get_input: proxycache_docker_image }
         iam_token:  { get_input: iam_token }
         nfs_master_ip: { get_input: nfs_master_ip }
         nfs_path: { get_input: nfs_path }
@@ -142,7 +141,6 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: server
-        kube_version: 1.17.0
       requirements:
         - host: k3s_master_server
 
@@ -151,7 +149,6 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
-        kube_version: 1.17.0
         node_label: condor=ccb
       requirements:
         - host: k3s_server_ccb
@@ -162,7 +159,6 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
-        kube_version: 1.17.0
         node_label: condor=schedd
       requirements:
         - host: k3s_server_schedd
@@ -173,7 +169,6 @@ topology_template:
       properties:
         master_ip: { get_attribute: [ k3s_master_server, private_address, 0 ] }
         mode: node 
-        kube_version: 1.17.0
       requirements:
         - host: k3s_server_wn
         - dependency: k3s_master
