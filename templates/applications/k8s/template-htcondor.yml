@@ -92,7 +92,7 @@ topology_template:
         cvmfs:
           enabled: false 
           # image: dodasts/cvmfs
-          # tag: latest
+          # tag: test
           # pullPolicy: IfNotPresent
           # replicas: 1
 
