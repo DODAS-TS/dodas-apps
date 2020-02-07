@@ -6,7 +6,7 @@ branches: master # Set the branch to build from
 
 install:
     - pip install --upgrade pip
-    - pip install mkdocs mkdocs-material # Install the required dependencies
+    - pip install mkdocs mkdocs-material markdown==3.1 pymdown-extensions # Install the required dependencies
 
 script: true # Skip script (Don't use this if one already exists)
 
