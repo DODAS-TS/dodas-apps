@@ -21,6 +21,3 @@ extra:
       link: 'https://github.com/DODAS-TS'
     - type: 'slack'
       link: 'https://dodas-infn.slack.com/archives/CAJ6VG71A'
-
-markdown_extensions:
-  - codehilite
