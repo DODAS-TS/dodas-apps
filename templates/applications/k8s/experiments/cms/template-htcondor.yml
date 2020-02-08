@@ -151,3 +151,4 @@ topology_template:
   outputs:
     k8s_endpoint:
       value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
+      value: { get_attribute: [ helm_htcondor, state, 0 ] }

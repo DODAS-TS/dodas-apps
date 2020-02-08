@@ -149,6 +149,8 @@ node_types:
                             path-match=\"/(.*)\"
                             result=\"/mnt/onedata/{{cms_input_path}}/$1\"/>
                     </storage-mapping>
+    attributes: 
+      state: { get_operation_output: [ SELF, Standard, stop, STATE ] } 
     interfaces:
       Standard:
         start:
@@ -171,7 +173,6 @@ node_types:
             k8s_master_ip: { get_property: [SELF, k8s_master_ip] }
             nfs_master_ip: { get_property: [SELF, nfs_master_ip] }
             nfs_path: { get_property: [SELF, nfs_path] }
-
             cms_config_cms_local_site:
               { get_property: [SELF, cms_config_cms_local_site] }
             cms_input_protocol: { get_property: [SELF, cms_input_protocol] }
@@ -195,3 +196,5 @@ node_types:
               { get_property: [SELF, cms_config_fallback_command] }
             cms_xrd_readserver: { get_property: [SELF, cms_xrd_readserver] }
             cms_input_path: { get_property: [SELF, cms_input_path] }
+        stop:
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/stop.sh
