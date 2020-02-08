@@ -149,8 +149,6 @@ node_types:
                             path-match=\"/(.*)\"
                             result=\"/mnt/onedata/{{cms_input_path}}/$1\"/>
                     </storage-mapping>
-    attributes: 
-      state: { get_operation_output: [ SELF, Standard, stop, STATE ] } 
     interfaces:
       Standard:
         start:
