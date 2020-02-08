@@ -194,6 +194,5 @@ node_types:
               { get_property: [SELF, cms_config_fallback_command] }
             cms_xrd_readserver: { get_property: [SELF, cms_xrd_readserver] }
             cms_input_path: { get_property: [SELF, cms_input_path] }
-      Status:
         configure:
           implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/stop.sh
