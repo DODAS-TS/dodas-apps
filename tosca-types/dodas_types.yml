@@ -4,6 +4,14 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 imports:
   - https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/custom_types.yaml
 
+capability_types:
+
+tosca.capabilities.DODAS.depstatus:
+  derived_from: tosca.capabilities.Root
+  attributes:
+    status:
+      type: string 
+
 # Index
   # - KUBERNETES APPLICATION TOOLS
   # -ORCHESTRATORS: k3s and k8s
@@ -18,6 +26,9 @@ node_types:
 
   tosca.nodes.DODAS.HelmInstall:
     derived_from: tosca.nodes.SoftwareComponent
+    capabilites:
+      status:
+        type: tosca.capabilities.indigo.Endpoint
     properties:
       name:
         type: string
