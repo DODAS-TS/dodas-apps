@@ -26,7 +26,7 @@ node_types:
 
   tosca.nodes.DODAS.HelmInstall:
     derived_from: tosca.nodes.SoftwareComponent
-    capabilites:
+    capabilities:
       status:
         type: tosca.capabilities.DODAS.depstatus
     properties:
