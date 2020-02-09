@@ -1,3 +1,5 @@
 bkp_ignore/*
 site
 venv
+settings.json
+.vscode
