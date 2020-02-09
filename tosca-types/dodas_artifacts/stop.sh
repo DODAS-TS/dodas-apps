@@ -1,1 +1,1 @@
-export STATE=FINISHED
+echo "Finished"
