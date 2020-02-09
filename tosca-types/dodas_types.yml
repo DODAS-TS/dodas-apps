@@ -28,7 +28,7 @@ node_types:
     derived_from: tosca.nodes.SoftwareComponent
     capabilites:
       status:
-        type: tosca.capabilities.indigo.Endpoint
+        type: tosca.capabilities.DODAS.depstatus
     properties:
       name:
         type: string
