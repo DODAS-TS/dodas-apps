@@ -151,7 +151,7 @@ node_types:
                     </storage-mapping>
     attributes:
       state: 
-        value: { get_operation_output: [ SELF, Standard, configure, STATE ] } 
+        default: { get_operation_output: [ SELF, Standard, configure, STATE ] } 
         type: string
     interfaces:
       Standard:
