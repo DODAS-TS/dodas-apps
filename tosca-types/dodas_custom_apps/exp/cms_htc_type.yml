@@ -150,7 +150,9 @@ node_types:
                             result=\"/mnt/onedata/{{cms_input_path}}/$1\"/>
                     </storage-mapping>
     attributes:
-      state: { get_operation_output: [ SELF, Standard, configure, STATE ] } 
+      state: 
+        value: { get_operation_output: [ SELF, Standard, configure, STATE ] } 
+        type: string
     interfaces:
       Standard:
         start:
