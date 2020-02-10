@@ -6,6 +6,10 @@ imports:
 node_types:
   tosca.nodes.DODAS.HelmInstall.HTCondorCMS:
     derived_from: tosca.nodes.DODAS.HelmInstall.HTCondor
+    attributes:
+      status:
+        type: string
+        default: test
     properties:
       cms_config_cms_local_site:
         type: string

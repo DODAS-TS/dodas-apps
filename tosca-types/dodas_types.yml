@@ -6,12 +6,6 @@ imports:
 
 capability_types:
 
-  tosca.capabilities.DODAS.depstatus:
-    derived_from: tosca.capabilities.Root
-    attributes:
-      status:
-        type: string 
-
 # Index
   # - KUBERNETES APPLICATION TOOLS
   # -ORCHESTRATORS: k3s and k8s
