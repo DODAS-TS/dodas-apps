@@ -154,7 +154,7 @@ node_types:
         default: dodas.k3s
     artifacts:
       k3s_config_role:
-        file: dodas.k3s,v2.0.0-rc1
+        file: dodas.k3s,v2.0.0-rc2
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
