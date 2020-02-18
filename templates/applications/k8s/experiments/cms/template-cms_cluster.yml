@@ -45,7 +45,7 @@ topology_template:
 
     iam_token:
       type: string
-      default: "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTgwMjA4NDE3LCJpYXQiOjE1ODAyMDQ4MTgsImp0aSI6IjMwNzczM2QzLWQ3ZmMtNGI4Yy1hMTBlLTk1OTQxY2I1ZGRjYyJ9.F-ZqUklLrKj2RvbNHTjGG24YcAslP7zABVcPMVKQUDBJBkxpVNd-734onzFCYnVX2SGNOof1B2MFjeuJx77fTM0ZdY3fufT2CioPmTt4gGSi7XEhfKOKOG7ruHQZQigu4y4BmlvzUCQff5_4BRi0Oe94NVFznqgJdkELC_i0sDY"
+      default: "changeme"
 
     cms_config_cms_local_site:
       type: string

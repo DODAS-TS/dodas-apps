@@ -1,0 +1,318 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml 
+
+description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
+
+topology_template:
+
+  inputs:
+
+    number_of_masters:
+      type: integer
+      default: 1
+
+    num_cpus_master: 
+      type: integer
+      default: 4
+
+    mem_size_master:
+      type: string
+      default: "8 GB"
+
+    number_of_slaves:
+      type: integer
+      default: 2 
+
+    num_cpus_slave: 
+      type: integer
+      default: 4
+
+    mem_size_slave:
+      type: string
+      default: "8 GB"
+
+    server_image:
+      type: string
+      #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
+      default: "ost://controller/9e28fcb5-cc9a-4a30-9bed-a25d1f6ceae0"
+      #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
+      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
+
+    nfs_path:
+      type: string
+      default: "/home/Volume_Fermi"
+
+    nfs_master_ip:
+      type: string
+      default: "193.204.89.118"
+
+    htcondor_docker_image:
+      type: string
+      default: "dodasts/htcondor"
+
+    iam_token:
+      type: string
+      default: "<CHANGEME>"
+
+    helm_htcondor_values: 
+      type: string
+      default: |
+        condorHost: {{ condor_host }}
+        ccbHost: {{ ccb_address }}
+        proxyCacheHost: {{ k8s_master_ip }}
+        ttsCache:
+          image: dodasts/tts-cache
+          tag: v0.1.3-k8s-6
+          iamToken: {{ iam_token }}
+          iamClientId: 99f7152a-...-8f27dcbe67e0 
+          iamClientSecret: AIEx7S3vA-...-b2lQ8i4Qdv_38o 
+        htcSchedd:
+          image: {{ htcondor_docker_image }}
+          tag: v0.1.0-k8s-schedd-3
+          networkInterface: {{ schedd_netinterface }}
+          persistence:
+            storageClass: local-path
+            size: 200Gi
+            claimSize: 199Gi
+
+            # local-storage for k8s, local-path for k3s
+            storageClass: local-storage
+
+            # persistence of the schedd spool directory
+            mountPath: /var/lib/condor/spool/
+
+            # mount options
+            options: |
+              local:
+                path: \"/mnt/spool/\"
+              nodeAffinity:
+                required:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: condor
+                        operator: In
+                        values:
+                          - schedd
+        htcMaster:
+          image: {{ htcondor_docker_image }}
+          tag: v0.1.0-k8s-fermi-2
+          networkInterface: {{ condor_host }}
+        htcWn:
+          image: {{ htcondor_docker_image }}
+          tag: v0.1.0-k8s-fermi-2
+        nfs:
+          enabled: true 
+          size: 2Gi
+          claimSize: 950Mi
+          # Put here the nfs master address
+          server: {{ nfs_master_ip }}
+          path: {{ nfs_path }}
+          mountPath: \"/home/Volume_Fermi\" 
+          persistence:
+            claimSize: 950Mi
+        cvmfs:
+          enabled: true 
+          image: cloudpg/cvmfs
+          tag: k8s-4
+          pullPolicy: IfNotPresent
+          replicas: 1
+
+          # List of repos to be mounted
+          repoList: fermi.local.repo 
+
+          privKey: 
+            - name: fermi
+              filename: fermi.local.repo.pub
+              path: \"keys\"
+              content: | 
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5Rezgpvuhl0lyEMFTuKm
+                +J2D5KwjzgNLMEMG6dumKb7Zjohy8dxvhHqqH9USQrF570ug+i5pLHcZB66Z0bBC
+                Ni4IyeTZyEhGo/TGV2XcJZOFX8iR9L6XcbxPOZCNtnyh+UiC6vuwqGYDuh+cLc35
+                TQaqw+zrdmy5SlJNfIh4j4XAt4W9v+BUFNVAoCclCnpw2MiQjKIo+zkHiOaXecPG
+                Nqg+Pmc1jVkjIsarAMtelPG9AZTftRmMpPz71DiqmVylVvBuAwyrOvVtxHUayRZ8
+                VEWSOamqQ87t5rdo50X/5tyH8RDQ/s+jbRwghQN/4MYIrslakCSkwZbbKN4xPS5q
+                0QIDAQAB
+                -----END PUBLIC KEY-----
+          defaultLocalConfig:
+            - file: fermi.local.repo.conf
+              content: |
+                CVMFS_SERVER_URL=http://193.204.89.114/cvmfs/fermi.local.repo
+                CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/fermi.local.repo.pub
+                CVMFS_HTTP_PROXY=DIRECT
+
+  node_templates:
+
+    helm_htcondor:
+      type: tosca.nodes.DODAS.HelmInstall.HTCondor
+      properties:
+        repos:
+          - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
+        name: "htcondor"
+        chart: "dodas/htcondor"
+        values_file: { get_input: helm_htcondor_values }
+        condor_host: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        ccb_address: { get_attribute: [ k8s_server_ccb , private_address, 0 ] }
+        schedd_netinterface: { get_attribute: [ k8s_server_schedd , public_address, 0 ] }
+        k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
+        htcondor_docker_image:  { get_input: htcondor_docker_image }
+        iam_token:  { get_input: iam_token }
+        nfs_master_ip: { get_input: nfs_master_ip }
+        nfs_path: { get_input: nfs_path }
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    k8s_master:
+      type: tosca.nodes.DODAS.FrontEnd.Kubernetes
+      properties:
+        admin_token: testme
+        kube_version: 1.17.0
+      requirements:
+        - host: k8s_master_server
+
+    k8s_slave_ccb:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+        nodelabel: "condor=ccb"
+      requirements:
+        - host: k8s_server_ccb
+
+    k8s_slave_schedd:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+        nodelabel: "condor=schedd"
+      requirements:
+        - host: k8s_server_schedd
+
+    k8s_slave_wn:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+      requirements:
+        - host: k8s_server_wn
+
+    k8s_master_server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            # network_name: infn-farm.PUBLIC
+            network_name: PUBLIC
+            ports:
+              kube_port:
+                protocol: tcp
+                source: 30443
+        scalable:
+          properties:
+            count: { get_input: number_of_masters }
+        host:
+          properties:
+            # instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_master }
+            mem_size: { get_input: mem_size_master } 
+        os:
+          properties:
+            image: { get_input: server_image }
+
+    k8s_server_ccb:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              collector:
+                protocol: tcp
+                source: 9618
+              shared:
+                protocol: tcp
+                source_range: [ 1000 , 45000 ]
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+    k8s_server_schedd:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              schedd:
+                protocol: tcp
+                source: 9618
+              shared:
+                protocol: tcp
+                source_range: [ 1000 , 45000 ]
+              registration:
+                protocol: tcp
+                source: 48080
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+      requirements:
+      # contextually this can only be a relationship type
+        - local_storage:
+            # capability is provided by Compute Node Type
+            node: schedd_pool
+            capability: tosca.capabilities.Attachment
+            relationship:
+              type: tosca.relationships.AttachesTo
+              properties:
+                location: /mnt/spool/
+                device: hdb
+
+    schedd_pool:
+      type: tosca.nodes.BlockStorage 
+      properties:
+        size: 210 GB
+
+    k8s_server_wn:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            #network_name: test-net.PRIVATE
+            network_name: PRIVATE
+        scalable:
+          properties:
+            count: { get_input: number_of_slaves }
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus_slave }
+            mem_size: { get_input: mem_size_slave } 
+        os:
+          properties:
+            # image: "ost://openstack.fisica.unipg.it/d9a41aed-3ebf-42f9-992e-ef0078d3de95"
+            image: { get_input: server_image }
+
+  outputs:
+    k8s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
