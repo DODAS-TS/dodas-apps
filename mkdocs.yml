@@ -1,8 +1,7 @@
 site_name: DODAS Apps
 theme:
   name: material
-  logo:
-    icon: cloud_circle
+  logo: 'https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png'
   palette:
     primary: "Deep Blue"
     accent: "Light Blue"
