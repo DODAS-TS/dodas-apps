@@ -1,4 +1,8 @@
-# DODAS: TOSCA templates for applications
+# DODAS: TOSCA templates for applicaton
+
+<p align="center">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="200" height="200" />
+</p>
 
 ![travis build](https://travis-ci.org/DODAS-TS/dodas-templates.svg?branch=master)
 
