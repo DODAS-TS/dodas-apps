@@ -69,7 +69,7 @@ topology_template:
           iamClientSecret: CHANGEME 
         htcSchedd:
           image: {{ htcondor_docker_image }}
-          tag: v0.1.0-k8s-10
+          tag: v0.1.0-k8s-schedd-3
           networkInterface: {{ schedd_netinterface }}
           persistence:
             storageClass: local-path
