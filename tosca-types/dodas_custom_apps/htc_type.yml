@@ -42,6 +42,10 @@ node_types:
         type: string
         required: no
         default: ""
+      squid_port:
+        type: string
+        required: no
+        default: "31128"
     interfaces:
       Standard:
         start:
@@ -63,4 +67,5 @@ node_types:
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
             nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }
             nfs_path:  { get_property: [ SELF, nfs_path ] }
-            squid_host:  { get_property: [ SELF, nfs_path ] }
+            squid_host:  { get_property: [ SELF, squid_host ] }
+            squid_port: { get_property: [ SELF, squid_port ] }
