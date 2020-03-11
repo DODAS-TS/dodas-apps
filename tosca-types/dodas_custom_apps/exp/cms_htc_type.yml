@@ -73,7 +73,7 @@ node_types:
           proxyCacheHost: {{ k8s_master_ip }}
           ttsCache:
             image: dodasts/tts-cache
-            tag: v0.1.3-k8s-8
+            tag: v0.1.3-k8s-9
             iamToken: {{ iam_token }}
             iamClientId: {{ iam_client_id }}
             iamClientSecret: {{ iam_client_secret }}

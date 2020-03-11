@@ -38,6 +38,10 @@ node_types:
         type: string
         required: no
         default: ""
+      squid_host:
+        type: string
+        required: no
+        default: ""
     interfaces:
       Standard:
         start:
@@ -59,3 +63,4 @@ node_types:
             k8s_master_ip: { get_property: [ SELF, k8s_master_ip ] }
             nfs_master_ip: { get_property: [ SELF, nfs_master_ip ] }
             nfs_path:  { get_property: [ SELF, nfs_path ] }
+            squid_host:  { get_property: [ SELF, nfs_path ] }
