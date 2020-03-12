@@ -1,0 +1,28 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml 
+
+
+node_types:
+    tosca.nodes.DODAS.HelmInstall.Grafana:
+        derived_from: tosca.nodes.DODAS.HelmInstall
+        properties:
+        prometheus_host:
+            type: string
+            required: no
+            default: "localhost"
+        interfaces:
+        Standard:
+            start:
+            implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+            inputs:
+                role_name:  { get_property: [ SELF, role_name ] }
+                name: { get_property: [ SELF, name ] }
+                chart: { get_property: [ SELF, chart ] }
+                values_file: { get_property: [ SELF, values_file ] }
+                values_url: { get_property: [ SELF, values_url ] }
+                inline_options: { get_property: [ SELF, inline_options ] }
+                kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
+                repos: { get_property: [ SELF, repos ] }
+                prometheus_host: { get_property: [ SELF, prometheus_host ] }
