@@ -194,7 +194,7 @@ node_types:
         default: "testme=true"
     artifacts:
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc3
+        file: dodas.kubernetes,v2.0.0-rc4
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -238,7 +238,7 @@ node_types:
         default: true
     artifacts:
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc3
+        file: dodas.kubernetes,v2.0.0-rc4
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
