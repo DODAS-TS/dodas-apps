@@ -146,8 +146,8 @@ The web page generated will be now update at each change you do on the local fol
 
 **This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.**                          
 
-![EU logo](https://github.com/DODAS-TS/dodas-templates/blob/master/docs/img/eu-logo.jpeg)                              
-![EOSC hub logo](https://github.com/DODAS-TS/dodas-templates/blob/master/docs/img/eosc-hub-web.png)
+![EU logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eu-logo.jpeg)                              
+![EOSC hub logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eosc-hub-web.png)
 
 
 ## Contact us
