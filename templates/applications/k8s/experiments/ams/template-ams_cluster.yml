@@ -1,0 +1,409 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml
+  - grafana_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/grafana_type.yml
+
+description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
+
+topology_template:
+
+  inputs:
+
+    number_of_masters:
+      type: integer
+      default: 1
+
+    number_of_slaves:
+      type: integer
+      default: 24
+
+    server_image:
+      type: string
+      default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
+
+    slave_image:
+      type: string
+      default: "ost://openstack.fisica.unipg.it/1c334195-3203-43cb-b13f-d3159304a6d6"
+
+    #NFS
+    nfs_path:
+      type: string
+      default: "NOT NEEDED"
+
+    nfs_master_ip:
+      type: string
+      default: "NOT NEEDED"
+
+    htcondor_docker_image:
+      type: string
+      default: "dodasts/htcondor"
+
+    proxycache_docker_image:
+      type: string
+      default: "dodasts/ttscache"
+ 
+    iam_token:
+      type: string
+      default: "<CHANGEME>"
+
+    helm_htcondor_values:
+      type: string
+      default: |
+        condorHost: {{ condor_host }}
+        ccbHost: {{ ccb_address }}
+        proxyCacheHost: {{ k8s_master_ip }}
+        ttsCache:
+          image: {{ proxycache_docker_image }}
+          tag: v0.1.3-k8s-12
+          iamToken: {{ iam_token }}
+          iamClientId: <CHANGEME>
+          iamClientSecret: <CHANGEME>
+        htcSchedd:
+          image: {{ htcondor_docker_image }}
+          tag: v0.1.0-k8s-schedd-3 
+          networkInterface: {{ schedd_netinterface }}
+          persistence:
+            enabled: true
+            size: 5Gi
+            claimSize: 4Gi
+            storageClass: local-storage
+            mountPath: /var/lib/condor/spool/
+            # mount options
+            options: |
+              local:
+                path: \"/tmp/\"
+              nodeAffinity:
+                required:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: condor
+                      operator: In
+                      values:
+                      - schedd
+        htcMaster:
+          image: {{ htcondor_docker_image }}
+          tag: v0.1.0-k8s-schedd-3 
+          networkInterface: {{ condor_host }}
+        htcWn:
+          image: {{ htcondor_docker_image }}
+          tag: k8s-2
+        nfs:
+          enabled: false
+        cvmfs:
+          enabled: true
+          image: dodasts/cvmfs
+          tag: k8s-dev
+          pullPolicy: IfNotPresent
+          replicas: 1
+
+          # List of repos to be mounted
+          repoList: ams.local.repo ams.cern.ch sft.cern.ch
+
+          privKey: 
+            - name: ams
+              filename: ams.local.repo.pub
+              path: \"keys/ams.local.repo\"
+              content: | 
+                -----BEGIN PUBLIC KEY-----
+                    <CHANGEME>
+                -----END PUBLIC KEY-----
+          defaultLocalConfig:
+            - file: ams.local.repo.conf
+              content: |
+                CVMFS_SERVER_URL=http://<CHANGEME>/cvmfs/ams.local.repo
+                CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/ams.local.repo/ams.local.repo.pub
+                CVMFS_HTTP_PROXY=DIRECT
+                CVMFS_DEBUGFILE=/tmp/cvmfs_ams_local.log
+            - file: ams.cern.ch.conf
+              content: |
+                CVMFS_SERVER_URL=http://cvmfs-stratum-one.cern.ch/cvmfs/ams.cern.ch
+                CVMFS_HTTP_PROXY=DIRECT
+                CVMFS_DEBUGFILE=/tmp/cvmfs_ams_cern.log
+            - file: sft.cern.ch.conf
+              content: |
+                CVMFS_SERVER_URL=http://cvmfs-stratum-one.cern.ch/cvmfs/sft.cern.ch
+                CVMFS_HTTP_PROXY=DIRECT
+                CVMFS_DEBUGFILE=/tmp/cvmfs_sft.log
+
+  node_templates:
+
+    helm_htcondor:
+      type: tosca.nodes.DODAS.HelmInstall.HTCondor
+      properties:
+        repos:
+          - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
+        name: "htcondor"
+        chart: "dodas/htcondor"
+        values_file: { get_input: helm_htcondor_values }
+        condor_host: { get_attribute: [ k8s_server_ccb , public_address, 0 ] }
+        ccb_address: { get_attribute: [ k8s_server_ccb , public_address, 0 ] }
+        schedd_netinterface: { get_attribute: [ k8s_server_schedd , public_address, 0 ] }
+        k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
+        htcondor_docker_image:  { get_input: htcondor_docker_image }
+        iam_token:  { get_input: iam_token }
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    helm_prom:
+      type: tosca.nodes.DODAS.HelmInstall
+      properties:
+        name: "prometheus"
+        chart: "stable/prometheus"
+        repos: []
+        values_file: |
+          server:
+            service:
+              type: NodePort
+              nodePort: 30080
+            persistentVolume:
+              enabled: false
+          alertmanager:
+            enabled: false
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    helm_kube_eagle:
+      type: tosca.nodes.DODAS.HelmInstall
+      properties:
+        name: "kube-eagle"
+        chart: "kube-eagle/kube-eagle"
+        repos:
+          - { name: kube-eagle, url: "https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master" }
+        # TODO: create namespace
+        #inline_options:
+        #  - "--namespace monitoring"
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    # CREATE GRAFANA ADMIN PASSWORD AND SECRET
+    ## TODO: also create namespace
+    grafana_secrets:
+      type: tosca.nodes.DODAS.KubeCreate
+      properties:
+        externalParams: [] # TO BE REMOVED IN TYPES
+        name: grafana-secrets
+        manifest_file: |
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: grafana-secrets
+          type: Opaque
+          stringData:
+            admin-user: admin
+            admin-password: testme 
+      requirements:
+        - host: k8s_master_server
+        - dependency: k8s_slave_ccb
+
+    helm_grafana:
+      type: tosca.nodes.DODAS.HelmInstall.Grafana
+      properties:
+        name: "grafana"
+        chart: "stable/grafana"
+        repos: []
+        prometheus_host: { get_attribute: [ k8s_master_server , private_address, 0 ] }
+        values_file: |
+          admin:
+            existingSecret: grafana-secrets
+          service:
+            type: NodePort
+            nodePort: 31900
+          datasources:
+            datasources.yaml:
+              apiVersion: 1
+              datasources:
+              - name: Prometheus
+                type: prometheus
+                url: http://{{ prometheus_host }}:30080
+                access: proxy
+                isDefault: true
+          dashboards:
+            default:
+              prometheus-stats:
+                # Ref: https://grafana.com/dashboards/10000
+                gnetId: 10000
+                revision: 1
+                datasource: Prometheus
+              kube-eagle-stats:
+                # Ref: https://grafana.com/dashboards/9871
+                gnetId: 9871
+                revision: 2
+                datasource: Prometheus
+          dashboardProviders:
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+              - name: 'default'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards
+      requirements:
+        - host: k8s_master_server
+        - dependency: grafana_secrets
+        - dependency: helm_prom
+
+    k8s_master:
+      type: tosca.nodes.DODAS.FrontEnd.Kubernetes
+      properties:
+        admin_token: scucciabene
+        kube_version: 1.17.0
+      requirements:
+        - host: k8s_master_server
+
+    k8s_slave_ccb:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+        nodelabel: "condor=ccb"
+      requirements:
+        - host: k8s_server_ccb
+
+    k8s_slave_schedd:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+        nodelabel: "condor=schedd"
+      requirements:
+        - host: k8s_server_schedd
+
+    k8s_slave_wn:
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes
+      properties:
+        front_end_ip: { get_attribute: [ k8s_master_server, private_address, 0 ] }
+        kube_version: 1.17.0
+      requirements:
+        - host: k8s_server_wn
+
+    k8s_master_server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            # network_name: infn-farm.PUBLIC
+            network_name: PUBLIC
+            ports:
+              kube_port:
+                protocol: tcp
+                source: 30443
+              grafana_port:
+                protocol: tcp
+                source: 31900
+        scalable:
+          properties:
+            count: { get_input: number_of_masters }
+        host:
+          properties:
+            instance_type:  m1.medium
+        os:
+          properties:
+            image: { get_input: server_image }
+
+    k8s_server_ccb:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              collector:
+                protocol: tcp
+                source: 9618
+              shared:
+                protocol: tcp
+                source_range: [ 100 , 45000 ]
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            instance_type:  m1.medium
+        os:
+          properties:
+            image: { get_input: server_image }
+
+    k8s_server_schedd:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              schedd:
+                protocol: tcp
+                source: 9618
+              shared:
+                protocol: tcp
+                source_range: [ 100 , 45000 ]
+              registration:
+                protocol: tcp
+                source: 48080
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            instance_type:  m1.medium
+        os:
+          properties:
+            image: { get_input: server_image }
+      requirements:
+       # contextually this can only be a relationship type
+        - local_storage:
+            # capability is provided by Compute Node Type
+            node: schedd_pool
+            capability: tosca.capabilities.Attachment
+            relationship:
+              type: tosca.relationships.AttachesTo
+              properties:
+                location: /spooldir
+                device: hdb
+
+    schedd_pool:
+      type: tosca.nodes.BlockStorage
+      properties:
+        size: 300 GB
+
+    k8s_server_wn:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: ams-net
+        scalable:
+          properties:
+            count: { get_input: number_of_slaves }
+        host:
+          properties:
+            instance_type: asi.large
+        os:
+          properties:
+            image: { get_input: slave_image }
+
+  policies:
+   - set_availability_zone:
+      type: tosca.policies.Placement
+      properties: { availability_zone: 'asi'}
+      targets: [ k8s_server_wn ]
+
+   - set_availability_zone_a:
+      type: tosca.policies.Placement
+      properties: { availability_zone: 'nova'}
+      targets: [ k8s_server_schedd,k8s_server_ccb,k8s_master_server ]
+
+  outputs:
+    k8s_endpoint:
+      value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
+    grafana_endpoint:
+      value: { concat: [ 'http://', get_attribute: [ k8s_master_server, public_address, 0 ], ':31900' ] }
+    ccb_endpoint:
+      value: { concat: [ 'condor_status  ', get_attribute: [ k8s_server_ccb, public_address, 0 ], ':9618 -schedd' ] }
