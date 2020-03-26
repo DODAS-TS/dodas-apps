@@ -1,0 +1,67 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml
+
+tosca.nodes.DODAS.JupyterVM:
+    derived_from: tosca.nodes.SoftwareComponent
+    properties:
+        vm_user:
+            type: string
+            required: no
+            defualt: cloudadm
+        jupyter_port:
+            type: string
+            required: no
+            default: 8888
+        jupyter_token:
+            type: string
+            required: no
+            default: testme
+        persistence:
+            type: string
+            required: no
+            default: ""
+        s3_access_id:
+            type: string
+            required: no
+            default: ""
+        s3_access_key:
+            type: string
+            required: no
+            default: ""
+        s3_bucket:
+            type: string
+            required: no
+            default: ""
+        s3_endpoint:
+            type: string
+            required: no
+            default: ""
+        s3_mount_prefix: 
+            type: string
+            required: no
+            default: ""
+        role_name:
+            type: string
+            required: no
+            default: dodas.jupytervm
+    artifacts:
+        jupytervm_config_role:
+            file: dodas.jupytervm
+            type: tosca.artifacts.AnsibleGalaxy.role
+    interfaces:
+      Standard:
+        start:
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          inputs:
+            role_name:  { get_property: [ SELF, role_name ] }
+            vm_user: { get_property: [ SELF, vm_user ] }
+            jupyter_port: { get_property: [ SELF, jupyter_port ] }
+            jupyter_token: { get_property: [ SELF, jupyter_token ] }
+            persistence: { get_property: [ SELF, persistence ] }
+            s3_access_id: { get_property: [ SELF, s3_access_id ] } 
+            s3_access_key: { get_property: [ SELF, s3_access_key ] }
+            s3_bucket: { get_property: [ SELF, s3_bucket ] }
+            s3_endpoint: { get_property: [ SELF, s3_endpoint ] }
+            s3_mount_prefix:  { get_property: [ SELF, s3_mount_prefix ] }

@@ -44,11 +44,11 @@ topology_template:
         externalIp:
           enabled: false
         master:
-          image: dodasts/spark-k8s-py
-          imageTag: v2.0.0-rc1
+          image: dodasts/spark
+          imageTag: latest
           jupyter:
             image: dodasts/pyspark-notebook
-            tag: v2.0.0-rc1
+            tag: v2.0.0-rc2
             
   node_templates:
 
