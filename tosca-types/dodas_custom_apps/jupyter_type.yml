@@ -12,7 +12,7 @@ node_types:
         vm_user:
             type: string
             required: no
-            defualt: cloudadm
+            default: cloudadm
         jupyter_port:
             type: string
             required: no
