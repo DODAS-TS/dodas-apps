@@ -41,7 +41,7 @@ topology_template:
 
     htcondor_docker_image:
       type: string
-      default: "dodasts/htcondor"
+      default: "dodasts/cms"
 
     iam_token:
       type: string
