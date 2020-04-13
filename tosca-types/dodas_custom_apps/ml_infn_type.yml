@@ -2,7 +2,6 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 
 imports:
          - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml
-        # - https://raw.githubusercontent.com/DODAS-TS/dodas-templates/ml_infn/tosca-types/dodas_custom_apps/pip_manager_type.yml
 
 node_types:
 
