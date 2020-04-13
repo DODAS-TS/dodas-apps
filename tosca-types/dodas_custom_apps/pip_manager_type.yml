@@ -16,7 +16,7 @@ node_types:
 
         packages: 
             type: list
-            required: 
+            required: no
             default: []
         
         role_name:
