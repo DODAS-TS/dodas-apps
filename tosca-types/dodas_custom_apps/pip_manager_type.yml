@@ -5,7 +5,7 @@ imports:
 
 node_types:
 
-  tosca.nodes.DODAS.ml_infn:
+  tosca.nodes.DODAS.pip_manager:
     derived_from: tosca.nodes.SoftwareComponent
     properties:
 
@@ -26,7 +26,7 @@ node_types:
 
     artifacts:
         jupytervm_config_role:
-            file: dodas.pip_infn
+            file: dodas.pip_manager
             type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
