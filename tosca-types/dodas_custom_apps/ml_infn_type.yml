@@ -1,0 +1,39 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml
+
+node_types:
+
+  tosca.nodes.DODAS.ml_infn:
+    derived_from: tosca.nodes.SoftwareComponent
+    properties:
+        ml_user:
+            type: string
+            required: no
+            default: cloudadm
+
+        cvmfs_repositories:
+            type: list     
+            required: no
+            default: [cms.cern.ch]
+
+        role_name:
+            type: string
+            required: no
+            default: dodas.ml_infn
+
+    artifacts:
+        jupytervm_config_role:
+            file: dodas.ml_infn
+            type: tosca.artifacts.AnsibleGalaxy.role
+    interfaces:
+      Standard:
+        start:
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          inputs:
+            role_name:  { get_property: [ SELF, role_name ] }
+            ml_user: { get_property: [ SELF, ml_user ] }
+            cvmfs_repositories: { get_property: [ SELF, cvmfs_repositories ] }
+
+

@@ -1,0 +1,74 @@
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+imports:
+  - indigo_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/ml_infn_type.yml
+  - indigo_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/pip_manager_type.yml
+    #add here jupyter#
+
+description: TOSCA template for basic Machine Learing working setup. Expose Jupyter and includes caches
+
+topology_template:
+
+  inputs:
+
+    num_cpus:
+      type: integer
+      default: 4
+    mem_size:
+      type: string
+      default: "8 GB"
+    server_image:
+      type: string
+      default: "ost://dashboard.cloud.infn.it/1c17b93d-abf4-479d-a63a-f22be7571ebe"
+
+    ml_user:
+      type: string
+      default: "cloudadm"
+    cvmfs_repositories: 
+      type: list
+      default: [cms-ib.cern.ch,cms.cern.ch,atlas-condb.cern.ch,atlas-nightlies.cern.ch,atlas-online-nightlies.cern.ch,atlas.cern.ch,alice.cern.ch,geant4.cern.ch,sft.cern.ch,lhcb.cern.ch,ilc.desy.de]
+
+    pip_packages:
+      type: list
+      default: [{ name: keras },{ name: tensorflow },{ name: matplotlib },{ name: scikit-learn },{ name: numpy },{ name: torch}, { name: uproot  }]
+
+
+  node_templates:
+
+    ml_infn_basic:
+      type: tosca.nodes.DODAS.ml_infn
+      properties:
+        ml_user: { get_input: ml_user }
+        cvmfs_repositories: { get_input: cvmfs_repositories }
+      requirements:
+        - host: vm_server
+
+    pip_manager_install:
+      type: tosca.nodes.DODAS.pip_manager
+      properties:
+        packages: { get_input: pip_packages }
+      requirements:
+        - host: vm_server
+        - dependency: ml_infn_basic
+
+    vm_server:
+      type: tosca.nodes.indigo.Compute
+      capabilities:
+        endpoint:
+          properties:
+            network_name: PUBLIC
+            ports:
+              jupyter:
+                protocol: tcp
+                source: 8888
+        scalable:
+          properties:
+            count: 1
+        host:
+          properties:
+            #instance_type:  m1.medium
+            num_cpus: { get_input: num_cpus }
+            mem_size: { get_input: mem_size }
+        os:
+          properties:
+            image: { get_input: server_image }
