@@ -26,7 +26,7 @@ node_types:
 
     artifacts:
         jupytervm_config_role:
-            file: dodas.pip_infn
+            file: dodas.pip_manager
             type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
