@@ -12,6 +12,15 @@ node_types:
             type: string
             required: no
             default: cloudadm
+            
+        jupyter_port:
+            type: string
+            required: no
+            default: 8888
+        jupyter_token:
+            type: string
+            required: no
+            default: testme
 
         cvmfs_repositories:
             type: list     
@@ -34,6 +43,8 @@ node_types:
           inputs:
             role_name:  { get_property: [ SELF, role_name ] }
             ml_user: { get_property: [ SELF, ml_user ] }
+            jupyter_port: { get_property: [ SELF, jupyter_port ] }
+            jupyter_token: { get_property: [ SELF, jupyter_token ] }
             cvmfs_repositories: { get_property: [ SELF, cvmfs_repositories ] }
 
 
