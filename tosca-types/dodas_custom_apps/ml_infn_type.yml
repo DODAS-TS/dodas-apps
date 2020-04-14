@@ -21,6 +21,11 @@ node_types:
             type: string
             required: no
             default: testme
+ 
+        ml_test_url:
+            type: string
+            required: no
+            default: ""
 
         cvmfs_repositories:
             type: list     
