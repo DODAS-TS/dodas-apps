@@ -222,6 +222,13 @@ node_types:
       value:
         type: string
 
+  tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
+    properties:
+      enabled:
+        type: boolean
+      nodePort:
+        type: int
+
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
     metadata:
@@ -251,6 +258,14 @@ node_types:
           entry_schema:
             type: tosca.nodes.DODAS.FrontEnd.Kubernetes.apiOptions
         default: []
+      nginx_ingress:
+        required: no
+        type: map
+        entry_schema:
+          type: tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress
+        default:
+          enabled: false
+          nodePort: 31443
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc5
@@ -275,6 +290,7 @@ node_types:
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_apiserver_options: { get_property: [ SELF, kube_apiserver_options] }
+            nginx_ingress: { get_property: [ SELF, nginx_ingress] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
