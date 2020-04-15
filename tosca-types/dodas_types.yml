@@ -215,13 +215,6 @@ node_types:
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             nodelabel: { get_property: [ SELF, nodelabel] }
 
-  tosca.nodes.DODAS.FrontEnd.Kubernetes.apiOptions:
-    properties:
-      option:
-        type: string
-      value:
-        type: string
-
   tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
     properties:
       enabled:
@@ -250,14 +243,6 @@ node_types:
         required: no
         type: boolean
         default: true
-      kube_apiserver_options:
-        required: no
-        type: list
-        entry_schema:
-          type: map
-          entry_schema:
-            type: tosca.nodes.DODAS.FrontEnd.Kubernetes.apiOptions
-        default: []
       nginx_ingress:
         required: no
         type: map
@@ -293,7 +278,6 @@ node_types:
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             kube_version:  { get_property: [ SELF, kube_version] }
-            kube_apiserver_options: { get_property: [ SELF, kube_apiserver_options] }
             nginx_ingress: { get_property: [ SELF, nginx_ingress] }
             network_manager: { get_property: [ SELF, network_manager] }
 
