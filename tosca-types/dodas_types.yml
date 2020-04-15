@@ -215,6 +215,13 @@ node_types:
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             nodelabel: { get_property: [ SELF, nodelabel] }
 
+  tosca.nodes.DODAS.FrontEnd.Kubernetes.apiOptions:
+    properties:
+      option:
+        type: string
+      value:
+        type: string
+
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
     metadata:
@@ -236,6 +243,14 @@ node_types:
         required: no
         type: boolean
         default: true
+      kube_apiserver_options:
+        required: no
+        type: list
+        entry_schema:
+          type: map
+          entry_schema:
+            type: tosca.nodes.DODAS.FrontEnd.Kubernetes.apiOptions
+        default: []
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc5
@@ -259,6 +274,7 @@ node_types:
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             kube_version:  { get_property: [ SELF, kube_version] }
+            kube_apiserver_options: { get_property: [ SELF, kube_apiserver_options] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
