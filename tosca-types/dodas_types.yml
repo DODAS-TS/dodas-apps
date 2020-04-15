@@ -227,7 +227,7 @@ node_types:
       enabled:
         type: boolean
       nodePort:
-        type: int
+        type: tosca.datatypes.network.PortDef
 
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
