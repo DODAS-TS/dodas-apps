@@ -266,6 +266,10 @@ node_types:
         default:
           enabled: false
           nodePort: 31443
+      network_manager:
+        required: no
+        type: string
+        default: flannel
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc5
@@ -291,6 +295,7 @@ node_types:
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_apiserver_options: { get_property: [ SELF, kube_apiserver_options] }
             nginx_ingress: { get_property: [ SELF, nginx_ingress] }
+            network_manager: { get_property: [ SELF, network_manager] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:

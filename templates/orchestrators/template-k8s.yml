@@ -40,6 +40,14 @@ topology_template:
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
       #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
 
+    nginxIngress:
+      type: map
+      entry_schema:
+        type: tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress
+      default:
+        enabled: true
+        nodePort: 31443
+
   node_templates:
 
 
@@ -47,6 +55,7 @@ topology_template:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
         admin_token: testme
+        nginx_ingress: { get_input:  nginxIngress }
       requirements:
         - host: k8s-master-server
 
@@ -68,6 +77,12 @@ topology_template:
               dashboard:
                 protocol: tcp
                 source: 30443
+              apiserver: 
+                protocol: tcp
+                source: 6443
+              nginx:
+                protocol: tcp
+                port: { get_input:  nginxIngress.nodePort }
         scalable:
           properties:
             count: { get_input: number_of_masters }
