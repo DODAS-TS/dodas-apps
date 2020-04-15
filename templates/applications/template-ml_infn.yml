@@ -3,7 +3,6 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 imports:
   - pip_manager_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-templates/ml_infn/tosca-types/dodas_custom_apps/pip_manager_type.yml
   - ml_infn_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-templates/ml_infn/tosca-types/dodas_custom_apps/ml_infn_type.yml
-   
 
 description: TOSCA template for basic Machine Learing working setup. Expose Jupyter and includes caches
 
@@ -13,10 +12,10 @@ topology_template:
 
     num_cpus:
       type: integer
-      default: 1
+      default: 2
     mem_size:
       type: string
-      default: "2 GB"
+      default: "4 GB"
     server_image:
       type: string
       default: "ost://dashboard.cloud.infn.it/1cd4aa74-e248-4961-97e8-9c3651b65fd1"
@@ -24,16 +23,18 @@ topology_template:
     ml_user:
       type: string
       default: "cloudadm"
+
     jupyter_port:
       type: string
       default: "8888"
+
     jupyter_token:
       type: string
       default: "testme"
      
     ml_test_url:
       type: string
-      default: " "
+      default: "http://cmsdoc.cern.ch/~spiga/test_InfnCloud_v0.2.tar.gz"
       
     cvmfs_repositories: 
       type: list
@@ -43,7 +44,8 @@ topology_template:
         - atlas-condb.cern.ch
         - atlas-nightlies.cern.ch
         - atlas-online-nightlies.cern.ch
-        - atlas.cern.ch,alice.cern.ch
+        - atlas.cern.ch
+        - alice.cern.ch
         - geant4.cern.ch
         - sft.cern.ch
         - lhcb.cern.ch
@@ -60,7 +62,6 @@ topology_template:
         - name: torch
         - name: uproot 
         - name: jupyter
-        - name: davix
         
   node_templates:
 
@@ -73,17 +74,18 @@ topology_template:
         ml_test_url: { get_input: ml_test_url }
         cvmfs_repositories: { get_input: cvmfs_repositories }
       requirements:
-        - host: vm_server
+        - host: ml_server
+        - dependency: pip_manager_install
+
 
     pip_manager_install:
       type: tosca.nodes.DODAS.pip_manager
       properties:
         packages: { get_input: pip_packages }
       requirements:
-        - host: vm_server
-        - dependency: ml_infn_basic
+        - host: ml_server
 
-    vm_server:
+    ml_server:
       type: tosca.nodes.indigo.Compute
       capabilities:
         endpoint:
@@ -98,14 +100,18 @@ topology_template:
             count: 1
         host:
           properties:
-            #instance_type:  m1.medium
             num_cpus: { get_input: num_cpus }
             mem_size: { get_input: mem_size }
         os:
           properties:
             image: { get_input: server_image }
 
-            #
-#  outputs:
-
-
+  outputs:
+    label:
+      value: "ML-INFN working station"
+    node_ip:
+      value: { get_attribute: [ ml_server, public_address, 0 ] }
+    node_creds:
+      value: { get_attribute: [ ml_server, endpoint, credential, 0 ] }
+    jupyter_endpoint:
+      value: { concat: [ 'http://', get_attribute: [ ml_server, public_address, 0 ],":", { get_input: jupyter_port } ]}
