@@ -192,6 +192,10 @@ node_types:
         type: string
         required: no
         default: "testme=true"
+      network_manager:
+        required: no
+        type: string
+        default: flannel
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc8
@@ -214,6 +218,7 @@ node_types:
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             nodelabel: { get_property: [ SELF, nodelabel] }
+            network_manager: { get_property: [ SELF, network_manager] }
 
   tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
     properties:
