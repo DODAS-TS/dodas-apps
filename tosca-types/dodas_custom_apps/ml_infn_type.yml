@@ -19,7 +19,7 @@ node_types:
             default: 8888
         jupyter_token:
             type: string
-            required: no
+            required: yes
             default: testme
  
         ml_test_url:
