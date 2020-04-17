@@ -6,7 +6,7 @@ imports:
 
 data_types:
 
-  tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
+  tosca.types.DODAS.FrontEnd.Kubernetes.nginx_ingress:
     properties:
       enabled:
         type: boolean
@@ -252,10 +252,10 @@ node_types:
         default: true
       nginx_ingress:
         required: no 
-        type: tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress
+        type: tosca.types.DODAS.FrontEnd.Kubernetes.nginx_ingress
         default:
           enabled: true
-          port: 30443
+          nodePort: 30443
       network_manager:
         required: no
         type: string
