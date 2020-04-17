@@ -4,7 +4,16 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 imports:
   - https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/custom_types.yaml
 
-capability_types:
+data_types:
+
+  tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
+    properties:
+      enabled:
+        type: boolean
+      nodePort:
+        type: tosca.datatypes.network.PortDef
+
+  capability_types:
 
 # Index
   # - KUBERNETES APPLICATION TOOLS
@@ -220,13 +229,6 @@ node_types:
             nodelabel: { get_property: [ SELF, nodelabel] }
             network_manager: { get_property: [ SELF, network_manager] }
 
-  tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress:
-    properties:
-      enabled:
-        type: boolean
-      nodePort:
-        type: tosca.datatypes.network.PortDef
-
   tosca.nodes.DODAS.FrontEnd.Kubernetes:
     derived_from: tosca.nodes.indigo.LRMS.FrontEnd
     metadata:
@@ -249,10 +251,11 @@ node_types:
         type: boolean
         default: true
       nginx_ingress:
-        required: yes 
-        type: map
-        entry_schema:
-          type: tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress
+        required: no 
+        type: tosca.nodes.DODAS.FrontEnd.Kubernetes.nginx_ingress
+        default:
+          enabled: true
+          port: 30443
       network_manager:
         required: no
         type: string
