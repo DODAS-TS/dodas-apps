@@ -246,10 +246,6 @@ node_types:
         required: no
         type: string
         default: 1.16.4
-      kube_deploy_dashboard:
-        required: no
-        type: boolean
-        default: true
       nginx_ingress:
         required: no 
         type: tosca.types.DODAS.FrontEnd.Kubernetes.nginx_ingress
