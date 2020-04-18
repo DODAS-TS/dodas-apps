@@ -260,6 +260,10 @@ node_types:
         required: no
         type: string
         default: flannel
+      kube_deploy_dashboard:
+        required: no
+        type: string
+        default: k8s
     artifacts:
       kube_role:
         file: dodas.kubernetes,v2.0.0-rc8
@@ -286,6 +290,7 @@ node_types:
             nginx_ingress: { get_property: [ SELF, nginx_ingress] }
             network_manager: { get_property: [ SELF, network_manager] }
             kube_api_server_public:  { get_attribute: [ HOST, public_address, 0 ] }
+            kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ]}
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
