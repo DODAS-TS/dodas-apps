@@ -73,7 +73,7 @@ node_types:
     interfaces:
       Standard:
         start:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
             role_name:  { get_property: [ SELF, role_name ] }
             name: { get_property: [ SELF, name ] }
@@ -124,7 +124,7 @@ node_types:
     interfaces:
       Standard:
         start:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
             role_name: { get_property: [ SELF, role_name ] }
             name: { get_property: [ SELF, name ] }
@@ -168,7 +168,7 @@ node_types:
     interfaces:
       Standard:
         start:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
             master_ip: { get_property: [ SELF, master_ip ] }
             mode: { get_property: [ SELF, mode ] }
@@ -218,7 +218,7 @@ node_types:
     interfaces:
       Standard:
         configure:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/kube_wn_install.yml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_artifacts/kube_wn_install.yml
           inputs:
             kube_front_end_ip: { get_property: [ SELF, front_end_ip ] }
             wn_hybrid_cluster:  { get_property: [ SELF, hybrid] }
@@ -308,7 +308,7 @@ node_types:
     interfaces:
       Standard:
         start:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/nfs_client.yml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_artifacts/nfs_client.yml
           inputs:
             remote_path: { get_property: [ SELF, remote_path ] }
             local_path: { get_property: [ SELF, local_path ] }

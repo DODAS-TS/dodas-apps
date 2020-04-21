@@ -1,8 +1,8 @@
 tosca_definitions_version: tosca_simple_yaml_1_2
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml
-  - grafana_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/grafana_type.yml
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_custom_apps/htc_type.yml
+  - grafana_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/v2.0.0-rc/tosca-types/dodas_custom_apps/grafana_type.yml
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
