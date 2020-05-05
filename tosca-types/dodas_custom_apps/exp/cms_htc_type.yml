@@ -85,8 +85,8 @@ node_types:
             enabled: true
           cvmfs:
             enabled: true 
-            image: cloudpg/cvmfs
-            tag: k8s-4
+            image: dodasts/cvmfs
+            tag: k8s-dev
             pullPolicy: IfNotPresent
             replicas: 1
 
