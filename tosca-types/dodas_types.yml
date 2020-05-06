@@ -207,7 +207,7 @@ node_types:
         default: flannel
     artifacts:
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc8
+        file: dodas.kubernetes,v2.0.0-rc11
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -262,7 +262,7 @@ node_types:
         default: k8s
     artifacts:
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc9
+        file: dodas.kubernetes,v2.0.0-rc11
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
