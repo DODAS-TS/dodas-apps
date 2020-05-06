@@ -250,7 +250,7 @@ node_types:
         required: no 
         type: tosca.types.DODAS.FrontEnd.Kubernetes.nginx_ingress
         default:
-          enabled: true
+          enabled: false
           nodePort: 30443
       network_manager:
         required: no
