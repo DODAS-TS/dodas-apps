@@ -85,13 +85,13 @@ node_types:
             enabled: true
           cvmfs:
             enabled: true 
-            image: cloudpg/cvmfs
+            image: dodasts/cvmfs
             tag: k8s-4
             pullPolicy: IfNotPresent
             replicas: 1
 
             # # List of repos to be mounted
-            repoList: cms.cern.ch oasis.cern.ch  singularity.opensciencegrid.org
+            repoList: cms.cern.ch  grid.cern.ch  oasis.cern.ch  singularity.opensciencegrid.org
 
             defaultLocalConfig:
               - file: cms.cern.ch.conf
@@ -101,6 +101,8 @@ node_types:
               - file: oasis.cern.ch.conf
                 content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
               - file: singularity.opensciencegrid.org.conf
+                content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
+              - file: grid.cern.ch.conf
                 content: \"CVMFS_HTTP_PROXY=http://{{ cms_config_mysquid_host }}:{{ cms_config_mysquid_port }}\"
 
           htcWn:
@@ -116,7 +118,7 @@ node_types:
                   filename: site-local-config.xml
                   content: |
                     <site-local-config>
-                    <site name={{cms_config_cms_local_site}}>
+                    <site name=\"{{cms_config_cms_local_site}}\">
                     <event-data>
                     <catalog url=\"trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/local/PhEDEx/storage.xml?protocol={{cms_input_protocol}}\"/>
                     </event-data>
