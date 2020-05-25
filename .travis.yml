@@ -12,7 +12,7 @@ script: true # Skip script (Don't use this if one already exists)
 
 before_deploy:
     - cp README.md docs/README.md
-    - mkdocs build --verbose --strict # Build a local version of the docs
+    - mkdocs build --verbose # Build a local version of the docs
 
 deploy: # Deploy documentation to Github in the gh_pages branch
     provider: pages
