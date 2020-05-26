@@ -41,11 +41,11 @@ topology_template:
 
     nfs_path:
       type: string
-      default: "/data/my-storage-area"
+      default: "NOT NEEDED"
 
     nfs_master_ip:
       type: string
-      default: "172.30.136.4"
+      default: "NOT NEEDED"
 
     htcondor_docker_image:
       type: string
@@ -267,3 +267,5 @@ topology_template:
   outputs:
     k8s_endpoint:
       value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
+    user_registration:
+      value: { concat: [ 'http://', get_attribute: [ k8s_schedd_server, public_address, 0 ], ':48080' ] }
