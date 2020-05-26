@@ -8,12 +8,13 @@ theme:
 nav:
   - Home: "README.md"
   - Quick Start:
+    - Setup oidc-agent: "setup-oidc.md"
     - Spark + Jupyter:
       - Standalone setup: "quick-start.md"
       - Community facility: "quick-start-community.md"
     - HTCondor Cluster:
-      - from scratch: "quick-start-htcondor.md"
-      - on existing K8s cluster: "quick-start-htcondor-helm.md"
+      - from scratch: "quick-start-condor.md"
+      - on existing K8s cluster: "quick-start-condor-helm.md"
   - From Helm to DODAS template: "from-helm2tosca.md"
 repo_name: "dodas-ts/dodas-templates"
 repo_url: "https://github.com/DODAS-TS/dodas-templates.git"

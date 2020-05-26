@@ -71,7 +71,6 @@ cvmfs:
     enabled: false 
 ```
 
-Field included in `{{  .. }}` will be filled up by the InfrastructureManager, so usually you don't hva to touch anything here.
 `iamClientId` and `iamClientSecret` are the secrets of the IAM client used for exchange your access token with the Token Translation Service to obtain the X509 proxy. If you don't know how to get one, you can consider to contact us and get a demo one.
 
 > For more info on HELM you can navigate their [documentation](https://helm.sh/docs/), while details on available htcondor chart values is [here](https://github.com/DODAS-TS/helm_charts/tree/master/stable/htcondor)
