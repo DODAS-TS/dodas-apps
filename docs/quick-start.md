@@ -1,10 +1,6 @@
 # Deploy you cluster with a standalone IM
 
-## Requirements
-
-- Docker
-- access to a cloud provider
-- curl
+Before starting be sure to have all the [requirements](./README.md#requirements) satisfied.
 
 ## Run a local instance of the Infrastructure Manager
 
@@ -42,16 +38,6 @@ im:
 ```
 
 and fill up the fields needed for you cloud provider.
-
-Download the binary from the latest release on [github](https://github.com/DODAS-TS/dodas-go-client/releases). For instance:
-
-```bash
-wget https://github.com/DODAS-TS/dodas-go-client/releases/download/v0.3.3/dodas.zip
-unzip dodas.zip
-cp dodas /usr/local/bin
-```
-
-In alternative you can also run the dodas command inside the client container `dodasts/dodas-client:v0.3.3`.
 
 ## Install your application
 

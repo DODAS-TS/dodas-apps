@@ -2,12 +2,11 @@
 
 ## Requirements
 
-- IAM credentials for accessing the Enabling Facility resources
-  - Register to the IAM-DODAS service by accessing the service [here](https://dodas-iam.cloud.cnaf.infn.it). You can use your IdP because IAM-DODAS supports eduGAIN identity federation. The first registration will require the approval from the DODAS admins.
-- oidc-agent setup ([instructions here](setup-oidc.md))
-- access to a K8s cluster
+Before starting be sure to have all the [requirements](./README.md#requirements) satisfied.
+
+In addition you will need:
+
 - HELM cli installed ([instructions here](https://helm.sh/docs/intro/install/))
-- curl
 - condor client for testing
 
 ## Get your access token

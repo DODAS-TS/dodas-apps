@@ -1,19 +1,14 @@
 # Deploy you cluster with the enabling facility
 
-## Requirements
-
-- IAM credentials for accessing the Enabling Facility resources
-  - Register to the IAM-DODAS service by accessing the service [here](https://dodas-iam.cloud.cnaf.infn.it). You can use your IdP because IAM-DODAS supports eduGAIN identity federation. The first registration will require the approval from the DODAS admins.
-- access to a cloud provider
-- curl
+Before starting be sure to have all the [requirements](./README.md#requirements) satisfied.
 
 ## Get your access token
 
-Just execute this [script](https://github.com/DODAS-TS/dodas-templates/tree/master/utils/get_token.sh) and put inside the `client_id` and `client_secret` provided by the procedure described [here](https://indigo-iam.github.io/docs/v/current/user-guide/client-registration.html)
+This step should be as simple as:
 
-> If you find any issue please do not hesitate to contact us
-
-Now you are ready to deploy your application.
+```bash
+oidc-token dodas
+```
 
 ## Setting up dodas client
 

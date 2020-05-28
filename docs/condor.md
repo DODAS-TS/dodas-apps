@@ -1,13 +1,6 @@
 # Deploy HTCondor cluster with an enabling facility
 
-## Requirements
-
-- IAM credentials for accessing the Enabling Facility resources
-  - Register to the IAM-DODAS service by accessing the service [here](https://dodas-iam.cloud.cnaf.infn.it). You can use your IdP because IAM-DODAS supports eduGAIN identity federation. The first registration will require the approval from the DODAS admins.
-- oidc-agent setup ([instructions here](setup-oidc.md))
-- access to a cloud provider
-- curl
-- condor client for testing
+Before starting be sure to have all the [requirements](./README.md#requirements) satisfied.
 
 ## Get your access token
 

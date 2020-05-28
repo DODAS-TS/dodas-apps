@@ -1,4 +1,4 @@
-# DODAS: TOSCA templates for applicaton
+#  Dynamic On Demand Analysis Service
 
 <p align="center">
 <img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="200" height="200" />
@@ -35,88 +35,67 @@ The core component responsible for the deployment creation and management is the
 
 ![DODAS deployment schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/k8s_dodas.png)
 
-- Admins authenticate with the Infrastructure Manager
+- Admins authenticate with the Infrastructure Manager:
   - using either username and password or a IAM access token
 - IM uses the TOSCA template provided by the admin to deploy:
-  - a k8s cluster
-    - using the k8s ansible role [here](https://github.com/DODAS-TS/ansible-role-kubernetes)
-      - also k3s availabel [here](https://github.com/DODAS-TS/ansible-role-k3s)
-  - one or more helm charts on top of it
-    - using the helm install ansible role [here](https://github.com/DODAS-TS/ansible-role-helm)
-      - kubectl create of any manifest is also supported by an [ansible role](https://github.com/DODAS-TS/ansible-role-kubecreate)
+    - a k8s cluster
+         - using the k8s ansible role [here](https://github.com/DODAS-TS/ansible-role-kubernetes)
+         - also k3s availabel [here](https://github.com/DODAS-TS/ansible-role-k3s)
+  - one or more helm charts on top of it:
+    - using the helm install ansible role [here](https://github.com/DODAS-TS/ansible-role-helm):
+        - kubectl create of any manifest is also supported by an [ansible role](https://github.com/DODAS-TS/ansible-role-kubecreate)
   - any other action supported or integrated into a tosca node type
 
 ## Quick start
 
-### DODAS CLI
+> Before starting pleas note that all the DODAS templates uses the helm charts to deploy application on top of Kubernetes. You can find the helm chart defined and documented [here](https://github.com/DODAS-TS/helm_charts/tree/master/stable).
+Therefore **all applications can be installed also on top of any pre-existing k8s instance with [Helm](https://helm.sh/)**.
 
-To start playing with DODAS templates we provide a two quick start guides:
+In this quick-start guide you will learn to use the basic functionalities and deployments modes of DODAS. As an example you will be guided through the creation of a kubernetes cluster with an instance of Jupyter and Spark.
 
-- using the **[community instance of IM](https://dodas-ts.github.io/dodas-templates/quick-start-community/)** (part of the Enabling facility offerr, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
-- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where IM will be deployed on a docker container
+### Requirements
 
-### DODAS Kuberntes operator
+- IAM credentials for accessing the Enabling Facility resources (you can skip this if you are not going to use the INFN infrastructure, e.g. for development instance described later):
+    - Register to the IAM-DODAS service by accessing the service [here](https://dodas-iam.cloud.cnaf.infn.it). You can use your IdP because IAM-DODAS supports eduGAIN identity federation. The first registration will require the approval from the DODAS admins.
+- oidc-agent installed and configured ([instructions here](setup-oidc.md)):
+    - you can skip this if you are not going to use the INFN infrastructure, e.g. for development instance described later
+- dodas client installed  ([instructions here](dodas-client.md))
+- access to a cloud provider
+- curl
+- condor client for testing
+
+### Deployment modes
+
+To proceed with an end-to-end deployment from the infrastructure creation to the application setup we propose two approaches:
+
+- using the **[INFN mantained infrastructure](https://dodas-ts.github.io/dodas-templates/quick-start-community/)** (part of the Enabling facility offer, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
+- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where the needed componentes will be deployed on a docker container. Suggested for a development/playground usage.
+
+## Supported apps
+
+* Full-fledged HTCondor cluster:
+    * [K8s setup + HTCondor deployment](condor.md)
+    * [HTCondor deployment on pre-existing K8s cluster](condor-helm.md)
+* Spark cluster with JupyterHub Kubespawner ([under construction](applications.md#spark))
+* CachingOnDemand ([under construction](applications.md#cachingondemand))
+* IAM-integrated MINIO S3 instance (under construction)
+
+## Developers guide
+
+### Preview feature: DODAS Kubernetes operator
 
 If you already have a Kubernetes cluster and you want to manage your infrastructures as Kubernetes resources the [DODAS Kubernetes operator](https://github.com/DODAS-TS/dodas-operator/) is what you are looking for.
 
 Please refer to the documentation [here](https://dodas-ts.github.io/dodas-operator/) for a quick start guide.
 
-## Available applications
-
-All of these templates uses the helm charts defined and documented [here](https://github.com/DODAS-TS/helm_charts/tree/master/stable).
-Therefore **all the following applications can be installed as they are on top of any k8s instance with [Helm](https://helm.sh/)**
-
-### K8s as a service
-
-One option that you have is to use IM for deploying a k8s cluster on demand using the following templates:
-
-- [k8s template](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/orchestrators/template-k3s.yml)
-- [k3s template](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/orchestrators/template-k3s.yml)
-
-### Spark
-
-Apache Spark is a fast and general-purpose cluster computing system.
-
-- [http://spark.apache.org/](http://spark.apache.org/)
-
-This chart will do the following:
-
-- 1 x Spark Master with port 30808 exposed with a nodePort service (webUi)
-- 1 x Jupyter notebook with port 30888 exposed with a nodePort service, with 2 executors
-- All using Kubernetes Deployments
-
-With these templates you can deploy Apache Spark on top of either k3s or k8s:
-
-- [Spark on k3s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k3s/template-spark.yml)
-- [Spark on k8s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k8s/template-spark.yml)
-
-### HTCondor
-
-[HTCondor](https://research.cs.wisc.edu/htcondor/) is an open-source high-throughput computing software framework for coarse-grained distributed parallelization of computationally intensive tasks.
-
-With these templates you can deploy HTCondor on top of either k3s or k8s:
-
-- [HTCondor on k3s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k3s/template-htcondor.yml)
-- [HTCondor on k8s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k8s/template-htcondor.yml)
-
-### CachingOnDemand
-
-XCache description is available in this article [here](https://iopscience.iop.org/article/10.1088/1742-6596/513/4/042044/pdf).
-
-You can look at the [official XrootD documentation](http://xrootd.org/docs.html) for detailed information about the XRootD tool:
-
-- [basic configuration](http://xrootd.org/doc/dev47/xrd_config.htm)
-- [cmsd configuration](http://xrootd.org/doc/dev45/cms_config.htm)
-- [proxy file cache](http://xrootd.org/doc/dev47/pss_config.htm)
-
-With these templates you can deploy Caching On Demand on top of either k3s or k8s:
-
-- [CachingOnDemand on k3s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k3s/template-cachingondemand.yml)
-- [CachingOn Demand on k8s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k8s/template-cachingondemand.yml)
-
-## Developers guide
-
+### From HELM to template
 If you are interested in **package your working helm chart in a template** you can find useful [this section](https://dodas-ts.github.io/dodas-templates/from-helm2tosca/).
+
+### Roadmap
+
+- WN pod Autoscaler based on condor_q
+- Cluster autoscaling based on monitoring metrics
+- HTCondor integration wiht IAM
 
 ### Contributing
 
