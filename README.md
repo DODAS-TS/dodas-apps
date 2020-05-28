@@ -33,8 +33,18 @@ The core component responsible for the deployment creation and management is the
 
 ### Components
 
+As introduced, DODAS manages container based applications and thus it relies on container orchestration for application deployment and management.The architecture has been built on top Kubernetes.The integration of Kubernetes resources in the DODAS is done via: 
+
+- The creation of a plain Kubernetes cluster through a configurable Ansible role that takes care of all the needed steps from the initialization with “kubeadm” tool until the deployment of the kubernetes dashboard or metric server.
+- The deployment of the applications that leverages the templating capabilities of Helm. A full integration of Helm with TOSCA is provided although the capability to run Helm on top of any pre-existing kubernetes instance has also been preserved. 
+
+The applications are structured in such a way that, through the very same base template structure, different flavors of the same cluster can be deployed. For instance one can activate a certain type of shared filesystem to be used by putting a flag at Helm configuration level (so called “Helm values”). In addition multiple applications can be combined as needed with the Helm dependency system, where the child application will wait for the parent to be completely deployed before starting its own installation.
+The Helm charts integration in the TOSCA template has been possible thanks to the usage of Ansible roles which take care of compiling Helm values only when the cluster has been automatically created and thus all the parametrized information are known. All the produced charts are documented following the best practices adopted by official projects in the Helm, so that anyone interested can easily fix or add features to the existing charts  [here](https://github.com/DODAS-TS/helm_charts/tree/master/stable).
+
+
 ![DODAS deployment schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/k8s_dodas.png)
 
+The complete flow can be summarized as follow:
 - Admins authenticate with the Infrastructure Manager:
   - using either username and password or a IAM access token
 - IM uses the TOSCA template provided by the admin to deploy:
@@ -77,6 +87,8 @@ To proceed with an end-to-end deployment from the infrastructure creation to the
     * [K8s setup + HTCondor deployment](condor.md)
     * [HTCondor deployment on pre-existing K8s cluster](condor-helm.md)
 * Spark cluster with JupyterHub Kubespawner ([under construction](applications.md#spark))
+    * [Using INFN facility](quick-start-community.md)
+    * [Standalone setup](quick-start.md)
 * CachingOnDemand ([under construction](applications.md#cachingondemand))
 * IAM-integrated MINIO S3 instance (under construction)
 
