@@ -109,17 +109,21 @@ If you are interested in **package your working helm chart in a template** you c
 - Cluster autoscaling based on monitoring metrics
 - HTCondor integration wiht IAM
 
+## Publications and presentations
+
+- ...
+
 ## Communities using DODAS
 
 <p align="center">
-<a href="default.asp">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/cms.png" width="80" height="80" />
+<a href="community_cms">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/cms.png" width="200" height="200" />
 </a>
-<a href="default.asp">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/ams.png" width="60" height="80" />
+<a href="community_ams">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/ams.png" width="150" height="200" />
 </a>
-<a href="default.asp">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="80" height="80" />
+<a href="community_fermi">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="200" height="200" />
 </a>
 </p>
 
