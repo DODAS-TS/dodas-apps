@@ -7,7 +7,7 @@ theme:
 nav:
   - Home: "README.md"
   - Overview: "in-depth.md"
-  - Quick Start:
+  - Quick Start: "quick-index.md"
     - Setup oidc-agent: "setup-oidc.md"
     - Setup DODAS client: "dodas-client.md"
     - Using INFN facility: "quick-start-community.md"

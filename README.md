@@ -7,7 +7,9 @@
 
 ## What's DODAS
 
-![DODAS schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png)
+<p align="left">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png" width="300" height="300" />
+</p>
 
 Dynamic On Demand Analysis Service (DODAS) is a Platform as a Service tool built combining several solutions and products developed by the [INDIGO-DataCloud](https://www.indigo-datacloud.eu/) H2020 project and now part of the [EOSC-hub H2020](https://www.eosc-hub.eu/) Project.
 
@@ -31,25 +33,7 @@ You can find a more detailed overview of the stack [here](in-depth.md)
 > Before starting pleas note that all the DODAS templates uses the helm charts to deploy application on top of Kubernetes. You can find the helm chart defined and documented [here](https://github.com/DODAS-TS/helm_charts/tree/master/stable).
 Therefore **all applications can be installed also on top of any pre-existing k8s instance with [Helm](https://helm.sh/)**.
 
-In the quick-start guide you will learn to use the basic functionalities and deployments modes of DODAS. As an example you will be guided through the creation of a kubernetes cluster with an instance of Jupyter and Spark.
-
-### Requirements
-
-- IAM credentials for accessing the Enabling Facility resources (you can skip this if you are not going to use the INFN infrastructure, e.g. for development instance described later):
-    - Register to the IAM-DODAS service by accessing the service [here](https://dodas-iam.cloud.cnaf.infn.it). You can use your IdP because IAM-DODAS supports eduGAIN identity federation. The first registration will require the approval from the DODAS admins.
-- oidc-agent installed and configured ([instructions here](setup-oidc.md)):
-    - you can skip this if you are not going to use the INFN infrastructure, e.g. for development instance described later
-- dodas client installed  ([instructions here](dodas-client.md))
-- access to a cloud provider
-- curl
-- condor client for testing
-
-### Deployment modes
-
-To proceed with an end-to-end deployment from the infrastructure creation to the application setup we propose two approaches:
-
-- using the **[INFN mantained infrastructure](https://dodas-ts.github.io/dodas-templates/quick-start-community/)** (part of the Enabling facility offer, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
-- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where the needed componentes will be deployed on a docker container. Suggested for a development/playground usage.
+In the [quick-start](quick-index.md) guide you will learn to use the basic functionalities and deployments modes of DODAS. As an example you will be guided through the creation of a kubernetes cluster with an instance of Jupyter and Spark.
 
 ## Supported apps
 
