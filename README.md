@@ -80,7 +80,7 @@ If you are interested in **package your working helm chart in a template** you c
 - HTCondor integration wiht IAM
 
 
-## Communities using DODAS
+## DODAS adopters
 
 <p align="left">
 <a href="community_cms">

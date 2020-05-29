@@ -19,7 +19,7 @@ nav:
     - Spark + Jupyter:
       - Using INFN facility: "quick-start-community.md"
       - Standalone setup: "quick-start.md"
-  - Communities:
+  - Adopters customization:
     - CMS: "community_cms.md"
     - AMS: "community_ams.md"
     - FERMI: "community_fermi.md"
