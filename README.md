@@ -1,10 +1,9 @@
 #  Dynamic On Demand Analysis Service
 
-<p align="center">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="200" height="200" />
+<p align="left">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="80" height="80" />
+<img src="https://travis-ci.org/DODAS-TS/dodas-templates.svg?branch=master" />
 </p>
-
-![travis build](https://travis-ci.org/DODAS-TS/dodas-templates.svg?branch=master)
 
 ## What's DODAS
 
@@ -112,15 +111,15 @@ If you are interested in **package your working helm chart in a template** you c
 
 ## Communities using DODAS
 
-<p align="center">
+<p align="left">
 <a href="community_cms">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/cms.png" width="200" height="200" />
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/cms.png" width="100" height="100" />
 </a>
 <a href="community_ams">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/ams.png" width="150" height="200" />
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/ams.png" width="80" height="120" />
 </a>
 <a href="community_fermi">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="200" height="200" />
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="100" height="100" />
 </a>
 </p>
 
@@ -154,8 +153,10 @@ The web page generated will be now update at each change you do on the local fol
 
 **This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.**                          
 
-![EU logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eu-logo.jpeg)                              
-![EOSC hub logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eosc-hub-web.png)
+<p align="left">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eu-logo.jpeg" width="140" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eosc-hub-web.png" width="400" height="100" />
+</p>
 
 ## Publications and presentations
 
@@ -166,6 +167,7 @@ The web page generated will be now update at each change you do on the local fol
 
 
 ### Training and talks
+- [The DODAS experience with the integration of multiple scientific communities and infrastructures](https://confluence.egi.eu/download/attachments/68223757/DODAS-EOSC-Week_Spiga.pdf?version=1&modificationDate=1589828853452&api=v2)
 - [DODAS: How to effectively exploit heterogeneous clouds for scientific computations](http://indico4.twgrid.org/indico/event/4/session/19/contribution/29)
 - [Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS](https://indico.cern.ch/event/587955/contributions/2937198/attachments/1682105/2702791/CHEP-2018-Spiga.pdf)
 - [BoF: HPC, Containers and Big Data Analytics: How can Cloud Computing contribute to the New Challenges](https://2018.isc-program.com/?page_id=10&id=bof138&sess=sess357)
