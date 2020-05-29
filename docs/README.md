@@ -109,9 +109,6 @@ If you are interested in **package your working helm chart in a template** you c
 - Cluster autoscaling based on monitoring metrics
 - HTCondor integration wiht IAM
 
-## Publications and presentations
-
-- ...
 
 ## Communities using DODAS
 
@@ -126,6 +123,7 @@ If you are interested in **package your working helm chart in a template** you c
 <img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="200" height="200" />
 </a>
 </p>
+
 
 
 ### Contributing
@@ -158,6 +156,31 @@ The web page generated will be now update at each change you do on the local fol
 
 ![EU logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eu-logo.jpeg)                              
 ![EOSC hub logo](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eosc-hub-web.png)
+
+## Publications and presentations
+
+### Papers
+
+-  D. Spiga et al. “DODAS: How to effectively exploit heterogeneous clouds for scientific computations”, PoS(ISGC 2018 & FCDD)024, DOI: [https://doi.org/10.22323/1.327.0024](https://doi.org/10.22323/1.327.0024)
+- Using DODAS as deployment manager for smart caching of CMS data management system (ACAT, 2019), D. Spiga et al. Sep.2019, Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS,  [https://doi.org/10.1051/epjconf/201921407027](https://doi.org/10.1051/epjconf/201921407027)
+
+
+### Training and talks
+- [DODAS: How to effectively exploit heterogeneous clouds for scientific computations](http://indico4.twgrid.org/indico/event/4/session/19/contribution/29)
+- [Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS](https://indico.cern.ch/event/587955/contributions/2937198/attachments/1682105/2702791/CHEP-2018-Spiga.pdf)
+- [BoF: HPC, Containers and Big Data Analytics: How can Cloud Computing contribute to the New Challenges](https://2018.isc-program.com/?page_id=10&id=bof138&sess=sess357)
+- [The AMS and DAMPE computing models and their integration into DODAS](https://agenda.infn.it/materialDisplay.py?contribId=116&sessionId=17&materialId=slides&confId=15310)
+- [Training event in the context of SOS18 school](https://agenda.infn.it/event/15534/sessions/5373/#20180920)
+- [INFN Training event](https://agenda.infn.it/event/19049/timetable/#20190916)
+- [Training course on Batch As a System](https://agenda.infn.it/event/20268/timetable/#20191125)
+- [Training course on Big Data Clusters](https://agenda.infn.it/event/20847/timetable/#20191209)
+- [Using DODAS as deployment manager for smart caching of CMS data management system](https://indico.cern.ch/event/708041/contributions/3276221/)
+- [Dynamic On Demand Analysis Service](https://events.ego-gw.it/indico/getFile.py/access?contribId=11&resId=0&materialId=slides&confId=77)
+- [Vacuum model for job execution](https://indico.cern.ch/event/759388/contributions/3361772/attachments/1815562/2968683/20190321-mcnab-vacuum.pdf)
+- [DODAS as no CE solution](https://indico.egi.eu/indico/event/4431/session/16/contribution/99)
+- [The DODAS Experience on the EGI Federated Cloud](https://indico.cern.ch/event/773049/contributions/3473791/attachments/1937555/3211482/CHEP2019-DODAS_EGI.pdf)
+- [Dynamic integration of distributed, Cloud-based HPC and HTC resources using JSON Web Tokens and the INDIGO IAM Service](https://indico.cern.ch/event/773049/contributions/3473805/attachments/1931644/3211480/CHEP19-CnafParma.pdf)
+- [Talk at K8s WLCG](https://indico.cern.ch/event/739899/contributions/3662113/attachments/1959839/3256804/DODAS_K8S_pre-gdb.pdf )
 
 
 ## Contact us
