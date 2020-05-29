@@ -7,11 +7,9 @@
 
 ## What's DODAS
 
-<p align="left">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png" width="300" height="300" />
-</p>
-
 Dynamic On Demand Analysis Service (DODAS) is a Platform as a Service tool built combining several solutions and products developed by the [INDIGO-DataCloud](https://www.indigo-datacloud.eu/) H2020 project and now part of the [EOSC-hub H2020](https://www.eosc-hub.eu/) Project.
+
+### What you can do with DODAS?
 
 DODAS allows to instantiate on-demand complex infrastructures over any cloud with almost zero effort and with very limited knowledge of the underlying technical details. In particular DODAS provides the end user with all the support to deploy from scratch a variety of solution dedicated (but not limited) to scientific data analysis. For instance, with pre-compiled templates the users can create a K8s cluster and deploy on top of it their preferred Helm charts all in one step.
 DODAS provides three principal baselines ready to be used and to be possibly extended:
@@ -19,6 +17,24 @@ DODAS provides three principal baselines ready to be used and to be possibly ext
 - an **HTCondor batch system**
 - a **Spark+Jupyter** cluster for interective and big-data analysis
 - a **Caching on demand** system based on XRootD
+
+<p align="center">
+<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png" width="400" height="300" />
+</p>
+
+
+#### DODAS targets multiple users:
+- Researchers possibly with requirement
+specific workflows,
+- Big Communities, Small groups
+- Resource Providers
+
+#### Designed to be experiment agnostic
+
+- Flexible enough to support multiple and diverse use cases Highly Customizable to accommodate needs from diverse communities
+- Built on top of modern industry standards
+
+#### Commuties are already adopting DODAS
 
 DODAS has been integrated by the Submission Infrastructure of Compact Muon Solenoid CMS, one of the two bigger and general purposes experiments at LHC of CERN, as well as by the Alpha Magnetic Spectrometer AMS-02 computing environment.
 
