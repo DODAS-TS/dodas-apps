@@ -7,6 +7,8 @@
 
 ## What's DODAS
 
+![DODAS schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png)
+
 Dynamic On Demand Analysis Service (DODAS) is a Platform as a Service tool built combining several solutions and products developed by the [INDIGO-DataCloud](https://www.indigo-datacloud.eu/) H2020 project and now part of the [EOSC-hub H2020](https://www.eosc-hub.eu/) Project.
 
 DODAS allows to instantiate on-demand complex infrastructures over any cloud with almost zero effort and with very limited knowledge of the underlying technical details. In particular DODAS provides the end user with all the support to deploy from scratch a variety of solution dedicated (but not limited) to scientific data analysis. For instance, with pre-compiled templates the users can create a K8s cluster and deploy on top of it their preferred Helm charts all in one step.
@@ -17,6 +19,8 @@ DODAS provides three principal baselines ready to be used and to be possibly ext
 - a **Caching on demand** system based on XRootD
 
 DODAS has been integrated by the Submission Infrastructure of Compact Muon Solenoid CMS, one of the two bigger and general purposes experiments at LHC of CERN, as well as by the Alpha Magnetic Spectrometer AMS-02 computing environment.
+
+![DODAS schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/evolution.png)
 
 DODAS, as a Thematic Services in the context of EOSC-hub project, is financially supported by European Union’s Horizon 2020 research and innovation programme, grant agreement RIA 777536.
 
@@ -163,7 +167,8 @@ The web page generated will be now update at each change you do on the local fol
 ### Papers
 
 -  D. Spiga et al. “DODAS: How to effectively exploit heterogeneous clouds for scientific computations”, PoS(ISGC 2018 & FCDD)024, DOI: [https://doi.org/10.22323/1.327.0024](https://doi.org/10.22323/1.327.0024)
-- Using DODAS as deployment manager for smart caching of CMS data management system (ACAT, 2019), D. Spiga et al. Sep.2019, Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS,  [https://doi.org/10.1051/epjconf/201921407027](https://doi.org/10.1051/epjconf/201921407027)
+- Using DODAS as deployment manager for smart caching of CMS data management system (ACAT, 2019), D. Spiga et al. Sep.2019
+- Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS,  [https://doi.org/10.1051/epjconf/201921407027](https://doi.org/10.1051/epjconf/201921407027)
 
 
 ### Training and talks
