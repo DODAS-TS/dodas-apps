@@ -6,6 +6,7 @@ theme:
     accent: "Light Blue"
 nav:
   - Home: "README.md"
+  - Overview: "in-depth.md"
   - Quick Start:
     - Setup oidc-agent: "setup-oidc.md"
     - Setup DODAS client: "dodas-client.md"
