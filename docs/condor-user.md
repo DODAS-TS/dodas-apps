@@ -19,6 +19,10 @@ yum install -y voms-clients-cpp globus-proxy-utils fetch-crl
 wget -O /etc/yum.repos.d/ca_CMS-TTS-CA.repo https://ci.cloud.cnaf.infn.it/view/dodas/job/ca_DODAS-TTS/job/master/lastSuccessfulBuild/artifact/ca_DODAS-TTS.repo
 yum -y install ca_DODAS-TTS
 fetch-crl -q
+
+# Download doc material
+git clone https://github.com/DODAS-TS/dodas-apps.git
+cd dodas-apps
 ```
 
 - [Dowload tts-cache service app](https://github.com/DODAS-TS/dodas-ttsInK8s/releases/download/v0.0.1/tts-cache) 
