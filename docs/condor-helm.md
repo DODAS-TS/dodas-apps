@@ -96,4 +96,4 @@ You will need to provide your IAM username and a valid token to be automatically
 
 ### Submit a job
 
-> TODO
+Please refer to [the user guide](condor-user.md) for this.

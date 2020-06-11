@@ -1,0 +1,7 @@
+universe   = vanilla
+executable = simple
+log        = simple.log
+output     = simple.out
+error      = simple.error
++OWNER = "<your registration username here>"
+queue

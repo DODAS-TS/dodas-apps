@@ -17,8 +17,10 @@ nav:
       - Standalone setup: "quick-start.md"
   - Supported apps:
     - HTCondor Cluster:
-      - from scratch: "condor.md"
-      - on existing K8s cluster: "condor-helm.md"
+      - deployment guides:
+        - from scratch: "condor.md"
+        - on existing K8s cluster: "condor-helm.md"
+      - user guide: "condor-user.md"
     - Spark + Jupyter:
       - Using INFN facility: "quick-start-community.md"
       - Standalone setup: "quick-start.md"
