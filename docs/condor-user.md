@@ -23,20 +23,6 @@ fetch-crl -q
 
 - [Dowload tts-cache service app](https://github.com/DODAS-TS/dodas-ttsInK8s/releases/download/v0.0.1/tts-cache) 
 
-## Prepare your proxy
-
-Retrieve your user proxy with:
-
-```bash
-./tts-cache --dump-proxy --token $TOKEN
-```
-
-Then check that you got a valid one:
-
-```bash
-voms-proxy-info --file /tmp/userproxy_`id -u`.pem
-```
-
 ## Register on the schedd
 
 Ask the cluster admins for the correct endpoint of the registration that usually will be in the form of:
@@ -49,6 +35,22 @@ Go to that address and fill up the form with your username and a valid access to
 
 ```bash
 oidc-token dodas
+```
+
+> N.B. this operation needs to be performed ONLY ONCE, while the following steps might need refreshing every now and then. Usually they will last for around 6 hours.
+
+## Prepare your proxy
+
+Retrieve your user proxy with:
+
+```bash
+./tts-cache --dump-proxy --token $TOKEN
+```
+
+Then check that you got a valid one:
+
+```bash
+voms-proxy-info --file /tmp/userproxy_`id -u`.pem
 ```
 
 ## Setup the environment
