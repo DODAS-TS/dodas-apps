@@ -27,3 +27,4 @@ node_types:
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
             prometheus_host: { get_property: [ SELF, prometheus_host ] }
+            helm_version: { get_property: [ SELF, helm_version ] }
