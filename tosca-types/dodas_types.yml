@@ -238,7 +238,7 @@ node_types:
         default: true
     artifacts:
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc13
+        file: dodas.kubernetes,v2.0.0-rc14
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
