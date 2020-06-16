@@ -110,7 +110,7 @@ node_types:
         default: dodas.kubecreate
     artifacts:
       kubecreate_config_role:
-        file: dodas.kubecreate,v2.0.0-rc3
+        file: dodas.kubecreate,v2.0.0-rc4
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
