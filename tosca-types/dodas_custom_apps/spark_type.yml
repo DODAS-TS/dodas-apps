@@ -18,6 +18,7 @@ node_types:
         start:
           implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
+            helm_version: { get_property: [ SELF, helm_version ] }
             role_name:  { get_property: [ SELF, role_name ] }
             name: { get_property: [ SELF, name ] }
             chart: { get_property: [ SELF, chart ] }
