@@ -53,6 +53,10 @@ node_types:
         type: string
         required: no
         default: ""
+      helm_version:
+        type: string
+        required: no
+        default: "v3"
       role_name:
         type: string
         required: no
@@ -74,6 +78,7 @@ node_types:
             inline_options: { get_property: [ SELF, inline_options ] }
             kubeconfig_path: { get_property: [ SELF, kubeconfig_path ] }
             repos: { get_property: [ SELF, repos ] }
+            helm_version: { get_property: [ SELF, helm_version ] }
 
   tosca.nodes.DODAS.KubeCreate:
     derived_from: tosca.nodes.SoftwareComponent
