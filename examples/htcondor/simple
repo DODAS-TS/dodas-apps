@@ -1,7 +1,4 @@
 #!/bin/bash
 
 sleep 100
-echo $HOSTNAME#!/bin/bash
-
-sleep 100
 echo $HOSTNAME

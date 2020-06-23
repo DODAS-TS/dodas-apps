@@ -84,8 +84,7 @@ cd  examples/htcondor
 Then take a look at the `simple` file that should look simple as:
 
 ```text
-sleep 100
-echo $HOSTNAME#!/bin/bash
+#!/bin/bash
 
 sleep 100
 echo $HOSTNAME
