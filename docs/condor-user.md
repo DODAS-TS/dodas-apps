@@ -25,7 +25,7 @@ git clone https://github.com/DODAS-TS/dodas-apps.git
 cd dodas-apps
 ```
 
-- [Dowload tts-cache service app](https://github.com/DODAS-TS/dodas-ttsInK8s/releases/download/v0.0.1/tts-cache) 
+- [Dowload tts-cache service app](https://github.com/DODAS-TS/dodas-ttsInK8s/releases/download/v0.0.2/tts-cache) 
 
 ## Register on the schedd
 
