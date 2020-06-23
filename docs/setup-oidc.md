@@ -36,7 +36,7 @@ You will be prompted with a request for the name of the issuer. Let's insert `ht
 [15] https://login.elixir-czech.org/oidc/
 [16] https://oidc.scc.kit.edu/auth/realms/kit/
 [17] https://wlcg.cloud.cnaf.infn.it/
-Issuer [https://iam-escape.cloud.cnaf.infn.it/]:  https://iam-dodas.cloud.cnaf.infn.it/   
+Issuer [https://iam-escape.cloud.cnaf.infn.it/]:  dodas-iam.cloud.cnaf.infn.it
 ```
 
 Then, set `max` for the requested scope and press enter:
