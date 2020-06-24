@@ -1,4 +1,4 @@
-# Federate you cluster
+# Federate your cluster
 
 ## Requirements
 
