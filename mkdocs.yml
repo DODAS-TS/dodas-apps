@@ -20,6 +20,8 @@ nav:
       - deployment guides:
         - from scratch: "condor.md"
         - on existing K8s cluster: "condor-helm.md"
+        - advanced tips:
+          - distributed cluster via flocking: "flocking.md"
       - user guide: "condor-user.md"
     - Spark + Jupyter:
       - Using INFN facility: "quick-start-community.md"
