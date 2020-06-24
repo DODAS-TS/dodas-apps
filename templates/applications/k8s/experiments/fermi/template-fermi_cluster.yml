@@ -40,14 +40,6 @@ topology_template:
       #default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
       #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
-    nfs_path:
-      type: string
-      default: "/home/Volume_Fermi"
-
-    nfs_master_ip:
-      type: string
-      default: "193.204.89.118"
-
     htcondor_docker_image:
       type: string
       default: "dodasts/htcondor"
@@ -97,25 +89,67 @@ topology_template:
                           - schedd
         htcMaster:
           image: {{ htcondor_docker_image }}
-          tag: v0.1.0-k8s-fermi-2
+          tag: v0.1.0-k8s-schedd-3
           networkInterface: {{ condor_host }}
         htcWn:
           image: {{ htcondor_docker_image }}
           tag: v0.1.0-k8s-fermi-2
-        nfs:
-          enabled: true 
-          size: 2Gi
-          claimSize: 950Mi
-          # Put here the nfs master address
-          server: {{ nfs_master_ip }}
-          path: {{ nfs_path }}
-          mountPath: \"/home/Volume_Fermi\" 
-          persistence:
-            claimSize: 950Mi
+          persistentVolume:
+            pv:
+              name: "data-rclone-1"
+              spec: |
+                accessModes:
+                - ReadWriteMany
+                capacity:
+                  storage: 800Gi
+                storageClassName: rclone
+                csi:
+                  driver: csi-rclone
+                  volumeHandle: data-id
+                  volumeAttributes:
+                    remote: "s3"
+                    remotePath: "home"
+                    s3-provider: "Minio"
+                    s3-endpoint: "https://<CHANGEME>:9000"
+                    s3-access-key-id: "CHANGEME"
+                    s3-secret-access-key: "CHANGEME"
+                    no-check-certificate: "true"
+                    vfs-cache-mode: "writes"
+                    vfs-cache-max-size: "4G"
+                    buffer-size: 2G
+                    vfs-read-chunk-size: "512k"
+                    vfs-read-chunk-size-limit: "10M"
+                    no-modtime: "true"
+            pvc:
+              name: "data-rclone-1"
+              mountPath: "/home/Volume_Fermi"
+              spec: |
+                accessModes:
+                - ReadWriteMany
+                resources:
+                  requests:
+                    storage: "799Gi"
+                storageClassName: rclone
+                volumeName: data-rclone-1
+                selector:
+                  matchLabels:
+                    name: data-rclone-1
+        
+          # Resource limits and requests
+          cpu:
+            request: 0.8
+            limit: 1.5
+          ram:
+            request: 1024Mi
+            limit: 2048Mi
+        
+          # Condor slot type
+          slotType: cpus=1, mem=200
+
         cvmfs:
           enabled: true 
           image: cloudpg/cvmfs
-          tag: k8s-4
+          tag: k8s-dev
           pullPolicy: IfNotPresent
           replicas: 1
 
