@@ -17,12 +17,16 @@ nav:
       - Standalone setup: "quick-start.md"
   - Supported apps:
     - HTCondor Cluster:
-      - deployment guides:
+      - Deployment guides:
         - from scratch: "condor.md"
         - on existing K8s cluster: "condor-helm.md"
-        - advanced tips:
+        - Advanced tips:
           - distributed cluster via flocking: "flocking.md"
-      - user guide: "condor-user.md"
+          - set WN flavor with ClassAds: "classAds.md"
+          - Shared space on WNs:
+            - CVMFS: cvmfs.md
+            - K8s PersistentVolumes: pv_wn.md
+      - User guide: "condor-user.md"
     - Spark + Jupyter:
       - Using INFN facility: "quick-start-community.md"
       - Standalone setup: "quick-start.md"
