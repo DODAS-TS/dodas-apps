@@ -2,7 +2,7 @@
 
 <p align="left">
 <img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="80" height="80" />
-<img src="https://travis-ci.org/DODAS-TS/dodas-templates.svg?branch=master" />
+<img src="https://travis-ci.org/DODAS-TS/dodas-apps.svg?branch=master" />
 </p>
 
 ## What's DODAS
