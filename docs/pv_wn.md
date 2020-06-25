@@ -2,7 +2,7 @@
 
 ## Requirements
 
-To share volumes through K8s PersitentVolumes on the worker node you should apply simple changes to the HTCondor HELM values indicated either for DODAS ([this guide](condor.md)) or or plain HELM ([this other guide](condor-helm.md)).
+To share volumes through K8s PersitentVolumes on the worker node you should apply simple changes to the HTCondor HELM values indicated either for DODAS ([this guide](condor.md)) or plain HELM ([this other guide](condor-helm.md)).
 
 ## Configuration
 
