@@ -18,8 +18,9 @@ kubectl edit configmap wnconfigd
 Then add the following lines to the content:
 
 ```text
-Group = "Fermi"
+Group = "fermi"
 STARTD_ATTRS = $(STARTD_ATTRS) Group
+START = ( $(START) ) && ifThenElse(Group==fermi)
 ```
 
 > **N.B**: after the change you have to restart the wn pods
