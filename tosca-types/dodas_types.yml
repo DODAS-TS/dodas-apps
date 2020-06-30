@@ -63,7 +63,7 @@ node_types:
         default: dodas.helm
     artifacts:
       helm_config_role:
-        file: dodas.helm,v2.0.0-rc4
+        file: dodas.helm,v2.0.0-rc5
         type: tosca.artifacts.AnsibleGalaxy.role
     interfaces:
       Standard:
@@ -272,10 +272,10 @@ node_types:
     properties:
       remote_path:
         type: string
-        required: yes 
+        required: yes
       local_path:
         type: string
-        required: yes 
+        required: yes
       server_host:
         type: string
         required: yes
