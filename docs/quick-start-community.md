@@ -53,11 +53,11 @@ cp dodas /usr/local/bin
 
 ## Quick start
 
-Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](https://github.com/DODAS-TS/dodas-templates/tree/master//templates/applications/k8s/template-spark.yml).
+Let's take Apache Spark deployment on K8s as an example. The template to be used is [this](https://github.com/DODAS-TS/dodas-apps/tree/master//templates/applications/k8s/template-spark.yml).
 To start your deployment:
 
 ```bash
-dodas create dodas-templates/templates/applications/k8s/template-spark.yaml
+dodas create dodas-apps/templates/applications/k8s/template-spark.yaml
 ```
 
 The output should be like this:
@@ -65,7 +65,7 @@ The output should be like this:
 ```bash
     validate called
     Template OK
-    Template: dodas-templates/templates/applications/k8s/template-spark.yml
+    Template: dodas-apps/templates/applications/k8s/template-spark.yml
     Submitting request to  :  https://im-dodas.cloud.cnaf.infn.it/infrastructures
     InfrastructureID:  9b917c8c-4345-11ea-b524-0242ac150003
 ```

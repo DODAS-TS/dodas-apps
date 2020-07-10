@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_2
 
 imports:
-  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/htc_type.yml 
+  - dodas_custom_types: https://raw.githubusercontent.com/dodas-ts/dodas-apps/master/tosca-types/dodas_custom_apps/htc_type.yml 
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
@@ -96,7 +96,7 @@ topology_template:
           tag: v0.1.0-k8s-fermi-2
           persistentVolume:
             pv:
-              name: "data-rclone-1"
+              name: data-rclone-1
               spec: |
                 accessModes:
                 - ReadWriteMany
@@ -107,28 +107,28 @@ topology_template:
                   driver: csi-rclone
                   volumeHandle: data-id
                   volumeAttributes:
-                    remote: "s3"
-                    remotePath: "home"
-                    s3-provider: "Minio"
-                    s3-endpoint: "https://<CHANGEME>:9000"
-                    s3-access-key-id: "CHANGEME"
-                    s3-secret-access-key: "CHANGEME"
-                    no-check-certificate: "true"
-                    vfs-cache-mode: "writes"
-                    vfs-cache-max-size: "4G"
+                    remote: s3
+                    remotePath: home
+                    s3-provider: Minio
+                    s3-endpoint: \"https://<CHANGEME>:9000\"
+                    s3-access-key-id: CHANGEME
+                    s3-secret-access-key: CHANGEME
+                    no-check-certificate: true
+                    vfs-cache-mode: writes
+                    vfs-cache-max-size: 4G
                     buffer-size: 2G
-                    vfs-read-chunk-size: "512k"
-                    vfs-read-chunk-size-limit: "10M"
-                    no-modtime: "true"
+                    vfs-read-chunk-size: 512k
+                    vfs-read-chunk-size-limit: 10M
+                    no-modtime: true
             pvc:
-              name: "data-rclone-1"
-              mountPath: "/home/Volume_Fermi"
+              name: data-rclone-1
+              mountPath: /home/Volume_Fermi
               spec: |
                 accessModes:
                 - ReadWriteMany
                 resources:
                   requests:
-                    storage: "799Gi"
+                    storage: 799Gi
                 storageClassName: rclone
                 volumeName: data-rclone-1
                 selector:
@@ -148,7 +148,7 @@ topology_template:
 
         cvmfs:
           enabled: true 
-          image: cloudpg/cvmfs
+          image: dodasts/cvmfs
           tag: k8s-dev
           pullPolicy: IfNotPresent
           replicas: 1
@@ -186,6 +186,7 @@ topology_template:
           - { name: dodas, url: "https://dodas-ts.github.io/helm_charts" }
         name: "htcondor"
         chart: "dodas/htcondor"
+        helm_version: v3
         values_file: { get_input: helm_htcondor_values }
         condor_host: { get_attribute: [ k8s_server_ccb , public_address, 0 ] }
         ccb_address: { get_attribute: [ k8s_server_ccb , public_address, 0 ] }
@@ -193,8 +194,8 @@ topology_template:
         k8s_master_ip: { get_attribute: [ k8s_master_server , private_address, 0 ] }
         htcondor_docker_image:  { get_input: htcondor_docker_image }
         iam_token:  { get_input: iam_token }
-        nfs_master_ip: { get_input: nfs_master_ip }
-        nfs_path: { get_input: nfs_path }
+        nfs_master_ip: "" 
+        nfs_path: "" 
       requirements:
         - host: k8s_master_server
         - dependency: k8s_slave_ccb

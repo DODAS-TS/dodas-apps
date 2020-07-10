@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_2
 
 imports:
-  - https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_types.yml
+  - https://raw.githubusercontent.com/dodas-ts/dodas-apps/master/tosca-types/dodas_types.yml
 
 node_types:
 
@@ -31,7 +31,7 @@ node_types:
     interfaces:
       Standard:
         start:
-          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_artifacts/ansible.yaml
+          implementation: https://raw.githubusercontent.com/dodas-ts/dodas-apps/master/tosca-types/dodas_artifacts/ansible.yaml
           inputs:
             role_name:  { get_property: [ SELF, role_name ] }
             pip_package: { get_property: [ SELF, pip_package ] }

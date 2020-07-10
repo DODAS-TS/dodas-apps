@@ -7,8 +7,8 @@ Therefore **all the following applications can be installed as they are on top o
 
 One option that you have is to use IM for deploying a k8s cluster on demand using the following templates:
 
-- [k8s template](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/orchestrators/template-k3s.yml)
-- [k3s template](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/orchestrators/template-k3s.yml)
+- [k8s template](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/orchestrators/template-k3s.yml)
+- [k3s template](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/orchestrators/template-k3s.yml)
 
 ### Spark
 
@@ -24,8 +24,8 @@ This chart will do the following:
 
 With these templates you can deploy Apache Spark on top of either k3s or k8s:
 
-- [Spark on k3s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k3s/template-spark.yml)
-- [Spark on k8s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k8s/template-spark.yml)
+- [Spark on k3s](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/applications/k3s/template-spark.yml)
+- [Spark on k8s](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/applications/k8s/template-spark.yml)
 
 ### CachingOnDemand
 
@@ -39,5 +39,5 @@ You can look at the [official XrootD documentation](http://xrootd.org/docs.html)
 
 With these templates you can deploy Caching On Demand on top of either k3s or k8s:
 
-- [CachingOnDemand on k3s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k3s/template-cachingondemand.yml)
-- [CachingOn Demand on k8s](https://github.com/DODAS-TS/dodas-templates/tree/master/templates/applications/k8s/template-cachingondemand.yml)
+- [CachingOnDemand on k3s](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/applications/k3s/template-cachingondemand.yml)
+- [CachingOn Demand on k8s](https://github.com/DODAS-TS/dodas-apps/tree/master/templates/applications/k8s/template-cachingondemand.yml)

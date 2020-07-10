@@ -1,8 +1,8 @@
 tosca_definitions_version: tosca_simple_yaml_1_2
 
 imports:
-  - pip_manager_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-templates/ml_infn/tosca-types/dodas_custom_apps/pip_manager_type.yml
-  - ml_infn_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-templates/ml_infn/tosca-types/dodas_custom_apps/ml_infn_type.yml
+  - pip_manager_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-apps/ml_infn/tosca-types/dodas_custom_apps/pip_manager_type.yml
+  - ml_infn_custom_types: https://raw.githubusercontent.com/DODAS-TS/dodas-apps/ml_infn/tosca-types/dodas_custom_apps/ml_infn_type.yml
 
 description: TOSCA template for basic Machine Learing working setup. Expose Jupyter and includes caches
 

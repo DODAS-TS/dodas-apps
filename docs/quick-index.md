@@ -15,5 +15,5 @@
 
 To proceed with an end-to-end deployment from the infrastructure creation to the application setup we propose two approaches:
 
-- using the **[INFN mantained infrastructure](https://dodas-ts.github.io/dodas-templates/quick-start-community/)** (part of the Enabling facility offer, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
-- a **[standalone setup](https://dodas-ts.github.io/dodas-templates/quick-start/)** where the needed componentes will be deployed on a docker container. Suggested for a development/playground usage.
+- using the **[INFN mantained infrastructure](https://dodas-ts.github.io/dodas-apps/quick-start-community/)** (part of the Enabling facility offer, requires a free registration for evaluation purpose [here](https://dodas-iam.cloud.cnaf.infn.it))
+- a **[standalone setup](https://dodas-ts.github.io/dodas-apps/quick-start/)** where the needed componentes will be deployed on a docker container. Suggested for a development/playground usage.

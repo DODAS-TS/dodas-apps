@@ -137,3 +137,8 @@ cvmfs:
 
 
 TODO: put link
+
+
+## User submission
+
+[submission example](https://gist.github.com/dciangot/3a280266440742982d94df8f5d26a165)
