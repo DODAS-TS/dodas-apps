@@ -1,7 +1,7 @@
 #  Dynamic On Demand Analysis Service
 
 <p align="left">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/logo.png" width="80" height="80" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/logo.png" width="80" height="80" />
 <img src="https://travis-ci.org/DODAS-TS/dodas-apps.svg?branch=master" />
 </p>
 
@@ -19,7 +19,7 @@ DODAS provides three principal baselines ready to be used and to be possibly ext
 - a **Caching on demand** system based on XRootD
 
 <p align="center">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/dodas.png" width="400" height="300" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/dodas.png" width="400" height="300" />
 </p>
 
 
@@ -38,7 +38,7 @@ specific workflows,
 
 DODAS has been integrated by the Submission Infrastructure of Compact Muon Solenoid CMS, one of the two bigger and general purposes experiments at LHC of CERN, as well as by the Alpha Magnetic Spectrometer AMS-02 computing environment.
 
-![DODAS schema](https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/evolution.png)
+![DODAS schema](https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/evolution.png)
 
 DODAS, as a Thematic Services in the context of EOSC-hub project, is financially supported by European Union’s Horizon 2020 research and innovation programme, grant agreement RIA 777536.
 
@@ -71,7 +71,7 @@ If you already have a Kubernetes cluster and you want to manage your infrastruct
 Please refer to the documentation [here](https://dodas-ts.github.io/dodas-operator/) for a quick start guide.
 
 ### From HELM to template
-If you are interested in **package your working helm chart in a template** you can find useful [this section](https://dodas-ts.github.io/dodas-templates/from-helm2tosca/).
+If you are interested in **package your working helm chart in a template** you can find useful [this section](https://dodas-ts.github.io/dodas-apps/from-helm2tosca/).
 
 ### Roadmap
 
@@ -84,13 +84,13 @@ If you are interested in **package your working helm chart in a template** you c
 
 <p align="left">
 <a href="community_cms">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/cms.png" width="100" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/cms.png" width="100" height="100" />
 </a>
 <a href="community_ams">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/ams.png" width="80" height="120" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/ams.png" width="80" height="120" />
 </a>
 <a href="community_fermi">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/fermi.png" width="100" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/fermi.png" width="100" height="100" />
 </a>
 </p>
 
@@ -123,8 +123,8 @@ The web page generated will be now update at each change you do on the local fol
 **This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.**                          
 
 <p align="left">
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eu-logo.jpeg" width="140" height="100" />
-<img src="https://github.com/DODAS-TS/dodas-templates/raw/master/docs/img/eosc-hub-web.png" width="400" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/eu-logo.jpeg" width="140" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/eosc-hub-web.png" width="400" height="100" />
 </p>
 
 ## Publications and presentations

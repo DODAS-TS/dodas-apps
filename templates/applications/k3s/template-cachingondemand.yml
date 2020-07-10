@@ -1,7 +1,7 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_cod_types: https://raw.githubusercontent.com/dodas-ts/dodas-templates/master/tosca-types/dodas_custom_apps/cod_type.yml
+  - dodas_cod_types: https://raw.githubusercontent.com/dodas-ts/dodas-apps/master/tosca-types/dodas_custom_apps/cod_type.yml
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 

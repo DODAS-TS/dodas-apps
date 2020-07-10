@@ -35,8 +35,8 @@ nav:
     - AMS: "community_ams.md"
     - FERMI: "community_fermi.md"
   #- From Helm to DODAS template: "from-helm2tosca.md"
-repo_name: "dodas-ts/dodas-templates"
-repo_url: "https://github.com/DODAS-TS/dodas-templates.git"
+repo_name: "dodas-ts/dodas-apps"
+repo_url: "https://github.com/DODAS-TS/dodas-apps.git"
 
 extra:
   social:

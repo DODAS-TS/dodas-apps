@@ -45,7 +45,7 @@ cp dodas /usr/local/bin
 
 ### Configure your cluster
 
-Let's take a look at how to deploy HTCondor on your OpenStack resources. The template to be used is [this](https://github.com/DODAS-TS/dodas-templates/tree/master//templates/applications/k8s/template-htcondor.yml).
+Let's take a look at how to deploy HTCondor on your OpenStack resources. The template to be used is [this](https://github.com/DODAS-TS/dodas-apps/tree/master//templates/applications/k8s/template-htcondor.yml).
 The TOSCA file is divided in section. The only one that is of our interest for now is the input one that start with generic information on the flavor and image of the VMs to be created:
 
 ```yaml
@@ -143,7 +143,7 @@ Field included in `{{  .. }}` will be filled up by the InfrastructureManager, so
 To start your deployment:
 
 ```bash
-dodas create dodas-templates/templates/applications/k8s/template-htcondor.yaml
+dodas create dodas-apps/templates/applications/k8s/template-htcondor.yaml
 ```
 
 The output should be like this:
@@ -151,7 +151,7 @@ The output should be like this:
 ```bash
     validate called
     Template OK
-    Template: dodas-templates/templates/applications/k8s/template-htcondor.yml
+    Template: dodas-apps/templates/applications/k8s/template-htcondor.yml
     Submitting request to  :  https://im-dodas.cloud.cnaf.infn.it/infrastructures
     InfrastructureID:  9b917c8c-4345-11ea-b524-0242ac150003
 ```
