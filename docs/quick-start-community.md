@@ -19,12 +19,12 @@ cloud:
   ## CNAF resources
   id: ost
   type: OpenStack
-  host: https://horizon.cloud.cnaf.infn.it:5000/
-  username: indigo-dc
+  host: https://cloud-api-pub.cr.cnaf.infn.it:5000/v3
+  username: dodas
   password: <your token here>
-  tenant: oidc
+  tenant: openid
   auth_version: 3.x_oidc_access_token
-  service_region: regionOne
+  service_region: sdds
   ## RECAS resources
   #id: ost
   #type: OpenStack
