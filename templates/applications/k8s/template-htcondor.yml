@@ -268,4 +268,4 @@ topology_template:
     k8s_endpoint:
       value: { concat: [ 'https://', get_attribute: [ k8s_master_server, public_address, 0 ], ':30443' ] }
     user_registration:
-      value: { concat: [ 'http://', get_attribute: [ k8s_schedd_server, public_address, 0 ], ':48080' ] }
+      value: { concat: [ 'http://', get_attribute: [ k8s_server_schedd, public_address, 0 ], ':48080' ] }
