@@ -56,7 +56,7 @@ htcSchedd:
     tag: v0.1.0-k8s-schedd-3
     networkInterface: < schedd public IP >
     persistence:
-    storageClass: local-path
+        storageClass: local-path
 htcMaster:
     image:  dodasts/htcondor
     tag: v2.0.0
