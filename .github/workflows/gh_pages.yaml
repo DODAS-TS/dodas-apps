@@ -12,8 +12,8 @@ jobs:
       -
         name: Gen dummy page
         run: |
-          pip install --upgrade pip
-          pip install mkdocs mkdocs-material
+          pip3 install --upgrade pip
+          pip3 install mkdocs mkdocs-material
           cp README.md docs/README.md
           mkdocs build --verbose
       -
