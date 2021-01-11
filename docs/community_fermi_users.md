@@ -37,8 +37,6 @@ Check that the proxy is correct with:
 voms-proxy-info --file /tmp/userproxy_`id -u`.pem
 ```
 
-*N.B.* if this is the first time submitting to the cluster, send the output of the command above to the admins.
-
 ## Submit file
 
 To submit a simple job running the following bash script saved on a file named `simple`:
