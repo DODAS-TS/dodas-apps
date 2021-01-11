@@ -47,7 +47,7 @@ To submit a simple job running the following bash script saved on a file named `
 #!/bin/bash
 
 sleep 100
-echo $HOSTNAME > /home/Volume_Fermi/user/rangioni/job_test.txt
+echo $HOSTNAME
 ```
 
 you need to provide a submission file (named `sub` in this case):
@@ -58,8 +58,7 @@ executable = simple
 log        = simple.log
 output     = simple.out
 error      = simple.error
-+OWNER = "rangioni"
-+Group = "Fermi"
++OWNER = "<YOUR USERNAME>"
 queue
 ```
 
