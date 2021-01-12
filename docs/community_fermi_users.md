@@ -29,6 +29,7 @@ Retrieve a valid token with `oidc-token dodas` and do the following:
 ```bash
 export TOKEN=<your token>
 tts-cache --dump-proxy --token $TOKEN
+export X509_USER_PROXY=/tmp/userproxy_`id -u`.pem
 ```
 
 Check that the proxy is correct with:
