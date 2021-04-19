@@ -192,14 +192,17 @@ node_types:
       kube_version:
         required: no
         type: string
-        default: 1.16.4
+        default: 1.19.6
       nodelabel:
         type: string
         required: no
         default: "testme=true"
     artifacts:
+      docker_role:
+        file: indigo-dc.docker,2.1.2-beta
+        type: tosca.artifacts.AnsibleGalaxy.role
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc5
+        file: dodas.kubernetes,v2.1.0-oidc-pre1
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -236,14 +239,17 @@ node_types:
       kube_version:
         required: no
         type: string
-        default: 1.16.4
+        default: 1.19.6
       kube_deploy_dashboard:
         required: no
         type: boolean
-        default: true
+        default: k8s
     artifacts:
+      docker_role:
+        file: indigo-dc.docker,2.1.2-beta
+        type: tosca.artifacts.AnsibleGalaxy.role
       kube_role:
-        file: dodas.kubernetes,v2.0.0-rc14
+        file: dodas.kubernetes,v2.1.0-oidc-pre1
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -265,6 +271,7 @@ node_types:
             kube_admin_username:  { get_property: [ SELF, admin_username] }
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             kube_version:  { get_property: [ SELF, kube_version] }
+            kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
