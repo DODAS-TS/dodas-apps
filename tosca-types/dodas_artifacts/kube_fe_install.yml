@@ -25,7 +25,7 @@
     - option: "--token-auth-file"
       value: "/etc/kubernetes/pki/auth"
     - option: "oidc-issuer-url"
-      value: "https://login.cloud.infn.it/"
+      value: "https://dodas-iam.cloud.cnaf.infn.it/"
     - option: oidc-username-claim
       value: preferred-username
     - option: oidc-client-id
