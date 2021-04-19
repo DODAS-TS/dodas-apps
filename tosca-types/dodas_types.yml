@@ -228,6 +228,9 @@ node_types:
     metadata:
       icon: /images/kubernetesFE.png
     properties:
+      oidc_user:
+        required: yes
+        type: string
       admin_username:
         required: no
         type: string
@@ -272,6 +275,7 @@ node_types:
             kube_admin_token:  { get_property: [ SELF, admin_token] }
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ] }
+            oidc_user: { get_property: [ SELF, oidc_user ] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
