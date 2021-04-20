@@ -24,17 +24,17 @@
       value: "8080"
     - option: "--token-auth-file"
       value: "/etc/kubernetes/pki/auth"
-    - option: "oidc-issuer-url"
+    - option: "--oidc-issuer-url"
       value: "https://dodas-iam.cloud.cnaf.infn.it/"
-    - option: oidc-username-claim
+    - option: "--oidc-username-claim"
       value: preferred-username
-    - option: oidc-client-id
+    - option: "--oidc-client-id"
       value: kubernetes
-    - option: oidc-username-prefix
+    - option: "--oidc-username-prefix"
       value: "oidc:"
-    - option: oidc-groups-prefix
+    - option: "--oidc-groups-prefix"
       value: "oidc:"
-    - option: oidc-groups-claim
+    - option: "--oidc-groups-claim"
       value: groups
     #- option: oidc-ca-file
     #  value: /etc/kubernetes/pki/...
