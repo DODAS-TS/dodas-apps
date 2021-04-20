@@ -245,7 +245,7 @@ node_types:
         default: 1.19.6
       kube_deploy_dashboard:
         required: no
-        type: boolean
+        type: string
         default: k8s
     artifacts:
       docker_role:
