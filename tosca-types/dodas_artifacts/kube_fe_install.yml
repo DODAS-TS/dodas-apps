@@ -31,9 +31,9 @@
     - option: "--oidc-client-id"
       value: kubernetes
     - option: "--oidc-username-prefix"
-      value: "oidc:"
+      value: "'oidc:'"
     - option: "--oidc-groups-prefix"
-      value: "oidc:"
+      value: "'oidc:'"
     - option: "--oidc-groups-claim"
       value: groups
     #- option: oidc-ca-file
