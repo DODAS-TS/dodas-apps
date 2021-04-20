@@ -27,7 +27,7 @@
     - option: "--oidc-issuer-url"
       value: "https://dodas-iam.cloud.cnaf.infn.it/"
     - option: "--oidc-username-claim"
-      value: preferred-username
+      value: preferred_username
     - option: "--oidc-client-id"
       value: kubernetes
     - option: "--oidc-username-prefix"
