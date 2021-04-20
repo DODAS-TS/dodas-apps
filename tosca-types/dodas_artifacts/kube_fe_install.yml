@@ -41,5 +41,6 @@
     kube_deploy_dashboard: k8s
     network_manager: flannel
     nginx_ingress:
-      enabled: false
-      nodePort: 31443
+      enabled: true
+      master_private_ip: "{{ kube_front_end_ip }}"
+      master_public_ip: "{{ kube_api_server_public }}"
