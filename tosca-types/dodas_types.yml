@@ -284,7 +284,7 @@ node_types:
             kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ] }
             oidc_user: { get_property: [ SELF, oidc_user ] }
             oidc_group: { get_property: [ SELF, oidc_group ] }
-            iam_url: { get_property: [ SELF, oidc_group ] }
+            iam_url: { get_property: [ SELF, iam_url ] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
