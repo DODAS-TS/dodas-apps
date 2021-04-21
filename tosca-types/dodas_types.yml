@@ -234,6 +234,10 @@ node_types:
       oidc_group:
         required: yes
         type: string 
+      iam_url:
+        required: no
+        type: string
+        default: https://dodas-iam.cloud.cnaf.infn.it/
       admin_username:
         required: no
         type: string
@@ -280,6 +284,7 @@ node_types:
             kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ] }
             oidc_user: { get_property: [ SELF, oidc_user ] }
             oidc_group: { get_property: [ SELF, oidc_group ] }
+            iam_url: { get_property: [ SELF, oidc_group ] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
