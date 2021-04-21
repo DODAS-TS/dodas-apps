@@ -231,6 +231,9 @@ node_types:
       oidc_user:
         required: yes
         type: string
+      oidc_group:
+        required: yes
+        type: string 
       admin_username:
         required: no
         type: string
@@ -276,6 +279,7 @@ node_types:
             kube_version:  { get_property: [ SELF, kube_version] }
             kube_deploy_dashboard: { get_property: [ SELF, kube_deploy_dashboard ] }
             oidc_user: { get_property: [ SELF, oidc_user ] }
+            oidc_group: { get_property: [ SELF, oidc_group ] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
