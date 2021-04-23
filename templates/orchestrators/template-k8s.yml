@@ -1,19 +1,31 @@
 tosca_definitions_version: tosca_simple_yaml_1_0
 
 imports:
-  - dodas_types: https://raw.githubusercontent.com/dodas-ts/dodas-apps/master/tosca-types/dodas_types.yml
+
+  - dodas_type: https://raw.githubusercontent.com/DODAS-TS/dodas-apps/oidc-test/tosca-types/dodas_types.yml
 
 description: TOSCA template for a complete CMS computing cluster on top of K8s orchestrator
 
 topology_template:
 
   inputs:
+    admin_token:
+      type: string
+      default: "DUMMY"
+    
+    oidc_user:
+      type: string
+      default: "dciangot"
+    
+    oidc_group:
+      type: string
+      default: CMS
 
     number_of_masters:
       type: integer
       default: 1
 
-    num_cpus_master: 
+    num_cpus_master:
       type: integer
       default: 4
 
@@ -23,9 +35,9 @@ topology_template:
 
     number_of_slaves:
       type: integer
-      default: 3 
+      default: 3
 
-    num_cpus_slave: 
+    num_cpus_slave:
       type: integer
       default: 4
 
@@ -35,24 +47,25 @@ topology_template:
 
     server_image:
       type: string
-      #default: "ost://openstack.fisica.unipg.it/cb87a2ac-5469-4bd5-9cce-9682c798b4e4"
-      default: "ost://horizon.cloud.cnaf.infn.it/3d993ab8-5d7b-4362-8fd6-af1391edca39"
-      #default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
-      #default: "ost://cloud.recas.ba.infn.it/8f667fbc-40bf-45b8-b22d-40f05b48d060"
+      #default: "ost://cloud-api-pub.cr.cnaf.infn.it/94a76d1e-cacb-48ce-ad69-c0b26fd9bb53"
+      default: "ost://cloud.recas.ba.infn.it/1113d7e8-fc5d-43b9-8d26-61906d89d479"
 
   node_templates:
-
 
     k8s_master:
       type: tosca.nodes.DODAS.FrontEnd.Kubernetes
       properties:
-        admin_token: testme
+        kube_version: 1.19.6
+        admin_token: { get_input: admin_token }
+        oidc_user: { get_input: oidc_user }
+        oidc_group:  { get_input: oidc_group }
       requirements:
         - host: k8s-master-server
 
     k8s_slave:
-      type: tosca.nodes.DODAS.WorkerNode.Kubernetes 
+      type: tosca.nodes.DODAS.WorkerNode.Kubernetes
       properties:
+        kube_version: 1.19.6
         front_end_ip: { get_attribute: [ k8s-master-server, private_address, 0 ] }
       requirements:
         - host: k8s-slave-server
@@ -62,20 +75,27 @@ topology_template:
       capabilities:
         endpoint:
           properties:
-            #network_name: infn-farm.PUBLIC
             network_name: PUBLIC
             ports:
+              http:
+                protocol: tcp
+                source: 80
+              https:
+                protocol: tcp
+                source: 443
               dashboard:
                 protocol: tcp
                 source: 30443
+              apiserver:
+                protocol: tcp
+                source: 6443
         scalable:
           properties:
             count: { get_input: number_of_masters }
         host:
           properties:
-            #instance_type:  m1.medium
             num_cpus: { get_input: num_cpus_master }
-            mem_size: { get_input: mem_size_master } 
+            mem_size: { get_input: mem_size_master }
         os:
           properties:
             image: { get_input: server_image }
@@ -85,9 +105,7 @@ topology_template:
       capabilities:
         endpoint:
           properties:
-            #network_name: test-net.PRIVATE
             network_name: PRIVATE
-            #network_name: PUBLIC 
         scalable:
           properties:
             count: { get_input: number_of_slaves }
@@ -96,12 +114,15 @@ topology_template:
           properties:
             #instance_type:  m1.large
             num_cpus: { get_input: num_cpus_slave }
-            mem_size: { get_input: mem_size_slave } 
+            mem_size: { get_input: mem_size_slave }
         os:
           properties:
-            #image: "ost://openstack.fisica.unipg.it/1c334195-3203-43cb-b13f-d3159304a6d6"
             image: { get_input: server_image }
 
   outputs:
     k8s_endpoint:
-      value: { concat: [ 'https://', get_attribute: [ k8s-master-server, public_address, 0 ], ':30443' ] }
+      value: { concat: [ 'https://apiserver.', get_attribute: [ k8s-master-server, public_address, 0 ], '.myip.cloud.infn.it' ] }
+    kubeapps_endpoint:
+      value: { concat: [ 'https://kubeapps.', get_attribute: [ k8s-master-server, public_address, 0 ], '.myip.cloud.infn.it' ] }
+    grafana_endpoint:
+      value: { concat: [ 'https://grafana.', get_attribute: [ k8s-master-server, public_address, 0 ], '.myip.cloud.infn.it' ] }
