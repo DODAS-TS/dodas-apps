@@ -83,12 +83,12 @@ topology_template:
               https:
                 protocol: tcp
                 source: 443
-              dashboard:
+              htcmaster:
                 protocol: tcp
-                source: 30443
-              apiserver:
+                source: 30618
+              htcschedd:
                 protocol: tcp
-                source: 6443
+                source: 31618
         scalable:
           properties:
             count: { get_input: number_of_masters }
