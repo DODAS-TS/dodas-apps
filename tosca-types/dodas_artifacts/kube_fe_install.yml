@@ -18,10 +18,6 @@
     kube_server: '{{ kube_front_end_ip }}'
     kube_api_server: '{{ kube_front_end_ip }}'
     kube_apiserver_options:
-    - option: "--service-node-port-range"
-      value: "8000-35000"
-    - option: "--insecure-port"
-      value: "8080"
     - option: "--token-auth-file"
       value: "/etc/kubernetes/pki/auth"
     - option: "--oidc-issuer-url"
