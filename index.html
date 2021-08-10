@@ -1,0 +1,1365 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.3">
+    
+    
+      
+        <title>DODAS Apps</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-blue" data-md-color-accent="light-blue">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dynamic-on-demand-analysis-service" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="DODAS Apps" class="md-header__button md-logo" aria-label="DODAS Apps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DODAS Apps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/DODAS-TS/dodas-apps.git/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dodas-ts/dodas-apps
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="DODAS Apps" class="md-nav__button md-logo" aria-label="DODAS Apps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    DODAS Apps
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/DODAS-TS/dodas-apps.git/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dodas-ts/dodas-apps
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Home
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whats-dodas" class="md-nav__link">
+    What's DODAS
+  </a>
+  
+    <nav class="md-nav" aria-label="What's DODAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-can-do-with-dodas" class="md-nav__link">
+    What you can do with DODAS?
+  </a>
+  
+    <nav class="md-nav" aria-label="What you can do with DODAS?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dodas-targets-multiple-users" class="md-nav__link">
+    DODAS targets multiple users:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designed-to-be-experiment-agnostic" class="md-nav__link">
+    Designed to be experiment agnostic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commuties-are-already-adopting-dodas" class="md-nav__link">
+    Commuties are already adopting DODAS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick start
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-apps" class="md-nav__link">
+    Supported apps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developers-guide" class="md-nav__link">
+    Developers guide
+  </a>
+  
+    <nav class="md-nav" aria-label="Developers guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-feature-dodas-kubernetes-operator" class="md-nav__link">
+    Preview feature: DODAS Kubernetes operator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-helm-to-template" class="md-nav__link">
+    From HELM to template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dodas-adopters" class="md-nav__link">
+    DODAS adopters
+  </a>
+  
+    <nav class="md-nav" aria-label="DODAS adopters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-the-page-using-mkdocs" class="md-nav__link">
+    Render the page using Mkdocs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgement" class="md-nav__link">
+    Acknowledgement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publications-and-presentations" class="md-nav__link">
+    Publications and presentations
+  </a>
+  
+    <nav class="md-nav" aria-label="Publications and presentations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#papers" class="md-nav__link">
+    Papers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-and-talks" class="md-nav__link">
+    Training and talks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contact-us" class="md-nav__link">
+    Contact us
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="in-depth/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Quick Start
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Quick Start" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Quick Start
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-index/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        Configuration
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="setup-oidc/" class="md-nav__link">
+        Setup oidc-agent
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dodas-client/" class="md-nav__link">
+        Setup DODAS client
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      <label class="md-nav__link" for="__nav_3_3">
+        Deployment
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Deployment" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-start-community/" class="md-nav__link">
+        Using INFN facility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-start/" class="md-nav__link">
+        Standalone setup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Supported apps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Supported apps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Supported apps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" >
+      
+      <label class="md-nav__link" for="__nav_4_1">
+        HTCondor Cluster
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="HTCondor Cluster" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          HTCondor Cluster
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_1" type="checkbox" id="__nav_4_1_1" >
+      
+      <label class="md-nav__link" for="__nav_4_1_1">
+        Deployment guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Deployment guides" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="condor/" class="md-nav__link">
+        from scratch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="condor-helm/" class="md-nav__link">
+        on existing K8s cluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_1_3" type="checkbox" id="__nav_4_1_1_3" >
+      
+      <label class="md-nav__link" for="__nav_4_1_1_3">
+        Advanced tips
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Advanced tips" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_1_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced tips
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flocking/" class="md-nav__link">
+        distributed cluster via flocking
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classAds/" class="md-nav__link">
+        set WN flavor with ClassAds
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_1_3_3" type="checkbox" id="__nav_4_1_1_3_3" >
+      
+      <label class="md-nav__link" for="__nav_4_1_1_3_3">
+        Shared space on WNs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Shared space on WNs" data-md-level="5">
+        <label class="md-nav__title" for="__nav_4_1_1_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Shared space on WNs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cvmfs/" class="md-nav__link">
+        CVMFS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pv_wn/" class="md-nav__link">
+        K8s PersistentVolumes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="condor-user/" class="md-nav__link">
+        User guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Spark + Jupyter
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Spark + Jupyter" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Spark + Jupyter
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-start-community/" class="md-nav__link">
+        Using INFN facility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quick-start/" class="md-nav__link">
+        Standalone setup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Adopters customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Adopters customization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Adopters customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community_cms/" class="md-nav__link">
+        CMS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community_ams/" class="md-nav__link">
+        AMS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      <label class="md-nav__link" for="__nav_5_3">
+        FERMI
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="FERMI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          FERMI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community_fermi/" class="md-nav__link">
+        Admin
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community_fermi_users/" class="md-nav__link">
+        Users
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whats-dodas" class="md-nav__link">
+    What's DODAS
+  </a>
+  
+    <nav class="md-nav" aria-label="What's DODAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-can-do-with-dodas" class="md-nav__link">
+    What you can do with DODAS?
+  </a>
+  
+    <nav class="md-nav" aria-label="What you can do with DODAS?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dodas-targets-multiple-users" class="md-nav__link">
+    DODAS targets multiple users:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designed-to-be-experiment-agnostic" class="md-nav__link">
+    Designed to be experiment agnostic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commuties-are-already-adopting-dodas" class="md-nav__link">
+    Commuties are already adopting DODAS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick start
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-apps" class="md-nav__link">
+    Supported apps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developers-guide" class="md-nav__link">
+    Developers guide
+  </a>
+  
+    <nav class="md-nav" aria-label="Developers guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-feature-dodas-kubernetes-operator" class="md-nav__link">
+    Preview feature: DODAS Kubernetes operator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-helm-to-template" class="md-nav__link">
+    From HELM to template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dodas-adopters" class="md-nav__link">
+    DODAS adopters
+  </a>
+  
+    <nav class="md-nav" aria-label="DODAS adopters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-the-page-using-mkdocs" class="md-nav__link">
+    Render the page using Mkdocs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgement" class="md-nav__link">
+    Acknowledgement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publications-and-presentations" class="md-nav__link">
+    Publications and presentations
+  </a>
+  
+    <nav class="md-nav" aria-label="Publications and presentations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#papers" class="md-nav__link">
+    Papers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-and-talks" class="md-nav__link">
+    Training and talks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contact-us" class="md-nav__link">
+    Contact us
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/DODAS-TS/dodas-apps.git/edit/master/docs/README.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="dynamic-on-demand-analysis-service">Dynamic On Demand Analysis Service</h1>
+<p align="left">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/logo.png" width="80" height="80" />
+<img src="https://travis-ci.org/DODAS-TS/dodas-apps.svg?branch=master" />
+</p>
+
+<h2 id="whats-dodas">What's DODAS</h2>
+<p>Dynamic On Demand Analysis Service (DODAS) is a Platform as a Service tool built combining several solutions and products developed by the <a href="https://www.indigo-datacloud.eu/">INDIGO-DataCloud</a> H2020 project and now part of the <a href="https://www.eosc-hub.eu/">EOSC-hub H2020</a> Project.</p>
+<h3 id="what-you-can-do-with-dodas">What you can do with DODAS?</h3>
+<p>DODAS allows to instantiate on-demand complex infrastructures over any cloud with almost zero effort and with very limited knowledge of the underlying technical details. In particular DODAS provides the end user with all the support to deploy from scratch a variety of solution dedicated (but not limited) to scientific data analysis. For instance, with pre-compiled templates the users can create a K8s cluster and deploy on top of it their preferred Helm charts all in one step.
+DODAS provides three principal baselines ready to be used and to be possibly extended:</p>
+<ul>
+<li>an <strong>HTCondor batch system</strong></li>
+<li>a <strong>Spark+Jupyter</strong> cluster for interective and big-data analysis</li>
+<li>a <strong>Caching on demand</strong> system based on XRootD</li>
+</ul>
+<p align="center">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/dodas.png" width="400" height="300" />
+</p>
+
+<h4 id="dodas-targets-multiple-users">DODAS targets multiple users:</h4>
+<ul>
+<li>Researchers possibly with requirement
+specific workflows,</li>
+<li>Big Communities, Small groups</li>
+<li>Resource Providers</li>
+</ul>
+<h4 id="designed-to-be-experiment-agnostic">Designed to be experiment agnostic</h4>
+<ul>
+<li>Flexible enough to support multiple and diverse use cases Highly Customizable to accommodate needs from diverse communities</li>
+<li>Built on top of modern industry standards</li>
+</ul>
+<h4 id="commuties-are-already-adopting-dodas">Commuties are already adopting DODAS</h4>
+<p>DODAS has been integrated by the Submission Infrastructure of Compact Muon Solenoid CMS, one of the two bigger and general purposes experiments at LHC of CERN, as well as by the Alpha Magnetic Spectrometer AMS-02 computing environment.</p>
+<p><img alt="DODAS schema" src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/evolution.png" /></p>
+<p>DODAS, as a Thematic Services in the context of EOSC-hub project, is financially supported by European Union’s Horizon 2020 research and innovation programme, grant agreement RIA 777536.</p>
+<p>You can find a more detailed overview of the stack <a href="in-depth/">here</a></p>
+<h2 id="quick-start">Quick start</h2>
+<blockquote>
+<p>Before starting pleas note that all the DODAS templates uses the helm charts to deploy application on top of Kubernetes. You can find the helm chart defined and documented <a href="https://github.com/DODAS-TS/helm_charts/tree/master/stable">here</a>.
+Therefore <strong>all applications can be installed also on top of any pre-existing k8s instance with <a href="https://helm.sh/">Helm</a></strong>.</p>
+</blockquote>
+<p>In the <a href="quick-index/">quick-start</a> guide you will learn to use the basic functionalities and deployments modes of DODAS. As an example you will be guided through the creation of a kubernetes cluster with an instance of Jupyter and Spark.</p>
+<h2 id="supported-apps">Supported apps</h2>
+<ul>
+<li>Full-fledged HTCondor cluster:<ul>
+<li><a href="condor/">K8s setup + HTCondor deployment</a></li>
+<li><a href="condor-helm/">HTCondor deployment on pre-existing K8s cluster</a></li>
+</ul>
+</li>
+<li>Spark cluster with JupyterHub Kubespawner (<a href="applications/#spark">under construction</a>)<ul>
+<li><a href="quick-start-community/">Using INFN facility</a></li>
+<li><a href="quick-start/">Standalone setup</a></li>
+</ul>
+</li>
+<li>CachingOnDemand (<a href="applications/#cachingondemand">under construction</a>)</li>
+<li>IAM-integrated MINIO S3 instance (under construction)</li>
+</ul>
+<h2 id="developers-guide">Developers guide</h2>
+<h3 id="preview-feature-dodas-kubernetes-operator">Preview feature: DODAS Kubernetes operator</h3>
+<p>If you already have a Kubernetes cluster and you want to manage your infrastructures as Kubernetes resources the <a href="https://github.com/DODAS-TS/dodas-operator/">DODAS Kubernetes operator</a> is what you are looking for.</p>
+<p>Please refer to the documentation <a href="https://dodas-ts.github.io/dodas-operator/">here</a> for a quick start guide.</p>
+<h3 id="from-helm-to-template">From HELM to template</h3>
+<p>If you are interested in <strong>package your working helm chart in a template</strong> you can find useful <a href="https://dodas-ts.github.io/dodas-apps/from-helm2tosca/">this section</a>.</p>
+<h3 id="roadmap">Roadmap</h3>
+<ul>
+<li>WN pod Autoscaler based on condor_q</li>
+<li>Cluster autoscaling based on monitoring metrics</li>
+<li>HTCondor integration wiht IAM</li>
+</ul>
+<h2 id="dodas-adopters">DODAS adopters</h2>
+<p align="left">
+<a href="community_cms">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/cms.png" width="100" height="100" />
+</a>
+<a href="community_ams">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/ams.png" width="80" height="120" />
+</a>
+<a href="community_fermi">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/fermi.png" width="100" height="100" />
+</a>
+</p>
+
+<h3 id="contributing">Contributing</h3>
+<ol>
+<li>create a branch</li>
+<li>upload your changes</li>
+<li>create a pull request</li>
+</ol>
+<p>Thanks!</p>
+<h3 id="render-the-page-using-mkdocs">Render the page using Mkdocs</h3>
+<p>You will need <a href="https://www.mkdocs.org/">mkdocs</a> installed on your machine. You can install it with pip:</p>
+<pre><code class="language-bash">pip install mkdocs mkdocs-material
+</code></pre>
+<p>To start a real time rendering of the doc just type:</p>
+<pre><code class="language-bash">mkdocs serve
+</code></pre>
+<p>The web page generated will be now update at each change you do on the local folder.</p>
+<h2 id="acknowledgement">Acknowledgement</h2>
+<p><strong>This work is co-funded by the EOSC-hub project (Horizon 2020) under Grant number 777536.</strong>                          </p>
+<p align="left">
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/eu-logo.jpeg" width="140" height="100" />
+<img src="https://github.com/DODAS-TS/dodas-apps/raw/master/docs/img/eosc-hub-web.png" width="400" height="100" />
+</p>
+
+<h2 id="publications-and-presentations">Publications and presentations</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li>D. Spiga et al. “DODAS: How to effectively exploit heterogeneous clouds for scientific computations”, PoS(ISGC 2018 &amp; FCDD)024, DOI: <a href="https://doi.org/10.22323/1.327.0024">https://doi.org/10.22323/1.327.0024</a></li>
+<li>Using DODAS as deployment manager for smart caching of CMS data management system (ACAT, 2019), D. Spiga et al. Sep.2019</li>
+<li>Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS,  <a href="https://doi.org/10.1051/epjconf/201921407027">https://doi.org/10.1051/epjconf/201921407027</a></li>
+</ul>
+<h3 id="training-and-talks">Training and talks</h3>
+<ul>
+<li><a href="https://confluence.egi.eu/download/attachments/68223757/DODAS-EOSC-Week_Spiga.pdf?version=1&amp;modificationDate=1589828853452&amp;api=v2">The DODAS experience with the integration of multiple scientific communities and infrastructures</a></li>
+<li><a href="http://indico4.twgrid.org/indico/event/4/session/19/contribution/29">DODAS: How to effectively exploit heterogeneous clouds for scientific computations</a></li>
+<li><a href="https://indico.cern.ch/event/587955/contributions/2937198/attachments/1682105/2702791/CHEP-2018-Spiga.pdf">Exploiting private and commercial clouds to generate on-demand CMS computing facilities with DODAS</a></li>
+<li><a href="https://2018.isc-program.com/?page_id=10&amp;id=bof138&amp;sess=sess357">BoF: HPC, Containers and Big Data Analytics: How can Cloud Computing contribute to the New Challenges</a></li>
+<li><a href="https://agenda.infn.it/materialDisplay.py?contribId=116&amp;sessionId=17&amp;materialId=slides&amp;confId=15310">The AMS and DAMPE computing models and their integration into DODAS</a></li>
+<li><a href="https://agenda.infn.it/event/15534/sessions/5373/#20180920">Training event in the context of SOS18 school</a></li>
+<li><a href="https://agenda.infn.it/event/19049/timetable/#20190916">INFN Training event</a></li>
+<li><a href="https://agenda.infn.it/event/20268/timetable/#20191125">Training course on Batch As a System</a></li>
+<li><a href="https://agenda.infn.it/event/20847/timetable/#20191209">Training course on Big Data Clusters</a></li>
+<li><a href="https://indico.cern.ch/event/708041/contributions/3276221/">Using DODAS as deployment manager for smart caching of CMS data management system</a></li>
+<li><a href="https://events.ego-gw.it/indico/getFile.py/access?contribId=11&amp;resId=0&amp;materialId=slides&amp;confId=77">Dynamic On Demand Analysis Service</a></li>
+<li><a href="https://indico.cern.ch/event/759388/contributions/3361772/attachments/1815562/2968683/20190321-mcnab-vacuum.pdf">Vacuum model for job execution</a></li>
+<li><a href="https://indico.egi.eu/indico/event/4431/session/16/contribution/99">DODAS as no CE solution</a></li>
+<li><a href="https://indico.cern.ch/event/773049/contributions/3473791/attachments/1937555/3211482/CHEP2019-DODAS_EGI.pdf">The DODAS Experience on the EGI Federated Cloud</a></li>
+<li><a href="https://indico.cern.ch/event/773049/contributions/3473805/attachments/1931644/3211480/CHEP19-CnafParma.pdf">Dynamic integration of distributed, Cloud-based HPC and HTC resources using JSON Web Tokens and the INDIGO IAM Service</a></li>
+<li><a href="https://indico.cern.ch/event/739899/contributions/3662113/attachments/1959839/3256804/DODAS_K8S_pre-gdb.pdf">Talk at K8s WLCG</a></li>
+</ul>
+<h2 id="contact-us">Contact us</h2>
+<p>DODAS Team provides two support channels, email and Slack channel.</p>
+<ul>
+<li><strong>mailing list</strong>: send a message to the following list dodas-support@lists.infn.it</li>
+<li><strong>slack channel</strong>: join us on <a href="https://dodas-infn.slack.com/archives/CAJ6VG71A">Slack Channel</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+      
+        
+        <a href="in-depth/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Overview
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/DODAS-TS" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.29db7785.min.js"></script>
+      
+    
+  </body>
+</html>
