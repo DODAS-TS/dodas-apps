@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-First of all you will need to setup an account with [DODAS IAM]() to be able to exchange a personal token with a globalpool trusted proxy. 
+First of all you will need to register an account with [DODAS IAM](https://dodas-iam.cloud.cnaf.infn.it/) to be able to exchange a personal token with a globalpool trusted proxy. 
 
 In the basic implementation has been built on the following assumptions 
 
