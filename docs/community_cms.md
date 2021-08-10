@@ -8,7 +8,7 @@ First of all you will need to register an account with [DODAS IAM](https://dodas
 
 In the basic implementation has been built on the following assumptions 
 
-1. There is **no Computing Element**. Worker nodes \(HTCondor startd processes\) start up as a docker container over Mesos cluster, and auto-join the HTCondor Global-Pool of CMS
+1. There is **no Computing Element**. Worker nodes \(HTCondor startd processes\) start up as a docker container over Kubernetes cluster, and auto-join the HTCondor Global-Pool of CMS
 2. Data I/O is meant to rely on AAA xrootd read rule 
    1. although there is not technical limitation preventing the usage of local storages.
 3. stage-out relies on a Tier site of CMS, e.g. INFN relies on TI\_IT\_CNAF. The result is something like this in the site local config  
