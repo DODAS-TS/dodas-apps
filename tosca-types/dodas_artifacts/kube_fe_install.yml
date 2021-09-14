@@ -26,8 +26,19 @@
         value: "/etc/kubernetes/pki/auth"
       #- option: --authentication-token-webhook-config-file
       #  value: "/etc/kuberntes/config.d/webhook.yaml"
-      #- option: --oidc-groups-claim
-      #value: groups
+      - option: --oidc-groups-claim
+        value: groups
+      - option: --oidc-groups-prefix
+        value: 'oidc:'
+      - option: --oidc-username-prefix
+        value: 'oidc:'
+      - option: --oidc-client-id
+        value: kubernetes
+      - option: --oidc-username-claim
+        value: preferred_username
+      - option: --oidc-issuer-url
+        value: {{iam_url}}
+
     kube_deploy_dashboard: k8s
     network_manager: flannel
     iam_url: https://dodas-iam.cloud.cnaf.infn.it
