@@ -37,7 +37,7 @@
       - option: --oidc-username-claim
         value: preferred_username
       - option: --oidc-issuer-url
-        value: {{iam_url}}
+        value: "{{iam_url}}"
 
     kube_deploy_dashboard: k8s
     network_manager: flannel
