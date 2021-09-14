@@ -24,8 +24,8 @@
       #  value: "8080"
       - option: "--token-auth-file"
         value: "/etc/kubernetes/pki/auth"
-      - option: --authentication-token-webhook-config-file
-        value: "/etc/kuberntes/config.d/webhook.yaml"
+      #- option: --authentication-token-webhook-config-file
+      #  value: "/etc/kuberntes/config.d/webhook.yaml"
       #- option: --oidc-groups-claim
       #value: groups
     kube_deploy_dashboard: k8s
