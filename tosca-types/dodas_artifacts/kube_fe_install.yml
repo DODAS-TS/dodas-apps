@@ -37,11 +37,11 @@
       - option: --oidc-username-claim
         value: preferred_username
       - option: --oidc-issuer-url
-        value: "https://dodas-iam.cloud.cnaf.infn.it"
+        value: "https://dodas-iam.cloud.cnaf.infn.it/"
 
     kube_deploy_dashboard: k8s
     network_manager: flannel
-    iam_url: https://dodas-iam.cloud.cnaf.infn.it
+    iam_url: https://dodas-iam.cloud.cnaf.infn.it/
     nginx_ingress:
       enabled: true
       master_private_ip: "{{ kube_front_end_ip }}"
