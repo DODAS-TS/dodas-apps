@@ -202,7 +202,7 @@ node_types:
         file: indigo-dc.docker,v2.1.2
         type: tosca.artifacts.AnsibleGalaxy.role
       kube_role:
-        file: dodas.kubernetes,v2.1.1-oidc-pre4
+        file: dodas.kubernetes,v2.1.1-oidc-pre5
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -232,6 +232,10 @@ node_types:
         required: no
         type: string
         default: ""
+      client_secret:
+        required: no
+        type: string
+        default: ""
       access_token:
         required: no 
         type: string
@@ -257,7 +261,7 @@ node_types:
         file: indigo-dc.docker,v2.1.2
         type: tosca.artifacts.AnsibleGalaxy.role
       kube_role:
-        file: dodas.kubernetes,v2.1.1-oidc-pre4
+        file: dodas.kubernetes,v2.1.1-oidc-pre5
         type: tosca.artifacts.AnsibleGalaxy.role
       nfs_role:
         file: indigo-dc.nfs
@@ -281,6 +285,7 @@ node_types:
             kube_version:  { get_property: [ SELF, kube_version] }
             access_token: { get_property: [ SELF, access_token] }
             client_id: { get_property: [ SELF, client_id] }
+            client_secret: { get_property: [ SELF, client_secret] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
