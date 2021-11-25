@@ -228,6 +228,13 @@ node_types:
     metadata:
       icon: /images/kubernetesFE.png
     properties:
+      oidc_user:
+        required: yes
+        type: string
+      oidc_group:
+        required: no
+        type: string
+        default: CMS
       client_id:
         required: no
         type: string
@@ -286,6 +293,8 @@ node_types:
             access_token: { get_property: [ SELF, access_token] }
             client_id: { get_property: [ SELF, client_id] }
             client_secret: { get_property: [ SELF, client_secret] }
+            oidc_group: { get_property: [ SELF, oidc_group] }
+            oidc_user: { get_property: [ SELF, oidc_user] }
 
   #TO IMPROVE with DIEGO
   tosca.nodes.indigo.NfsClient:
