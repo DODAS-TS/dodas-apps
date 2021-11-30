@@ -2,7 +2,8 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 
 # Import Indigo datacloud base types
 imports:
-  - https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/custom_types.yaml
+  #- https://raw.githubusercontent.com/indigo-dc/tosca-types/refactor_dodas/custom_types.yaml
+  - https://raw.githubusercontent.com/DODAS-TS/dodas-apps/oidc/tosca-types/tosca_base_types.yaml
 
 capability_types:
 
